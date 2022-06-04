@@ -37,7 +37,7 @@ module.exports = {
 
     const senha = valor.senha;
 
-    var crypto = require('crypto');
+    const crypto = require('crypto');
 
     const senhasalted = senha + '42';
 
@@ -52,12 +52,22 @@ module.exports = {
       sails.log('Usuário não encontrado');
     } else {
       sails.log('Você está logado');
-      res.view('pages/home', {
-        user: {
-          nome: user.nome
-        }
-      });
+      req.session.logado = true;
+      req.session.usuarioNome = user.nome;
+      req.session.usuarioEmail = user.email;
+      req.session.usuarioTipo = user.tipo;
+      res.redirect('/home');
     }
+  },
+
+  logout: async function (req, res) {
+
+    delete req.session.logado;
+    delete req.session.usuarioNome;
+    delete req.session.usuarioEmail;
+    delete req.session.usuarioTipo;
+
+    res.redirect('/login');
 
   }
 

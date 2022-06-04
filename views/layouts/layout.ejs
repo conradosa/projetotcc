@@ -7,17 +7,40 @@
     <meta name="description" content="Projeto de gerenciamento de TCC para o IFRS Campus Restinga">
     <title>Aplicativo de Gerenciamento de TCC</title>
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600" rel="stylesheet">
-    <link href="/styles/bootstrap.min.css" rel="stylesheet">
-    <link href="/styles/menu.css" rel="stylesheet">
-    <link href="/styles/style.css" rel="stylesheet">
-    <link href="/styles/vendors.css" rel="stylesheet">
-    <link href="/styles/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600">
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/bootstrap.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/icon_fonts/css/all_icons.css">
+    <link rel="stylesheet" href="/styles/icon_fonts/css/all_icons.min.css">
+    <link rel="stylesheet" href="/styles/icon_fonts/css/fontello-codes.css">
+    <link rel="stylesheet" href="/styles/icon_fonts/css/icon_set_1.css">
+    <link rel="stylesheet" href="/styles/icon_fonts/css/icon_set_2.css">
+    <link rel="stylesheet" href="/styles/icon_fonts/css/icon_set_3.css">
+    <link rel="stylesheet" href="/styles/icon_fonts/css/icon_set_4.css">
+    <link rel="stylesheet" href="/styles/menu.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/vendors.css">
+    <link rel="stylesheet" href="/styles/vendors.unminified.css">
+    <!--STYLES END-->
     <script src="/js/modernizr.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
+
+<% if(req.session.msg){ %>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        confirmButtonColor: '#20c997',
+        title: 'Ops...',
+        text: '<%= req.session.msg %>'
+      });
+    </script>
+<%
+    delete req.session.msg;
+} %>
 
 <div id="preloader">
     <div data-loader="circle-side"></div>
@@ -32,6 +55,9 @@
         <li><a href="" class="animated_link">Link1</a></li>
         <li><a href="" class="animated_link">Link2</a></li>
         <li><a href="" class="animated_link">Link3</a></li>
+        <% if(req.session.logado){ %>
+            <li><a href="<%= sails.getUrlFor('UsuarioController.logout'); %>" class="animated_link">Sair</a></li>
+        <% } %>
     </ul>
 </nav>
 

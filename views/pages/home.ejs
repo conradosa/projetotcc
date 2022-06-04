@@ -1,57 +1,56 @@
-<div class="container-fluid">
-    <div class="row row-height">
-        <div class="col-xl-4 col-lg-4 content-left">
-            <div class="content-left-wrapper">
-                <div>
-                    <h2>Olá, <%= user.nome %>!</h2>
-                    <p>Tation argumentum et usu, dicit viderer evertitur te has. Eu dictas concludaturque usu, facete
-                        detracto patrioque an per, lucilius pertinacia eu vel.</p>
-                </div>
+<div class="row row-height">
+    <div class="col-xl-4 col-lg-4 content-left">
+        <div class="content-left-wrapper">
+            <div>
+                <h2>Olá, <%= req.session.usuarioNome; %>!</h2>
+                <p>Tation argumentum et usu, dicit viderer evertitur te has. Eu dictas concludaturque usu, facete
+                    detracto patrioque an per, lucilius pertinacia eu vel.</p>
             </div>
         </div>
-        <div class="col-xl-8 col-lg-8 content-right" id="start">
-            <div id="wizard_container">
-                <div id="top-wizard">
-                    <span id="location"></span>
-                    <div id="progressbar"></div>
-                </div>
-                <form id="wrapped" method="post" enctype="multipart/form-data">
-                    <div id="middle-wizard">
-                        <div class="step">
-                            <h2 class="section_title">Etapa 1</h2>
-                            <div class="form-group add_top_30">
-                                <label for="previa">Prévia de TCC</label>
-                                <input type="text" name="previa" id="previa" class="form-control required"
-                                       onchange="getVals(this, 'previa_field');">
-                            </div>
-                        </div>
-
-                        <div class="step">
-                            <h2 class="section_title">Entrega de Documentos</h2>
-                            <div class="form-group add_bottom_30 add_top_20">
-                                <label>Upload de documentação<br><small>(apenas: .pdf)</small></label>
-                                <div class="fileupload">
-                                    <input type="file" name="documento" accept=".pdf" class="required">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="step">
-                            <h2 class="section_title">Última Etapa</h2>
-                            <div class="form-group">
-                                <label for="exemplo">Input Exemplo</label>
-                                <input type="text" name="exemplo" id="exemplo" class="form-control required">
-                            </div>
-                        </div>
-
-                    </div>
-                    <div id="bottom-wizard">
-                        <button type="button" name="backward" class="backward">Prev</button>
-                        <button type="button" name="forward" class="forward">Next</button>
-                        <button type="submit" name="process" class="submit">Submit</button>
-                    </div>
-                </form>
+    </div>
+    <div class="col-xl-8 col-lg-8 content-right" id="start">
+        <div id="wizard_container">
+            <div id="top-wizard">
+                <span id="location"></span>
+                <div id="progressbar"></div>
             </div>
+            <form id="wrapped" method="post" enctype="multipart/form-data">
+                <input id="website" name="website" type="text" value="">
+                <div id="middle-wizard">
+                    <div class="step" id="previa">
+                        <h2 class="section_title">Etapa 1</h2>
+                        <div class="form-group add_top_30">
+                            <label for="previa">Prévia de TCC</label>
+                            <input type="text" name="previa" id="previa" class="form-control required"
+                                   onchange="getVals(this, 'previa_field');">
+                        </div>
+                    </div>
+
+                    <div class="step" id="documentos">
+                        <h2 class="section_title">Entrega de Documentos</h2>
+                        <div class="form-group add_bottom_30 add_top_20">
+                            <label>Upload de documentação<br><small style="color: red">*apenas .pdf</small></label>
+                            <div class="fileupload">
+                                <input type="file" name="documento" accept=".pdf" class="required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="submit step" id="fim">
+                        <h2 class="section_title">Última Etapa</h2>
+                        <div class="form-group">
+                            <label for="exemplo">Input Exemplo</label>
+                            <input type="text" name="exemplo" id="exemplo" class="form-control required">
+                        </div>
+                    </div>
+
+                </div>
+                <div id="bottom-wizard">
+                    <button type="button" name="backward" class="backward">Anterior</button>
+                    <button type="button" name="forward" class="forward">Próxima</button>
+                    <button type="submit" name="process" class="submit">Enviar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

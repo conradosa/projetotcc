@@ -10,7 +10,7 @@
 module.exports = {
 
   criaAdm: async function () {
-    var adm = await Usuario.create({
+    let adm = await Usuario.create({
       id: 1,
       matricula: '0000000000',
       nome: 'Administrador',
@@ -22,13 +22,13 @@ module.exports = {
   },
 
   retornaADM: async function () {
-    var adm = await Usuario.findOne({
+    let adm = await Usuario.findOne({
       id: 1
     });
     if (!adm) {
       sails.log('Usuário não encontrado');
     } else {
-      sails.log('Administrador existe, seu id: ',adm.id);
+      sails.log('Administrador existe, seu id: ', adm.id);
     }
   }
 
