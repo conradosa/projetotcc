@@ -5,6 +5,6 @@ module.exports = async function (req, res, proceed) {
   }
 
   req.session.erro = 'Faça login para acessar isso!';
-  return res.redirect('back');
+  return res.redirect('/');
 
 };
