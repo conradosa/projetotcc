@@ -56,7 +56,7 @@ module.exports = {
     });
 
     if (!user) {
-      req.session.erro = 'Usuário não encontrado';
+      req.session.erro = 'Usuário ou senha incorretos!';
       return res.redirect('back');
     } else {
       req.session.logado = true;
@@ -82,7 +82,7 @@ module.exports = {
 
   uploadDocumento: function (req, res) {
 
-    //transformar o inteiro em string da matricula
+    //transformar o inteiro em ‘string’ da matrícula
 
     let matriculastring = req.session.usuarioMatricula.toString();
 

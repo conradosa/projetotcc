@@ -18,13 +18,13 @@ module.exports.routes = {
   },
 
   'GET /logout': {
-    policy : 'logado',
+    policy: 'logado',
     controller: 'usuario',
     action: 'logout'
   },
 
   '/home': {
-    policy : 'logado',
+    policy: 'logado',
     view: 'pages/home',
     locals: {
       title: 'Home'
@@ -38,25 +38,25 @@ module.exports.routes = {
   },
 
   'GET /user/criar': {
-    policy : 'admin',
+    policy: 'admin',
     controller: 'usuario',
     action: 'insertTeste'
   },
 
   'GET /user/retorna': {
-    policy : 'admin',
+    policy: 'admin',
     controller: 'usuario',
     action: 'retornaUser'
   },
 
   'GET /adm/criarADM': {
-    policy : 'admin',
+    policy: 'admin',
     controller: 'administrador',
     action: 'criaADM'
   },
 
   'GET /adm/retornaADM': {
-    policy : 'admin',
+    policy: 'admin',
     controller: 'administrador',
     action: 'retornaADM'
   }
