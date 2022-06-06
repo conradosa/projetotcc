@@ -25,6 +25,12 @@ module.exports.routes = {
     view: 'pages/home'
   },
 
+  'POST /upload': {
+    policy: 'logado',
+    controller: 'usuario',
+    action: 'uploadDocumento'
+  },
+
   'GET /user/criar': {
     policy : 'admin',
     controller: 'usuario',
@@ -40,7 +46,7 @@ module.exports.routes = {
   'GET /adm/criarADM': {
     policy : 'admin',
     controller: 'administrador',
-    action: 'criarADM'
+    action: 'criaADM'
   },
 
   'GET /adm/retornaADM': {

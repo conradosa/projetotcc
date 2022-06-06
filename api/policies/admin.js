@@ -4,7 +4,7 @@ module.exports = async function (req, res, proceed) {
     return proceed();
   }
 
-  req.session.msg = 'Apenas o administrador pode acessar isso!';
+  req.session.erro = 'Apenas o administrador pode acessar isso!';
   return res.redirect('back');
 
 };
