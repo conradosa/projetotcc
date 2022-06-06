@@ -29,17 +29,30 @@
 
 <body>
 
-<% if(req.session.msg){ %>
+<% if(req.session.erro){ %>
     <script>
       Swal.fire({
         icon: 'error',
         confirmButtonColor: '#20c997',
         title: 'Ops...',
-        text: '<%= req.session.msg %>'
+        text: '<%= req.session.erro %>'
       });
     </script>
 <%
-    delete req.session.msg;
+    delete req.session.erro;
+} %>
+
+<% if(req.session.sucesso){ %>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        confirmButtonColor: '#20c997',
+        title: 'Oba!',
+        text: '<%= req.session.sucesso %>'
+      });
+    </script>
+<%
+    delete req.session.sucesso;
 } %>
 
 <div id="preloader">

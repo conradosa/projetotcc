@@ -8,13 +8,13 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-8 col-lg-8 content-right" id="start">
+    <!-- <div class="col-xl-8 col-lg-8 content-right" id="start">
         <div id="wizard_container">
             <div id="top-wizard">
                 <span id="location"></span>
                 <div id="progressbar"></div>
             </div>
-            <form id="wrapped" method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data">
                 <input id="website" name="website" type="text" value="">
                 <div id="middle-wizard">
                     <div class="step" id="previa">
@@ -52,5 +52,17 @@
                 </div>
             </form>
         </div>
+    </div> -->
+    <div class="col-xl-8 col-lg-8 content-right">
+        <form method="post" enctype="multipart/form-data" action="<%= sails.getUrlFor('UsuarioController.uploadDocumento') %>">
+            <h2 class="section_title">Teste Entrega de Documento</h2>
+            <div class="form-group add_bottom_30 add_top_20">
+                <label>Upload de documentação<br><small style="color: red">*apenas .pdf *max 5mb</small></label>
+                <div class="fileupload">
+                    <input type="file" name="documento" accept=".pdf" class="required">
+                </div>
+            </div>
+            <button type="submit" class="submit">Enviar</button>
+        </form>
     </div>
 </div>
