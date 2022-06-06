@@ -6,7 +6,10 @@ module.exports.routes = {
 
   'GET /login': {
     policy: 'naologado',
-    view: 'pages/login'
+    view: 'pages/login',
+    locals: {
+      title: 'Login'
+    }
   },
 
   'POST /login': {
@@ -22,7 +25,10 @@ module.exports.routes = {
 
   '/home': {
     policy : 'logado',
-    view: 'pages/home'
+    view: 'pages/home',
+    locals: {
+      title: 'Home'
+    }
   },
 
   'POST /upload': {
