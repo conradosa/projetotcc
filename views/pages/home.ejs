@@ -9,16 +9,9 @@
         </div>
     </div>
     <div class="col-xl-8 col-lg-8 content-right">
-        <form method="post" enctype="multipart/form-data"
-              action="<%= sails.getUrlFor('UsuarioController.uploadDocumento') %>">
-            <h2 class="section_title">Teste Entrega de Documento</h2>
-            <div class="form-group add_bottom_30 add_top_20">
-                <label>Upload de documentação<br><small style="color: red">*apenas .pdf *max 5mb</small></label>
-                <div class="fileupload">
-                    <input type="file" name="documento" accept=".pdf" class="required">
-                </div>
-            </div>
-            <button type="submit" class="submit">Enviar</button>
-        </form>
+        <div class="btn-group-vertical">
+        <button onclick="window.location.replace('/etapa1')" class="btn submit">Fluxo de Etapas</button><br>
+        <button class="btn submit">Sugestões de Temas</button>
+        </div>
     </div>
 </div>

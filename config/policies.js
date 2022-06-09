@@ -10,8 +10,9 @@
 
 module.exports.policies = {
 
-  '*': 'logado',
-  'usuario/login': true,
-  'usuario/insertTeste': 'admin'
+  //'*': 'logado',
+  '*': true,
+  //'usuario/login': true,
+  //'usuario/insert': 'admin'
 
 };

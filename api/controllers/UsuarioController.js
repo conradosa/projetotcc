@@ -9,8 +9,13 @@ const path = require('path');
 
 module.exports = {
 
-  retornaUser: async function () {
-    var user = await Usuario.findOne({
+  remove: async function () {
+    const destroy = await Usuario.destroy({});
+    sails.log('Todos os usuários foram removidos');
+  },
+
+  retorna: async function () {
+    const user = await Usuario.findOne({
       nome: 'Conrado'
     });
     if (!user) {
@@ -20,13 +25,14 @@ module.exports = {
     }
   },
 
-  insertTeste: async function () {
+  insert: async function () {
+    //senha: senha123
     var user = await Usuario.create({
       matricula: '2019001650',
       nome: 'Conrado',
-      senha: '2f81a89d6f6e531a24d98451c3f60760b6440369306e4f37b4d79b091f9ef9c5',
+      senha: '100b945c050b7d1f82b1fe84c6274553159c12cba0345bb2c63935095050c32c',
       email: '2019001650@restinga.ifrs.edu.br',
-      tipo: 'aluno'
+      tipo: 'admin'
     }).fetch();
     sails.log('Usuário criado, seu nome: ', user.nome);
   },
@@ -46,7 +52,9 @@ module.exports = {
 
     const crypto = require('crypto');
 
-    const senhasalted = senha + '42';
+    const salt = 'TFpYLRSwvkM-';
+
+    const senhasalted = senha + salt;
 
     const senhabd = crypto.createHash('sha256').update(senhasalted).digest('hex');
 

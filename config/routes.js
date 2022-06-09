@@ -5,7 +5,7 @@ module.exports.routes = {
   },
 
   'GET /login': {
-    policy: 'naologado',
+    //policy: 'naologado',
     view: 'pages/login',
     locals: {
       title: 'Login'
@@ -18,45 +18,80 @@ module.exports.routes = {
   },
 
   'GET /logout': {
-    policy: 'logado',
+    //policy: 'logado',
     controller: 'usuario',
     action: 'logout'
   },
 
   '/home': {
-    policy: 'logado',
+    //policy: 'logado',
     view: 'pages/home',
     locals: {
       title: 'Home'
     }
   },
 
+  '/etapa1': {
+    //policy: 'logado',
+    view: 'pages/etapa1',
+    locals: {
+      title: 'Home'
+    }
+  },
+
+  '/etapa2': {
+    //policy: 'logado',
+    view: 'pages/etapa2',
+    locals: {
+      title: 'Home'
+    }
+  },
+
+  '/etapa3': {
+    //policy: 'logado',
+    view: 'pages/etapa3',
+    locals: {
+      title: 'Home'
+    }
+  },
+
+  '/etapa4': {
+    //policy: 'logado',
+    view: 'pages/etapa4',
+    locals: {
+      title: 'Home'
+    }
+  },
+
   'POST /upload': {
-    policy: 'logado',
+    //policy: 'logado',
     controller: 'usuario',
     action: 'uploadDocumento'
   },
 
-  'GET /user/criar': {
-    policy: 'admin',
+  'GET /user/remove': {
     controller: 'usuario',
-    action: 'insertTeste'
+    action: 'remove'
+  },
+
+  'GET /user/criar': {
+    controller: 'usuario',
+    action: 'insert'
   },
 
   'GET /user/retorna': {
-    policy: 'admin',
     controller: 'usuario',
-    action: 'retornaUser'
+    action: 'retorna'
   },
 
   'GET /adm/criarADM': {
-    policy: 'admin',
+    //policy: 'admin',
     controller: 'administrador',
     action: 'criaADM'
   },
 
   'GET /adm/retornaADM': {
-    policy: 'admin',
+    //policy: 'admin',
     controller: 'administrador',
     action: 'retornaADM'
   }
