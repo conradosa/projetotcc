@@ -42,6 +42,19 @@
     delete req.session.erro;
 } %>
 
+<% if(req.session.aviso){ %>
+    <script>
+      Swal.fire({
+        icon: 'warning',
+        confirmButtonColor: '#20c997',
+        title: 'Atenção!',
+        text: '<%= req.session.aviso %>'
+      });
+    </script>
+<%
+    delete req.session.aviso;
+} %>
+
 <% if(req.session.sucesso){ %>
     <script>
       Swal.fire({
@@ -69,6 +82,7 @@
         <li><a href="" class="animated_link">Link2</a></li>
         <li><a href="" class="animated_link">Link3</a></li>
         <% if(req.session.logado){ %>
+            <li><a href="/home" class="animated_link">Home</a></li>
             <li><a href="<%= sails.getUrlFor('UsuarioController.logout'); %>" class="animated_link">Sair</a></li>
         <% } %>
     </ul>

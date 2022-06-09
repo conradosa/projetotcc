@@ -4,6 +4,16 @@ module.exports.routes = {
     res.redirect('/login');
   },
 
+  'GET /etapa': {
+    controller: 'etapas',
+    action: 'etapa'
+  },
+
+  'POST /etapa': {
+    controller: 'etapa',
+    action: 'nav'
+  },
+
   'GET /login': {
     //policy: 'naologado',
     view: 'pages/login',

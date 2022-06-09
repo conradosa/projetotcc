@@ -32,7 +32,8 @@ module.exports = {
       nome: 'Conrado',
       senha: '100b945c050b7d1f82b1fe84c6274553159c12cba0345bb2c63935095050c32c',
       email: '2019001650@restinga.ifrs.edu.br',
-      tipo: 'admin'
+      tipo: 'aluno',
+      etapa: 1
     }).fetch();
     sails.log('Usuário criado, seu nome: ', user.nome);
   },
@@ -68,6 +69,7 @@ module.exports = {
       return res.redirect('back');
     } else {
       req.session.logado = true;
+      req.session.usuarioId = user.id;
       req.session.usuarioNome = user.nome;
       req.session.usuarioMatricula = user.matricula;
       req.session.usuarioEmail = user.email;
@@ -79,6 +81,7 @@ module.exports = {
   logout: async function (req, res) {
 
     delete req.session.logado;
+    delete req.session.usuarioId;
     delete req.session.usuarioNome;
     delete req.session.usuarioMatricula;
     delete req.session.usuarioEmail;

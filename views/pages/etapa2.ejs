@@ -8,6 +8,17 @@
             </div>
         </div>
     </div>
+
+    <%
+    let e = false;
+
+    if (req.session.etapa === 2) {
+        e = true;
+    } else {
+        e = false;
+    }
+    %>
+
     <div class="col-xl-8 col-lg-8 content-right">
         <form method="get" enctype="multipart/form-data"
               action="/etapa3">
@@ -15,13 +26,26 @@
             <div class="form-group add_bottom_30 add_top_20">
                 <label>Upload de documentação<br><small style="color: red">*apenas .pdf *max 5mb</small></label>
                 <div class="fileupload">
+                    <%
+                    if(e){
+                    %>
                     <input type="file" name="documento" accept=".pdf" class="required">
+                        <%
+                        }else{
+                        %>
+                        <input disabled type="file" name="documento" accept=".pdf" class="required">
+                        <%
+                        }
+                        %>
                 </div>
             </div>
             <h4>Orientador:</h4>
             <h5>Nome Professor</h5><br>
             <button type="submit" class="submit">Enviar</button>
-            <button onclick="window.location.replace('etapa1')"  class="submit">Voltar</button>
         </form>
+        <div class="form-group">
+            <button onclick="window.location.replace('/etapa3')"  class="submit">Próxima Etapa</button><br><br>
+            <button onclick="window.location.replace('/etapa1')"  class="submit">Etapa Anterior</button>
+        </div>
     </div>
 </div>

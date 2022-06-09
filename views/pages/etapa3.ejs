@@ -8,6 +8,15 @@
             </div>
         </div>
     </div>
+
+    <%
+    if (req.session.etapa === 3) {
+        msg = 'Você está nessa etapa!';
+    } else {
+        msg = 'Você não está nessa etapa!';
+    }
+    %>
+
     <div class="col-xl-8 col-lg-8 content-right">
         <form method="get" enctype="multipart/form-data"
               action="/etapa4">
@@ -36,7 +45,10 @@
                 </div>
             </div>
             <button type="submit" class="submit">Enviar</button>
-            <button onclick="window.location.replace('etapa2')"  class="submit">Voltar</button>
         </form>
+        <div class="form-group">
+            <button onclick="window.location.replace('/etapa4')"  class="submit">Próxima Etapa</button><br><br>
+            <button onclick="window.location.replace('/etapa2')"  class="submit">Etapa Anterior</button>
+        </div>
     </div>
 </div>

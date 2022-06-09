@@ -8,6 +8,17 @@
             </div>
         </div>
     </div>
+
+    <%
+    let e = false;
+
+    if (req.session.etapa === 1) {
+        e = true;
+    } else {
+        e = false;
+    }
+    %>
+
     <div class="col-xl-8 col-lg-8 content-right">
         <form method="get"
               action="/etapa2">
@@ -15,22 +26,71 @@
             <div class="form-group add_bottom_30 add_top_20">
                 <label>Digite aqui seu tema:<br></label>
                 <div class="form-group">
-                    <input required type="text" class="form-control required" name="tema">
+                    <%
+                    if(e){
+                    %>
+                        <input required type="text" class="form-control required" name="tema">
+                    <%
+                    }else{
+                    %>
+                        <input required type="text" class="form-control required" name="tema" disabled>
+                    <%
+                    }
+                    %>
                 </div>
                 <label>Descrição:<br></label>
                 <div class="form-group">
-                    <textarea required cols="3" rows="5" class="form-control" placeholder="Digite aqui..."></textarea>
+                    <%
+                    if(e){
+                    %>
+                        <textarea required cols="3" rows="5" class="form-control"
+                                  placeholder="Digite aqui..."></textarea>
+                    <%
+                    }else{
+                    %>
+                        <textarea disabled required cols="3" rows="5" class="form-control"
+                                  placeholder="Digite aqui..."></textarea>
+                    <%
+                    }
+                    %>
                 </div>
                 <label>Escolha seu orientador:<br></label>
                 <div class="form-group">
-                    <select required class="form-control required">
-                        <option>Professor 1</option>
-                        <option>Professor 2</option>
-                        <option>Professor 3</option>
-                    </select>
+                    <%
+                    if(e){
+                    %>
+                        <select required class="form-control required">
+                            <option>Professor 1</option>
+                            <option>Professor 2</option>
+                            <option>Professor 3</option>
+                        </select>
+                    <%
+                    }else{
+                    %>
+                        <select disabled required class="form-control required">
+                            <option>Professor 1</option>
+                            <option>Professor 2</option>
+                            <option>Professor 3</option>
+                        </select>
+                    <%
+                    }
+                    %>
                 </div>
             </div>
+            <%
+            if(e){
+            %>
             <button type="submit" class="submit">Enviar</button>
+            <%
+            }else{
+            %>
+            <button disabled type="submit" class="submit">Enviar</button>
+            <%
+            }
+            %>
         </form>
+        <div class="form-group">
+            <button type="submit" onclick="window.location.replace('/etapa2')" class="submit">Próxima Etapa</button>
+        </div>
     </div>
 </div>

@@ -25,6 +25,9 @@ module.exports = {
     },
     tipo: {
       type: 'string', required: true, maxLength: 50
+    },
+    etapa: {
+      type: 'number', required: true
     }
   }
 
