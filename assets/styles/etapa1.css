@@ -1,0 +1,20 @@
+.custom{
+  display: flex;
+}
+
+.buttons {
+  height: 40px;
+  width: 160px;
+  padding: 0px;
+}
+
+.buttonsCustom{
+  margin-right: 10px;
+}
+/* .buttons:nth-child(0){
+  margin-right: 10px;
+} */
+
+.formulario {
+  margin-bottom: 1rem;
+}
