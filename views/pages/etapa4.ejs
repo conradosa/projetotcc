@@ -18,41 +18,58 @@
     %>
 
     <div class="col-xl-8 col-lg-8 content-right">
-        <form method="get" enctype="multipart/form-data"
-              action="">
-            <h2 class="section_title">Envio da documentação do TCC</h2>
-            <div class="form-group add_bottom_30 add_top_20">
-                <label>Upload de documentação<br><small style="color: red">*apenas .pdf *max 5mb</small></label>
-                <div class="fileupload">
+        <div id="wizard_container">
+            <%
+            if(!e){
+            %>
+                <div style="padding: 5px; border-radius: 10px;" class="alert-info text-center">Você ainda não está nesta etapa!</div><br>
+            <%
+            }
+            %>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"
+                     style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                     aria-valuemax="100">4 de 4
+                </div>
+            </div>
+            <br>
+            <form method="get" enctype="multipart/form-data"
+                  action="">
+                <h2 class="section_title">Envio da documentação do TCC</h2>
+                <div class="form-group add_bottom_30 add_top_20">
+                    <label>Upload de documentação<br><small style="color: red">*apenas .pdf *max 5mb</small></label>
+                    <div class="fileupload">
+                        <%
+                        if(e){
+                        %>
+                            <input type="file" name="documento" accept=".pdf" class="required">
+                        <%
+                        }else {
+                        %>
+                            <input disabled type="file" name="documento" accept=".pdf" class="required">
+                        <%
+                        }
+                        %>
+                    </div>
+                </div>
+                <div class="custom">
                     <%
                     if(e){
                     %>
-                        <input type="file" name="documento" accept=".pdf" class="required">
+                        <button type="submit" class="submit buttons buttonsCustom">Enviar</button>
                     <%
                     }else {
                     %>
-                        <input disabled type="file" name="documento" accept=".pdf" class="required">
+                        <button disabled type="submit" class="submit buttons buttonsCustom">Enviar</button>
                     <%
                     }
                     %>
                 </div>
+            </form>
+            <br>
+            <div class="form-group">
+                <button onclick="window.location.replace('/etapa3')" class="submit buttons">Etapa Anterior</button>
             </div>
-            <div class="custom">
-                <%
-                if(e){
-                %>
-                    <button type="submit" class="submit buttons buttonsCustom">Enviar</button>
-                <%
-                }else {
-                %>
-                    <button disabled type="submit" class="submit buttons buttonsCustom">Enviar</button>
-                <%
-                }
-                %>
-            </div>
-        </form>
-        <div class="form-group">
-            <button onclick="window.location.replace('/etapa3')" class="submit buttons">Etapa Anterior</button>
         </div>
     </div>
 </div>
