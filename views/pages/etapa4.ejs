@@ -10,10 +10,10 @@
     </div>
 
     <%
-    if (req.session.etapa === 4) {
-        msg = 'Você está nessa etapa!';
-    } else {
-        msg = 'Você não está nessa etapa!';
+    let e = false;
+
+    if (req.session.etapa === 2) {
+        e = true;
     }
     %>
 
@@ -24,16 +24,35 @@
             <div class="form-group add_bottom_30 add_top_20">
                 <label>Upload de documentação<br><small style="color: red">*apenas .pdf *max 5mb</small></label>
                 <div class="fileupload">
-                    <input type="file" name="documento" accept=".pdf" class="required">
+                    <%
+                    if(e){
+                    %>
+                        <input type="file" name="documento" accept=".pdf" class="required">
+                    <%
+                    }else {
+                    %>
+                        <input disabled type="file" name="documento" accept=".pdf" class="required">
+                    <%
+                    }
+                    %>
                 </div>
             </div>
             <div class="custom">
-                <button type="submit" class="submit buttons buttonsCustom">Enviar</button>
-            </form>
-            <div class="form-group">
-                <button onclick="window.location.replace('/etapa3')" class="submit buttons">Etapa Anterior</button>
+                <%
+                if(e){
+                %>
+                    <button type="submit" class="submit buttons buttonsCustom">Enviar</button>
+                <%
+                }else {
+                %>
+                    <button disabled type="submit" class="submit buttons buttonsCustom">Enviar</button>
+                <%
+                }
+                %>
             </div>
-
-            </div>
+        </form>
+        <div class="form-group">
+            <button onclick="window.location.replace('/etapa3')" class="submit buttons">Etapa Anterior</button>
+        </div>
     </div>
 </div>

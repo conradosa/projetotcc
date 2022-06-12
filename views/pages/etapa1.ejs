@@ -14,8 +14,6 @@
 
     if (req.session.etapa === 1) {
         e = true;
-    } else {
-        e = false;
     }
     %>
 
@@ -79,23 +77,22 @@
                     </div>
                 </div>
                 <div class="custom">
-                        <%
-                        if(e){
-                        %>
+                    <%
+                    if(e){
+                    %>
                         <button type="submit" class="submit buttons buttonsCustom">Enviar</button>
-                        <%
-                        }else{
-                        %>
+                    <%
+                    }else{
+                    %>
                         <button disabled type="submit" class="submit buttons buttonsCustom">Enviar</button>
-                        <%
-                        }
-                        %>
-                    </form>
-                    <div class="form-group">
-                        <button type="submit" onclick="window.location.replace('/etapa2')" class="submit buttons">Próxima Etapa</button>
-                    </div>
+                    <%
+                    }
+                    %>
                 </div>
-
+            </form>
+        </div>
+        <div class="form-group">
+            <button type="submit" onclick="window.location.replace('/etapa2')" class="submit buttons">Próxima Etapa</button>
         </div>
     </div>
 </div>

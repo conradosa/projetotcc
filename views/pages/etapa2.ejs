@@ -14,8 +14,6 @@
 
     if (req.session.etapa === 2) {
         e = true;
-    } else {
-        e = false;
     }
     %>
 
@@ -29,25 +27,36 @@
                     <%
                     if(e){
                     %>
-                    <input type="file" name="documento" accept=".pdf" class="required">
-                        <%
-                        }else{
-                        %>
+                        <input type="file" name="documento" accept=".pdf" class="required">
+                    <%
+                    }else{
+                    %>
                         <input disabled type="file" name="documento" accept=".pdf" class="required">
-                        <%
-                        }
-                        %>
+                    <%
+                    }
+                    %>
                 </div>
             </div>
             <h4>Orientador:</h4>
             <h5>Nome Professor</h5><br>
             <div class="custom">
-                <button type="submit" class="submit buttons buttonsCustom">Enviar</button>
-            </form>
-            <div class="form-group">
-                <button onclick="window.location.replace('/etapa3')"  class="submit buttons buttonsmg2">Próxima Etapa</button>
-                <button onclick="window.location.replace('/etapa1')"  class="submit buttons">Etapa Anterior</button>
+                <%
+                if(e){
+                %>
+                    <button type="submit" class="submit buttons buttonsCustom">Enviar</button>
+                <%
+                }else{
+                %>
+                    <button disabled type="submit" class="submit buttons buttonsCustom">Enviar</button>
+                <%
+                }
+                %>
             </div>
-            </div>
+        </form>
+        <div class="form-group">
+            <button onclick="window.location.replace('/etapa3')" class="submit buttons buttonsmg2">Próxima Etapa
+            </button>
+            <button onclick="window.location.replace('/etapa1')" class="submit buttons">Etapa Anterior</button>
+        </div>
     </div>
 </div>
