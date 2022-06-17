@@ -5,45 +5,29 @@ module.exports.routes = {
     res.redirect('/login');
   },
 
-    // Rotas Usuário  Padrão REST //
+    // Rotas Usuário //
 
-    'GET /usuario/:id': { 
-      action: 'usuario/listar'
-     },
-     'GET /usuario': { 
-      action: 'usuario/listarAll'
-     },
-    'POST /usuario': { 
-      policy: 'admin',
-      action: 'usuario/criar'
-     },
-     'DELETE /usuario/:id': { 
-      action: 'usuario/deletar'
-     },
-     'PUT /usuario/:id': { 
-      action: 'usuario/atualizar'
-     },
+  'GET /usuario/:id': { action: 'usuario/listar' },
+  'GET /usuario': { action: 'usuario/listarAll' },
+  'POST /usuario': { policy: 'admin', action: 'usuario/criar' },
+  'DELETE /usuario/:id': { action: 'usuario/deletar' },
+  'PUT /usuario/:id': { action: 'usuario/atualizar' },
   
-  
-     // Rotas Professor  Padrão Rest //
-  
-     'GET /professor': { 
-      action: 'professor/listarAll'
-     },
-     
-     'GET /professor/:id': { 
-      action: 'professor/listar'
-     },
-    'POST /professor': { 
-      action: 'professor/criar'
-     },
-     'DELETE /professor/:id': { 
-      action: 'professor/deletar'
-     },
-     'PUT /professor/:id': { 
-      action: 'professor/atualizar'
-     },
+     // Rotas Professor //
 
+  'GET /professor': { action: 'professor/listarAll' },
+  'GET /professor/:id': { action: 'professor/listar' },
+  'POST /professor': { action: 'professor/criar' },
+  'DELETE /professor/:id': { action: 'professor/deletar' },
+  'PUT /professor/:id': { action: 'professor/atualizar' },
+
+     // Rotas Aluno //
+
+  'GET /professor': { action: 'professor/listarAll' },
+  'GET /professor/:id': { action: 'professor/listar' },
+  'POST /professor': { action: 'professor/criar' },
+  'DELETE /professor/:id': { action: 'professor/deletar' },
+  'PUT /professor/:id': { action: 'professor/atualizar' },
 
 // Rotas View
 

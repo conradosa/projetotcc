@@ -19,12 +19,10 @@ module.exports = {
     
     },
     listarAll:  async function (req,res) {
-        let users = await Professor.find().fetch()
-        return res.ok(users);
+        
     },
     listar:  async function (req,res) {
-        let users = await Professor.find();
-        return res.ok(users);
+       
     }
 };
 

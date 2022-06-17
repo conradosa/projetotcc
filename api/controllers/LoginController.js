@@ -17,7 +17,7 @@ module.exports = {
     const crypto = require('crypto');
     
     const senhasalted = senha + '42';
-            const senhabd = crypto.createHash('sha256').update(senhasalted).digest('hex');
+    const senhabd = crypto.createHash('sha256').update(senhasalted).digest('hex');
     
     let user = await Usuario.findOne({
       matricula: matricula,

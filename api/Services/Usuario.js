@@ -4,15 +4,13 @@ const Joi = require('joi');
 
 // Valida Criação do usuário
     const validar = Joi.object({
-            nome:Joi.string().required().messages({'string.base':'Nome é do tipo String','any.required':'Campo Nome obrigatório'}),
-            email:Joi.string().required().email().messages({'string.base':'Email é do tipo String','any.required':'Campo Email obrigatório',
+            nome:Joi.string().required().messages({'string.base':'Campo Nome é do tipo String','any.required':'Campo Nome obrigatório'}),
+            email:Joi.string().required().email().messages({'string.base':'Campo Email é do tipo String','any.required':'Campo Email obrigatório',
             'string.email':'O email tem que ser válido'}),
-            matricula:Joi.number().required().messages({'string.base':'Matrícula é do tipo String','any.required':'Campo Matricula obrigatório'}),
-            senha:Joi.string().required().messages({'string.base':'Senha é do tipo String','any.required':'Campo Senha obrigatório'}),
+            matricula:Joi.number().required().messages({'string.base':'Campo Matrícula é do tipo String','any.required':'Campo Matricula obrigatório'}),
+            senha:Joi.string().required().messages({'string.base':'Campo Senha é do tipo String','any.required':'Campo Senha obrigatório'}),
+            tipo:Joi.string().required().messages({'string.base':'Campo Tipo é do tipo String','any.required':'Campo Tipo obrigatório'}),
     })
-
-// Validar ID requisição
-
     
 
 const uploadDocumento =  (req, res) => {

@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-    
+
     criar: async function (req, res) {
 
     },
@@ -18,12 +18,10 @@ module.exports = {
     },
 
     listar: async function (req, res) {
-        let users = await Professor.findOne({ id: req.body.id });
-        return res.ok(users);
+       
     },
     listarAll: async function (req, res) {
-        let users = await Professor.find();
-        return res.ok(users);
+        
     },
 };
 

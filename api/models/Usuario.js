@@ -19,6 +19,9 @@ module.exports = {
     },
     email: {
       type: 'string', required: true, maxLength: 255
+    },
+    tipo:{
+      type:'string', required:true
     }
   }
 };
