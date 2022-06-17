@@ -22,10 +22,17 @@
             <%
             if(!e){
             %>
-                <div style="padding: 5px; border-radius: 10px;" class="alert-info text-center">Você ainda não está nesta etapa!</div><br>
+                <div style="padding: 5px; border-radius: 10px;" class="alert-info text-center">Você ainda não está nesta
+                    etapa!
+                </div><br>
             <%
             }
             %>
+            <% if(req.session.alunoStatus){ %>
+                <div style="padding: 5px; border-radius: 10px;" class="alert-warning text-center">Você já realizou um
+                    envio, veja seu status <a href="/status">aqui</a>
+                </div><br>
+            <% } %>
             <div class="progress">
                 <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"
                      style="width: 75%" aria-valuenow="75" aria-valuemin="0"
@@ -40,7 +47,7 @@
                     <label>Upload de documentação<br><small style="color: red">*apenas .pdf *max 5mb</small></label>
                     <div class="fileupload">
                         <%
-                        if(e){
+                        if(e && !req.session.alunoStatus){
                         %>
                             <input type="file" name="documento" accept=".pdf" class="required">
                         <%
@@ -54,7 +61,7 @@
                     <label>Professor 1:<br></label>
                     <div class="form-group">
                         <%
-                        if(e){
+                        if(e && !req.session.alunoStatus){
                         %>
                             <select required class="select form-control">
                                 <option>Professor 1</option>
@@ -77,7 +84,7 @@
                     <label>Professor 2:<br></label>
                     <div class="form-group">
                         <%
-                        if(e){
+                        if(e && !req.session.alunoStatus){
                         %>
                             <select required class="select form-control">
                                 <option>Professor 1</option>
@@ -97,19 +104,18 @@
                         %>
                     </div>
                 </div>
-                <div class="custom">
-                    <%
-                    if (e) {
-                    %>
-                        <button type="submit" class="submit buttons buttonsCustom">Enviar</button>
-                    <%
-                    }else{
-                    %>
-                        <button disabled type="submit" class="submit buttons buttonsCustom">Enviar</button>
-                    <%
-                    }
-                    %>
-                </div>
+                <input value="previa" type="hidden" name="nomeDocumento">
+                <%
+                if (e && !req.session.alunoStatus) {
+                %>
+                    <button type="submit" class="submit buttons buttonsCustom">Enviar</button>
+                <%
+                }else{
+                %>
+                    <button disabled type="submit" class="submit buttons buttonsCustom">Enviar</button>
+                <%
+                }
+                %>
             </form>
             <br>
             <div class="form-group">

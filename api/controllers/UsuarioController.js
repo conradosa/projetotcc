@@ -9,31 +9,25 @@ const path = require('path');
 
 module.exports = {
 
-  remove: async function () {
-    const destroy = await Usuario.destroy({});
-    sails.log('Todos os usuários foram removidos');
-  },
-
-  retorna: async function () {
-    const user = await Usuario.findOne({
-      nome: 'Conrado'
-    });
-    if (!user) {
-      sails.log('Usuário não encontrado');
-    } else {
-      sails.log('Usuário existe, sua senha: ', user.senha);
-    }
-  },
-
-  insert: async function () {
+  insertAluno: async function () {
     //senha: senha123
-    var user = await Usuario.create({
-      matricula: '2019001650',
-      nome: 'Conrado',
+    var user = await Aluno.create({
+      matricula: '123',
+      nome: 'Aluno',
       senha: '100b945c050b7d1f82b1fe84c6274553159c12cba0345bb2c63935095050c32c',
-      email: '2019001650@restinga.ifrs.edu.br',
-      tipo: 'aluno',
+      email: '123@restinga.ifrs.edu.br',
       etapa: 1
+    }).fetch();
+    sails.log('Usuário criado, seu nome: ', user.nome);
+  },
+
+  insertProfessor: async function () {
+    //senha: senha123
+    var user = await Professor.create({
+      matricula: '456',
+      nome: 'Professor',
+      senha: '100b945c050b7d1f82b1fe84c6274553159c12cba0345bb2c63935095050c32c',
+      email: '456@restinga.ifrs.edu.br'
     }).fetch();
     sails.log('Usuário criado, seu nome: ', user.nome);
   },
@@ -59,22 +53,38 @@ module.exports = {
 
     const senhabd = crypto.createHash('sha256').update(senhasalted).digest('hex');
 
-    let user = await Usuario.findOne({
+    let aluno = await Aluno.findOne({
       matricula: matricula,
       senha: senhabd
     });
 
-    if (!user) {
+    let professor = await Professor.findOne({
+      matricula: matricula,
+      senha: senhabd
+    });
+
+    if (!aluno && !professor) {
       req.session.erro = 'Usuário ou senha incorretos!';
-      return res.redirect('back');
+      res.redirect('back');
     } else {
-      req.session.logado = true;
-      req.session.usuarioId = user.id;
-      req.session.usuarioNome = user.nome;
-      req.session.usuarioMatricula = user.matricula;
-      req.session.usuarioEmail = user.email;
-      req.session.usuarioTipo = user.tipo;
-      res.redirect('/home');
+      if(aluno){
+        req.session.logado = true;
+        req.session.usuarioId = aluno.id;
+        req.session.usuarioNome = aluno.nome;
+        req.session.usuarioMatricula = aluno.matricula;
+        req.session.usuarioEmail = aluno.email;
+        req.session.usuarioTipo = 'aluno';
+        res.redirect('/aluno');
+      }
+      if(professor){
+        req.session.logado = true;
+        req.session.usuarioId = professor.id;
+        req.session.usuarioNome = professor.nome;
+        req.session.usuarioMatricula = professor.matricula;
+        req.session.usuarioEmail = professor.email;
+        req.session.usuarioTipo = 'professor';
+        res.redirect('/professor');
+      }
     }
   },
 
@@ -89,56 +99,6 @@ module.exports = {
 
     res.redirect('/login');
 
-  },
-
-  uploadDocumento: function (req, res) {
-
-    //transformar o inteiro em ‘string’ da matrícula
-
-    let matriculastring = req.session.usuarioMatricula.toString();
-
-    //criar diretórios
-
-    try {
-      fs.mkdirSync(path.join(sails.config.appPath, '/assets/usuarios/', matriculastring), {recursive: true});
-    } catch (err) {
-      req.session.erro = err.toString();
-      res.redirect('back');
-    }
-
-    //upload dos arquivos
-
-    req.file('documento').upload({
-      maxBytes: 5000000,
-      saveAs: 'documentonome.pdf',
-      dirname: path.join(sails.config.appPath, '/assets/alunos/', matriculastring)
-    }, (err, file) => {
-      if (file.length === 0) {
-        req.session.erro = 'Nenhum arquivo enviado!';
-        return res.redirect('back');
-      }
-      if (file.length > 1) {
-        if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentonome.pdf'))) {
-          fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentonome.pdf'));
-        }
-        req.session.erro = 'Somente um arquivo pode ser enviado!';
-        return res.redirect('back');
-      }
-      if (path.extname(file[0].filename) !== '.pdf') {
-        if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentonome.pdf'))) {
-          fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentonome.pdf'));
-        }
-        req.session.erro = 'O arquivo enviado não é um pdf!';
-        return res.redirect('back');
-      }
-      if (err) {
-        req.session.erro = err.toString();
-        return res.redirect('back');
-      } else {
-        req.session.sucesso = 'Arquivo enviado!';
-        res.redirect('back');
-      }
-    });
   }
 
 };

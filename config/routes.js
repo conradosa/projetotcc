@@ -5,12 +5,12 @@ module.exports.routes = {
   },
 
   'GET /etapa': {
-    controller: 'etapas',
+    controller: 'aluno',
     action: 'etapa'
   },
 
   'POST /etapa': {
-    controller: 'etapa',
+    controller: 'aluno',
     action: 'nav'
   },
 
@@ -33,66 +33,80 @@ module.exports.routes = {
     action: 'logout'
   },
 
-  '/home': {
+  'GET /aluno': {
     //policy: 'logado',
-    view: 'pages/home',
+    controller: 'aluno',
+    action: 'index',
     locals: {
-      title: 'Home'
+      title: 'Aluno'
     }
   },
 
-  '/etapa1': {
+  'GET /professor': {
     //policy: 'logado',
-    view: 'pages/etapa1',
+    view: 'pages/professor/index',
     locals: {
-      title: 'Home'
+      title: 'Professor'
     }
   },
 
-  '/etapa2': {
+  'GET /status': {
     //policy: 'logado',
-    view: 'pages/etapa2',
+    controller: 'aluno',
+    action: 'status',
     locals: {
-      title: 'Home'
+      title: 'Status'
     }
   },
 
-  '/etapa3': {
+  'GET /etapa1': {
     //policy: 'logado',
-    view: 'pages/etapa3',
+    view: 'pages/aluno/etapas/etapa1',
     locals: {
-      title: 'Home'
+      title: 'Etapa 1'
     }
   },
 
-  '/etapa4': {
+  'GET /etapa2': {
     //policy: 'logado',
-    view: 'pages/etapa4',
+    view: 'pages/aluno/etapas/etapa2',
     locals: {
-      title: 'Home'
+      title: 'Etapa 2'
+    }
+  },
+
+  'GET /etapa3': {
+    //policy: 'logado',
+    view: 'pages/aluno/etapas/etapa3',
+    locals: {
+      title: 'Etapa 3'
+    }
+  },
+
+  'GET /etapa4': {
+    //policy: 'logado',
+    view: 'pages/aluno/etapas/etapa4',
+    locals: {
+      title: 'Etapa 4'
     }
   },
 
   'POST /upload': {
     //policy: 'logado',
-    controller: 'usuario',
-    action: 'uploadDocumento'
+    controller: 'aluno',
+    action: 'upload'
   },
 
-  'GET /user/remove': {
+  'GET /a/c': {
     controller: 'usuario',
-    action: 'remove'
+    action: 'insertAluno'
   },
 
-  'GET /user/criar': {
+  'GET /p/c': {
     controller: 'usuario',
-    action: 'insert'
+    action: 'insertProfessor'
   },
 
-  'GET /user/retorna': {
-    controller: 'usuario',
-    action: 'retorna'
-  },
 
   'GET /adm/criarADM': {
     //policy: 'admin',
