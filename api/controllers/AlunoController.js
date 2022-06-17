@@ -19,10 +19,15 @@ module.exports = {
     
     },
     listarAll:  async function (req,res) {
-        
+        await Aluno.find().populateAll().then((data) => {
+            return res.ok(data);
+        })
     },
     listar:  async function (req,res) {
        
+    },
+    vincularOrientador: async function(req,res){
+
     }
 };
 
