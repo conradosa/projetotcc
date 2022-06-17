@@ -21,10 +21,12 @@ module.exports.routes = {
   'DELETE /professores/:id': { action: 'professor/deletar' },
   'PUT /professores/:id': { action: 'professor/atualizar' },
 
+
      // Rotas Aluno //
 
   'GET /alunos': { action: 'aluno/listarAll' },
   'GET /alunos/:id': { action: 'aluno/listar' },
+  'POST /alunos/:id/orientador/:idOrientador': { action: 'aluno/addOrientador' },
   'POST /alunos': { action: 'aluno/criar' },
   'DELETE /alunos/:id': { action: 'aluno/deletar' },
   'PUT /alunos/:id': { action: 'aluno/atualizar' },

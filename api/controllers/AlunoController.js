@@ -15,7 +15,17 @@ module.exports = {
     
     },
     atualizar:  async function (req,res) {
-   
+        await Aluno.findOne({id:req.params.id}).then( async(data)=>{
+            if(data === undefined){
+              res.status(404);
+              return res.send("Aluno não encontrado!");
+            }else{
+                const user = await Aluno.updateOne({id:req.params.id}).set({nomde,email,senha,matricula} = req.body);
+                return res.ok(`Aluno ${user.nome} alterado!`);
+            }
+          }).catch(()=>{
+            return res.serverError("Erro no servidor!")
+          })
     
     },
     listarAll:  async function (req,res) {
@@ -26,8 +36,16 @@ module.exports = {
     listar:  async function (req,res) {
        
     },
-    vincularOrientador: async function(req,res){
-
+    addOrientador: async function(req,res){
+        const user = await Aluno.findOne({id:req.params.id}).then( async (data)=>{
+            if(data === undefined){
+                res.status(404);
+                return res.send("Aluno não encontrado!");
+              }else{
+                  const user = await Aluno.updateOne({id:req.params.id}).set({...data,orientador:req.params.idOrientador});
+                  return res.ok(`Aluno ${user.nome} alterado!`);
+              }
+        }).catch()
     }
 };
 
