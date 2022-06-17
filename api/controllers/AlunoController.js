@@ -45,7 +45,9 @@ module.exports = {
                   const user = await Aluno.updateOne({id:req.params.id}).set({...data,orientador:req.params.idOrientador});
                   return res.ok(`Aluno ${user.nome} alterado!`);
               }
-        }).catch()
+        }).catch((erro)=>{
+            return res.serverError(error);
+        })
     }
 };
 
