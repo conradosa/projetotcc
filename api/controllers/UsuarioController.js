@@ -4,131 +4,58 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
-const fs = require('fs');
-const path = require('path');
+
+const serviceUsuario = require('../Services/Usuario');
 
 module.exports = {
 
-  retornaUser: async function () {
-    var user = await Usuario.findOne({
-      nome: 'Conrado'
+  criar:  async function (req,res) {
+      let  params = req.allParams();
+      let user = null;
+      delete req.body.tipo;
+      serviceUsuario.validar.validateAsync(req.body).then( async ()=>{
+      let user = await  Usuario.create(req.body).fetch();
+      if(params.tipo === "Professor") user = await Professor.create( { usuario  : user.id} ).fetch();
+      else if(params.tipo === "Aluno") user = await Aluno.create( { usuario  : user.id} ).fetch();  
+      res.status(201);
+      return res.send(user);
+    }).catch((erro)=>{
+      return res.badRequest(erro.message);
     });
-    if (!user) {
-      sails.log('Usuário não encontrado');
-    } else {
-      sails.log('Usuário existe, sua senha: ', user.senha);
-    }
   },
 
-  insertTeste: async function () {
-    var user = await Usuario.create({
-      matricula: '2019001650',
-      nome: 'Conrado',
-      senha: '2f81a89d6f6e531a24d98451c3f60760b6440369306e4f37b4d79b091f9ef9c5',
-      email: '2019001650@restinga.ifrs.edu.br',
-      tipo: 'aluno'
-    }).fetch();
-    sails.log('Usuário criado, seu nome: ', user.nome);
+  deletar:  async function (req,res) {
+    const user = await Usuario.destroy({id:req.params.id}).fetch();
+      if(user.length === 0){
+        res.status(404);
+        return res.send("Usário não encontrado!");
+      }else{
+        return res.ok(`Usuário ${user[0].nome} Apagado!`);
+      }
   },
-
-  login: async function (req, res) {
-
-    const valor = req.body;
-
-    const matricula = valor.matricula;
-
-    if (isNaN(matricula)) {
-      req.session.erro = 'O campo matrícula deve ser um número!';
-      return res.redirect('back');
-    }
-
-    const senha = valor.senha;
-
-    const crypto = require('crypto');
-
-    const senhasalted = senha + '42';
-
-    const senhabd = crypto.createHash('sha256').update(senhasalted).digest('hex');
-
-    let user = await Usuario.findOne({
-      matricula: matricula,
-      senha: senhabd
+  atualizar:  async function (req,res) {
+    serviceUsuario.validar.validateAsync(req.body).then( async ()=>{
+     const user = await Usuario.updateOne({id:req.params.id}).set({nomde,email,senha,matricula} = req.body);
+     console.log(user);
+     return res.ok("Usuário alterado!");
+    }).catch((erro)=>{
+      return res.badRequest(erro.message);
     });
-
-    if (!user) {
-      req.session.erro = 'Usuário ou senha incorretos!';
-      return res.redirect('back');
-    } else {
-      req.session.logado = true;
-      req.session.usuarioNome = user.nome;
-      req.session.usuarioMatricula = user.matricula;
-      req.session.usuarioEmail = user.email;
-      req.session.usuarioTipo = user.tipo;
-      res.redirect('/home');
-    }
   },
 
-  logout: async function (req, res) {
+  listar:  async function (req,res) {
 
-    delete req.session.logado;
-    delete req.session.usuarioNome;
-    delete req.session.usuarioMatricula;
-    delete req.session.usuarioEmail;
-    delete req.session.usuarioTipo;
-
-    res.redirect('/login');
+      const user = await Usuario.findOne({id:req.params.id});
+      return res.ok(user)
 
   },
 
-  uploadDocumento: function (req, res) {
-
-    //transformar o inteiro em ‘string’ da matrícula
-
-    let matriculastring = req.session.usuarioMatricula.toString();
-
-    //criar diretórios
-
-    try {
-      fs.mkdirSync(path.join(sails.config.appPath, '/assets/usuarios/', matriculastring), {recursive: true});
-    } catch (err) {
-      req.session.erro = err.toString();
-      res.redirect('back');
-    }
-
-    //upload dos arquivos
-
-    req.file('documento').upload({
-      maxBytes: 5000000,
-      saveAs: 'documentonome.pdf',
-      dirname: path.join(sails.config.appPath, '/assets/alunos/', matriculastring)
-    }, (err, file) => {
-      if (file.length === 0) {
-        req.session.erro = 'Nenhum arquivo enviado!';
-        return res.redirect('back');
-      }
-      if (file.length > 1) {
-        if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentonome.pdf'))) {
-          fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentonome.pdf'));
-        }
-        req.session.erro = 'Somente um arquivo pode ser enviado!';
-        return res.redirect('back');
-      }
-      if (path.extname(file[0].filename) !== '.pdf') {
-        if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentonome.pdf'))) {
-          fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentonome.pdf'));
-        }
-        req.session.erro = 'O arquivo enviado não é um pdf!';
-        return res.redirect('back');
-      }
-      if (err) {
-        req.session.erro = err.toString();
-        return res.redirect('back');
-      } else {
-        req.session.sucesso = 'Arquivo enviado!';
-        res.redirect('back');
-      }
-    });
-  }
-
+  listarAll:  async function (req,res) {
+    await Usuario.find().then((data)=>{
+      return res.ok(data);
+    }).catch((erro)=>{
+      return res.badRequest(erro.message)
+    })
+  },
 };
 
