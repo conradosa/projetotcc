@@ -18,7 +18,7 @@ module.exports = {
       email: '123@restinga.ifrs.edu.br',
       tipo: 'Aluno'
     }).fetch();
-    await Aluno.create({usuario: user.id, etapa: 1}).fetch();
+    await Aluno.create({usuario: user.id}).fetch();
     sails.log('Usuário criado, seu nome: ', user.nome);
     res.redirect('/login');
   },

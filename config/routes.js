@@ -1,7 +1,8 @@
 module.exports.routes = {
 
-  '/': function (req, res) {
-    res.redirect('/login');
+  'GET /': {
+      policy: 'home',
+      view: 'pages/login'
   },
 
   // Rotas Usuário //

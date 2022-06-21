@@ -8,17 +8,21 @@
 module.exports = {
 
   attributes: {
-
     usuario:{
       model:'usuario',
       columnName:'idUsuario',
       required:true
     },
     etapa: {
-      type: 'number', required: true
+      type: 'number',
+      defaultsTo: 1
     },
     status: {
       type: 'string', maxLength: 255
+    },
+    pendencia: {
+      type: 'number',
+      defaultsTo: 0
     },
     tema: {
       collection: 'tema',

@@ -10,8 +10,8 @@ const path = require('path');
 module.exports = {
 
   index: async function (req, res) {
-    let user = await Usuario.findOne({
-      matricula: req.session.usuarioMatricula
+    let user = await Aluno.findOne({
+      usuario: req.session.usuarioId
     });
     if (user.status !== null) {
       req.session.alunoStatus = user.status;
@@ -21,6 +21,8 @@ module.exports = {
   },
 
   status: async function (req, res) {
+    const aluno = await Aluno.findOne({usuario: req.session.usuarioId});
+    req.session.alunoStatus = aluno.status;
     let etapa = '';
     switch (req.session.etapa) {
       case 1:
@@ -48,7 +50,7 @@ module.exports = {
     const id = req.session.usuarioId;
 
     let user = await Aluno.findOne({
-      id: id
+      usuario: id
     });
 
     const etapa = user.etapa;
@@ -113,7 +115,7 @@ module.exports = {
       res.redirect('/aluno');
     }
     try {
-      await Aluno.update({usuario: req.session.usuarioId}).set({orientador: tema_b.orientador});
+      await Aluno.update({usuario: req.session.usuarioId}).set({orientador: tema_b.orientador, status: 'Aguardando aprovação do orientador.'});
     } catch (err) {
       req.session.erro = err.name;
       res.redirect('/aluno');
@@ -139,9 +141,9 @@ module.exports = {
     //criar diretórios
 
     try {
-      fs.mkdirSync(path.join(sails.config.appPath, '/assets/usuarios/', matriculastring), {recursive: true});
+      fs.mkdirSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring), {recursive: true});
     } catch (err) {
-      req.session.erro = err.toString();
+      req.session.erro = err.name;
       res.redirect('back');
     }
 
