@@ -5,6 +5,12 @@ module.exports.routes = {
       view: 'pages/login'
   },
 
+  'GET /pendencia': {
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'pendencia'
+},
+
   // Rotas Usuário //
 
   'GET /usuarios/:id': {action: 'usuario/listar'},

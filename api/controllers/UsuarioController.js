@@ -74,7 +74,7 @@ module.exports = {
       req.session.usuarioEmail = user.email;
       req.session.usuarioTipo = user.tipo;
       if (user.tipo === 'Aluno') {
-        req.session.etapa = user.etapa;
+        req.session.alunoEtapa = user.etapa;
         res.redirect('/aluno');
       } else {
         res.redirect('/professor');

@@ -16,15 +16,27 @@ module.exports = {
     if (user.status !== null) {
       req.session.alunoStatus = user.status;
     }
-    req.session.etapa = user.etapa;
+    req.session.alunoEtapa = user.etapa;
+    req.session.alunoPendencia = user.pendencia;
     return res.view('pages/aluno/index');
   },
 
+  pendencia: async function (req, res) {
+    try {
+      await Aluno.update({ usuario: req.session.usuarioId }).set({ pendencia: 0, status: '' });
+      return res.redirect('/');
+    } catch (err) {
+      req.session.erro = err.name;
+      return res.redirect('/');
+    }
+  },
+
   status: async function (req, res) {
-    const aluno = await Aluno.findOne({usuario: req.session.usuarioId});
+    const aluno = await Aluno.findOne({ usuario: req.session.usuarioId });
     req.session.alunoStatus = aluno.status;
+    req.session.alunoPendencia = aluno.pendencia;
     let etapa = '';
-    switch (req.session.etapa) {
+    switch (req.session.alunoEtapa) {
       case 1:
         etapa = 'Tema do TCC';
         break;
@@ -55,7 +67,7 @@ module.exports = {
 
     const etapa = user.etapa;
 
-    req.session.etapa = etapa;
+    req.session.alunoEtapa = etapa;
 
     switch (etapa) {
 
@@ -86,7 +98,7 @@ module.exports = {
   etapa1: async function (req, res) {
     let profs = '';
     try {
-      profs = await Usuario.find({tipo: 'Professor'});
+      profs = await Usuario.find({ tipo: 'Professor' });
     } catch (err) {
       req.session.erro = err.name;
       res.redirect('/aluno');
@@ -97,10 +109,20 @@ module.exports = {
   },
 
   tema: async function (req, res) {
-    const aluno = await Aluno.findOne({usuario: req.session.usuarioId});
-    const tema = await Tema.findOne({aluno: aluno.id});
+    const aluno = await Aluno.findOne({ usuario: req.session.usuarioId });
+    const orientador = await Professor.findOne({ id: aluno.orientador });
+    if (orientador) {
+      try {
+        await Professor.removeFromCollection(orientador.id, 'alunos')
+          .members(aluno.id);
+      } catch (err) {
+        req.session.erro = err.name;
+        return res.redirect('/');
+      }
+    }
+    const tema = await Tema.findOne({ aluno: aluno.id });
     if (tema) {
-      await Tema.destroy({aluno: aluno.id});
+      await Tema.destroy({ aluno: aluno.id });
     }
     const tema_b = req.body;
     try {
@@ -112,16 +134,17 @@ module.exports = {
       sails.log('Tema criado!');
     } catch (err) {
       req.session.erro = err.name;
-      res.redirect('/aluno');
+      return res.redirect('/aluno');
     }
-    try {
-      await Aluno.update({usuario: req.session.usuarioId}).set({orientador: tema_b.orientador, status: 'Aguardando aprovação do orientador.'});
-    } catch (err) {
-      req.session.erro = err.name;
-      res.redirect('/aluno');
-    }
+
+      try {
+        await Aluno.update({ usuario: req.session.usuarioId }).set({ orientador: tema_b.orientador, status: 'Aguardando aprovação do orientador.' });
+      } catch (err) {
+        req.session.erro = err.name;
+        return res.redirect('/aluno');
+      }
     req.session.sucesso = 'Tema de TCC enviado!';
-    res.redirect('/aluno');
+    return res.redirect('/aluno');
   },
 
   etapa2: async function (req, res) {
@@ -141,7 +164,7 @@ module.exports = {
     //criar diretórios
 
     try {
-      fs.mkdirSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring), {recursive: true});
+      fs.mkdirSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring), { recursive: true });
     } catch (err) {
       req.session.erro = err.name;
       res.redirect('back');
