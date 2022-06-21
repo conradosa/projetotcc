@@ -8,17 +8,11 @@
 module.exports = {
 
   attributes: {
-    matricula: {
-      type: 'number', required: true
-    },
-    nome: {
-      type: 'string', required: true, maxLength: 255
-    },
-    senha: {
-      type: 'string', required: true, maxLength: 100
-    },
-    email: {
-      type: 'string', required: true, maxLength: 255
+
+    usuario:{
+      model:'usuario',
+      columnName:'idUsuario',
+      required:true
     },
     etapa: {
       type: 'number', required: true
@@ -42,9 +36,11 @@ module.exports = {
       collection: 'documentacao',
       via: 'aluno'
     },
-    professor: {
-      model: 'professor'
+    orientador: {
+      model: 'professor',
+      columnName: 'idProfessor'
     }
+
   },
 
 };

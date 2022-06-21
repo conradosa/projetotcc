@@ -11,26 +11,28 @@ module.exports = {
 
   insertAluno: async function (req, res) {
     //senha: senha123
-    var user = await Aluno.create({
+    var user = await Usuario.create({
       matricula: '123',
       nome: 'Aluno',
       senha: '100b945c050b7d1f82b1fe84c6274553159c12cba0345bb2c63935095050c32c',
       email: '123@restinga.ifrs.edu.br',
-      etapa: 1
+      tipo: 'Aluno'
     }).fetch();
+    await Aluno.create({usuario: user.id, etapa: 1}).fetch();
     sails.log('Usuário criado, seu nome: ', user.nome);
     res.redirect('/login');
   },
 
   insertProfessor: async function (req, res) {
     //senha: senha123
-    var user = await Professor.create({
+    var user = await Usuario.create({
       matricula: '456',
       nome: 'Professor',
       senha: '100b945c050b7d1f82b1fe84c6274553159c12cba0345bb2c63935095050c32c',
       email: '456@restinga.ifrs.edu.br',
-      disponivel: 1
+      tipo: 'Professor'
     }).fetch();
+    await Professor.create({usuario: user.id, disponivel: 1}).fetch();
     sails.log('Usuário criado, seu nome: ', user.nome);
     res.redirect('/login');
   },
@@ -56,36 +58,25 @@ module.exports = {
 
     const senhabd = crypto.createHash('sha256').update(senhasalted).digest('hex');
 
-    let aluno = await Aluno.findOne({
+    let user = await Usuario.findOne({
       matricula: matricula,
       senha: senhabd
     });
 
-    let professor = await Professor.findOne({
-      matricula: matricula,
-      senha: senhabd
-    });
-
-    if (!aluno && !professor) {
+    if (!user) {
       req.session.erro = 'Usuário ou senha incorretos!';
       res.redirect('back');
     } else {
-      if(aluno){
-        req.session.logado = true;
-        req.session.usuarioId = aluno.id;
-        req.session.usuarioNome = aluno.nome;
-        req.session.usuarioMatricula = aluno.matricula;
-        req.session.usuarioEmail = aluno.email;
-        req.session.usuarioTipo = 'aluno';
+      req.session.logado = true;
+      req.session.usuarioId = user.id;
+      req.session.usuarioNome = user.nome;
+      req.session.usuarioMatricula = user.matricula;
+      req.session.usuarioEmail = user.email;
+      req.session.usuarioTipo = user.tipo;
+      if (user.tipo === 'Aluno') {
+        req.session.etapa = user.etapa;
         res.redirect('/aluno');
-      }
-      if(professor){
-        req.session.logado = true;
-        req.session.usuarioId = professor.id;
-        req.session.usuarioNome = professor.nome;
-        req.session.usuarioMatricula = professor.matricula;
-        req.session.usuarioEmail = professor.email;
-        req.session.usuarioTipo = 'professor';
+      } else {
         res.redirect('/professor');
       }
     }

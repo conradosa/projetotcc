@@ -17,11 +17,9 @@ module.exports = {
     prof2Id: {
       type: 'number', required: true
     },
-    aluno_id: {
-      type: 'number', required: true
-    },
     aluno: {
       model: 'aluno',
+      columnName: 'alunoId',
       unique: true
     }
   },

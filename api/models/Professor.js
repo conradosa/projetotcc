@@ -8,26 +8,27 @@
 module.exports = {
 
   attributes: {
-    matricula: {
-      type: 'number', required: true
+
+    isCoordenador:{
+      type:'boolean',
+      defaultsTo: false
     },
-    nome: {
-      type: 'string', required: true, maxLength: 255
+
+    usuario:{
+      model:'usuario',
+      columnName:'idUsuario',
+      required:true
     },
-    senha: {
-      type: 'string', required: true, maxLength: 100
-    },
-    email: {
-      type: 'string', required: true, maxLength: 255
-    },
+
     disponivel: {
       type: 'boolean', required: true
     },
+
     alunos: {
       collection: 'aluno',
-      via: 'professor'
+      via: 'orientador'
     }
-  },
 
+  },
 };
 
