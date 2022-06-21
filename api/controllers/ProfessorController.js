@@ -6,7 +6,12 @@
  */
 
 module.exports = {
-  
+
+  listarAll: async function (req, res) {
+    await Professor.find().populateAll().then((data) => {
+      return res.ok(data);
+    }).catch((erro)=>{ return res.serverError(erro);});
+  }
 
 };
 

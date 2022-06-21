@@ -21,7 +21,7 @@ module.exports = {
   },
 
   status: async function (req, res) {
-    let etapa = await sails.helpers.etapaText.with({ etapa: req.session.etapa });
+    let etapa = await sails.helpers.etapaText.with({etapa: req.session.etapa});
     return res.view('pages/aluno/status', {
       etapa: etapa
     });
@@ -65,6 +65,28 @@ module.exports = {
 
   },
 
+  etapa1: async function (req, res) {
+    const profs = await Professor.find();
+
+    return res.view('pages/aluno/etapas/etapa1', {
+      professores: profs
+    });
+  },
+
+  addOrientador: async function (req, res) {
+    const user = await Aluno.findOne({id: req.params.id}).then(async (data) => {
+      if (data === undefined) {
+        res.status(404);
+        return res.send('Aluno não encontrado!');
+      } else {
+        const user = await Aluno.updateOne({id: req.params.id}).set({...data, orientador: req.params.idOrientador});
+        return res.ok(`Aluno ${user.nome} alterado!`);
+      }
+    }).catch((erro) => {
+      return res.serverError(error);
+    });
+  },
+
   upload: function (req, res) {
 
     let valor = req.body;
@@ -88,7 +110,7 @@ module.exports = {
 
     req.file('documento').upload({
       maxBytes: 5000000,
-      saveAs: docNome+'.pdf',
+      saveAs: docNome + '.pdf',
       dirname: path.join(sails.config.appPath, '/assets/alunos/', matriculastring)
     }, (err, file) => {
       if (file.length === 0) {

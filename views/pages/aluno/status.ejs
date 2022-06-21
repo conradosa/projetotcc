@@ -10,10 +10,15 @@
     </div>
     <div class="col-xl-8 col-lg-8 content-right">
         <div id="wizard_container" class="text-center">
+            <% if(req.session.alunoStatus){ %>
             <h2 style="color: #1DBE72;">Status do Envio:</h2><br>
             <h5><b><%= req.session.alunoStatus %></b></h5><br><br>
             <h2 style="color: #1DBE72;">Referente a:</h2><br>
-            <h2><b><%= etapa %></b></h2><br><br>
+            <h2><b><%= etapa %></b></h2>
+                <% }else{ %>
+                <h2><b>Nenhuma notificação atribuída</b></h2>
+                <% } %>
+                <br><br>
             <button onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.index') %>')"
                     class="btn submit">Voltar
             </button>

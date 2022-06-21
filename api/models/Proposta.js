@@ -11,6 +11,9 @@ module.exports = {
     diretorio: {
       type: 'string', required: true, maxLength: 255
     },
+    aluno_id: {
+      type: 'number', required: true
+    },
     aluno: {
       model: 'aluno',
       unique: true

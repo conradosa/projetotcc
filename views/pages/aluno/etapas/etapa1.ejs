@@ -40,8 +40,7 @@
                 </div>
             </div>
             <br>
-            <form method="get"
-                  action="/etapa2">
+            <form method="get" action="/etapa2">
                 <h2 class="section_title">Tema do TCC:</h2>
                 <div class="form-group add_bottom_30 add_top_20">
                     <label>Digite aqui seu tema:<br></label>
@@ -63,12 +62,12 @@
                         <%
                         if(e && !req.session.alunoStatus){
                         %>
-                            <textarea required cols="3" rows="5" class="form-control"
+                            <textarea required name="descricao" cols="3" rows="5" class="form-control"
                                       placeholder="Digite aqui..."></textarea>
                         <%
                         }else{
                         %>
-                            <textarea disabled required cols="3" rows="5" class="form-control"
+                            <textarea disabled name="descricao" required cols="3" rows="5" class="form-control"
                                       placeholder="Digite aqui..."></textarea>
                         <%
                         }
@@ -79,7 +78,7 @@
                         <%
                         if(e && !req.session.alunoStatus){
                         %>
-                            <select required class="form-control required">
+                            <select required name="orientador" class="form-control required">
                                 <option>Professor 1</option>
                                 <option>Professor 2</option>
                                 <option>Professor 3</option>
@@ -87,7 +86,7 @@
                         <%
                         }else{
                         %>
-                            <select disabled required class="form-control required">
+                            <select disabled required name="orientador class="form-control required">
                                 <option>Professor 1</option>
                                 <option>Professor 2</option>
                                 <option>Professor 3</option>

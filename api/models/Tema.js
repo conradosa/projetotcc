@@ -14,6 +14,9 @@ module.exports = {
     descricao: {
       type: 'string', required: true
     },
+    aluno_id: {
+      type: 'number', required: true
+    },
     aluno: {
       model: 'aluno',
       unique: true

@@ -9,7 +9,7 @@ const path = require('path');
 
 module.exports = {
 
-  insertAluno: async function () {
+  insertAluno: async function (req, res) {
     //senha: senha123
     var user = await Aluno.create({
       matricula: '123',
@@ -19,17 +19,20 @@ module.exports = {
       etapa: 1
     }).fetch();
     sails.log('Usuário criado, seu nome: ', user.nome);
+    res.redirect('/login');
   },
 
-  insertProfessor: async function () {
+  insertProfessor: async function (req, res) {
     //senha: senha123
     var user = await Professor.create({
       matricula: '456',
       nome: 'Professor',
       senha: '100b945c050b7d1f82b1fe84c6274553159c12cba0345bb2c63935095050c32c',
-      email: '456@restinga.ifrs.edu.br'
+      email: '456@restinga.ifrs.edu.br',
+      disponivel: 1
     }).fetch();
     sails.log('Usuário criado, seu nome: ', user.nome);
+    res.redirect('/login');
   },
 
   login: async function (req, res) {

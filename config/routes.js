@@ -4,22 +4,65 @@ module.exports.routes = {
     res.redirect('/login');
   },
 
+  // Rotas Usuário //
+
+  'GET /usuarios/:id': { action: 'usuario/listar' },
+  'GET /usuarios': { action: 'usuario/listarAll' },
+  'POST /usuarios': { policy: 'admin', action: 'usuario/criar' },
+  'DELETE /usuarios/:id': { action: 'usuario/deletar' },
+  'PUT /usuarios/:id': { action: 'usuario/atualizar' },
+
+  // Rotas Professor //
+
+  'GET /professores': { action: 'professor/listarAll' },
+  'GET /professores/:id': { action: 'professor/listar' },
+  'POST /professores': { action: 'professor/criar' },
+  'DELETE /professores/:id': { action: 'professor/deletar' },
+  'PUT /professores/:id': { action: 'professor/atualizar' },
+
+
+  // Rotas Aluno //
+
+  'GET /alunos': { action: 'aluno/listarAll' },
+  'GET /alunos/:id': { action: 'aluno/listar' },
+  'POST /alunos/:id/orientador/:idOrientador': { action: 'aluno/addOrientador' },
+  'POST /alunos': { action: 'aluno/criar' },
+  'DELETE /alunos/:id': { action: 'aluno/deletar' },
+  'PUT /alunos/:id': { action: 'aluno/atualizar' },
+
+  // Rotas Etapas Aluno //
+
   'GET /etapa': {
     controller: 'aluno',
     action: 'etapa'
   },
 
-  'POST /etapa': {
+  'GET /etapa1': {
+    //policy: 'logado',
     controller: 'aluno',
-    action: 'nav'
+    action: 'etapa1'
   },
+
+  'GET /etapa2': {
+    //policy: 'logado',
+    view: 'pages/aluno/etapas/etapa2'
+  },
+
+  'GET /etapa3': {
+    //policy: 'logado',
+    view: 'pages/aluno/etapas/etapa3'
+  },
+
+  'GET /etapa4': {
+    //policy: 'logado',
+    view: 'pages/aluno/etapas/etapa4'
+  },
+
+  // Rotas Login //
 
   'GET /login': {
     //policy: 'naologado',
-    view: 'pages/login',
-    locals: {
-      title: 'Login'
-    }
+    view: 'pages/login'
   },
 
   'POST /login': {
@@ -36,59 +79,18 @@ module.exports.routes = {
   'GET /aluno': {
     //policy: 'logado',
     controller: 'aluno',
-    action: 'index',
-    locals: {
-      title: 'Aluno'
-    }
+    action: 'index'
   },
 
   'GET /professor': {
     //policy: 'logado',
-    view: 'pages/professor/index',
-    locals: {
-      title: 'Professor'
-    }
+    view: 'pages/professor/index'
   },
 
   'GET /status': {
     //policy: 'logado',
     controller: 'aluno',
-    action: 'status',
-    locals: {
-      title: 'Status'
-    }
-  },
-
-  'GET /etapa1': {
-    //policy: 'logado',
-    view: 'pages/aluno/etapas/etapa1',
-    locals: {
-      title: 'Etapa 1'
-    }
-  },
-
-  'GET /etapa2': {
-    //policy: 'logado',
-    view: 'pages/aluno/etapas/etapa2',
-    locals: {
-      title: 'Etapa 2'
-    }
-  },
-
-  'GET /etapa3': {
-    //policy: 'logado',
-    view: 'pages/aluno/etapas/etapa3',
-    locals: {
-      title: 'Etapa 3'
-    }
-  },
-
-  'GET /etapa4': {
-    //policy: 'logado',
-    view: 'pages/aluno/etapas/etapa4',
-    locals: {
-      title: 'Etapa 4'
-    }
+    action: 'status'
   },
 
   'POST /upload': {
@@ -96,6 +98,8 @@ module.exports.routes = {
     controller: 'aluno',
     action: 'upload'
   },
+
+  // Rotas para Testes
 
   'GET /a/c': {
     controller: 'usuario',

@@ -20,6 +20,9 @@ module.exports = {
     email: {
       type: 'string', required: true, maxLength: 255
     },
+    disponivel: {
+      type: 'boolean', required: true
+    },
     alunos: {
       collection: 'aluno',
       via: 'professor'

@@ -3,18 +3,24 @@
         <div class="content-left-wrapper">
             <div>
                 <h2>Olá, <%= req.session.usuarioNome; %>!</h2>
-                <p>Esta é a página do aluno, aqui você pode acessar o seu fluxo de etapas para saber em qual etapa da entrega do TCC você se encontra. Além de ter acesso às sugestões de temas na planilha alimentada pelo campus e ao status do seu envio quando realizado.</p>
+                <p>Esta é a página do aluno, aqui você pode acessar o seu fluxo de etapas para saber em qual etapa da
+                    entrega do TCC você se encontra. Além de ter acesso às sugestões de temas na planilha alimentada
+                    pelo campus e ao status do seu envio quando realizado.</p>
             </div>
         </div>
     </div>
     <div class="col-xl-8 col-lg-8 content-right">
         <div class="btn-group-vertical">
             <% if(req.session.alunoStatus){ %>
-            <button onclick="window.location.replace('/status')"
-                    class="btn submit" style="background-color: coral">Status do Envio
-            </button>
-            <br>
+                <button onclick="window.location.replace('/status')"
+                        class="btn submit" style="background-color: coral">Status do Envio
+                </button>
+            <% } else { %>
+                <button onclick="window.location.replace('/status')"
+                        class="btn submit">Status do Envio
+                </button>
             <% } %>
+            <br>
             <button onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.etapa') %>')"
                     class="btn submit">Fluxo de Etapas
             </button>
