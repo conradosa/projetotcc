@@ -19,6 +19,9 @@
                 <h2><b>
                         <%= etapa %>
                     </b></h2>
+                <% if(diretorio) { %>
+                    <a href="<%= diretorio %>" target="_blank">Ver o documento enviado</a>
+                <% } %>
                 <% }else{ %>
                     <h2><b>Nenhuma notificação atribuída</b></h2>
                     <% } %>
@@ -27,7 +30,7 @@
                             <button onclick="
                                 Swal.fire({
                                 title: 'Tem certeza?',
-                                text: 'Você realmente entendeu?',
+                                text: 'Ao clicar em `Sim` a notificação será excluída.',
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#1dbe72',

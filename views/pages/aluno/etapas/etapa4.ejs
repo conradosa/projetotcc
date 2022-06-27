@@ -12,7 +12,7 @@
     <%
     let e = false;
 
-    if (req.session.alunoEtapa === 2) {
+    if (req.session.alunoEtapa === 4) {
         e = true;
     }
     %>
@@ -22,7 +22,7 @@
             <%
             if(!e){
             %>
-                <div style="padding: 5px; border-radius: 10px;" class="alert-info text-center">Você ainda não está nesta
+                <div style="padding: 5px; border-radius: 10px;" class="alert-info text-center">Você não está nesta
                     etapa!
                 </div><br>
             <%
@@ -30,7 +30,8 @@
             %>
             <% if(req.session.alunoStatus){ %>
                 <div style="padding: 5px; border-radius: 10px;" class="alert-warning text-center">Você já realizou um
-                    envio, veja seu status <a href="/status">aqui</a>
+                    envio! <a href="/status">Clique aqui</a> para checar seu status. <a href="/tentarnovamente">Clique
+                        aqui</a> para refazer o envio.
                 </div><br>
             <% } %>
             <div class="progress">
@@ -40,8 +41,7 @@
                 </div>
             </div>
             <br>
-            <form method="get" enctype="multipart/form-data"
-                  action="">
+            <form method="POST" action="<%= sails.getUrlFor('AlunoController.documentacao') ;%>" enctype="multipart/form-data">
                 <h2 class="section_title">Envio da Documentação do TCC</h2>
                 <div class="form-group add_bottom_30 add_top_20">
                     <label>Upload de documentação<br><small style="color: red">*apenas .pdf *max 5mb</small></label>
@@ -49,7 +49,7 @@
                         <%
                         if(e && !req.session.alunoStatus){
                         %>
-                            <input type="file" name="documento" accept=".pdf" class="required">
+                            <input required type="file" name="documento" accept=".pdf" class="required">
                         <%
                         }else {
                         %>

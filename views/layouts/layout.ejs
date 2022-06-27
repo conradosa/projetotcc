@@ -79,10 +79,10 @@
 
 <nav>
     <ul class="cd-primary-nav">
-        <% if(req.session.usuarioTipo === 'aluno'){ %>
+        <% if(req.session.usuarioTipo === 'Aluno'){ %>
             <li><a href="/aluno" class="animated_link">Início</a></li>
         <% } %>
-        <% if(req.session.usuarioTipo === 'professor'){ %>
+        <% if(req.session.usuarioTipo === 'Professor'){ %>
             <li><a href="/professor" class="animated_link">Início</a></li>
         <% } %>
         <% if(req.session.logado){ %>

@@ -22,7 +22,7 @@
             <%
             if(!e){
             %>
-                <div style="padding: 5px; border-radius: 10px;" class="alert-info text-center">Você ainda não está nesta
+                <div style="padding: 5px; border-radius: 10px;" class="alert-info text-center">Você não está nesta
                     etapa!
                 </div><br>
             <%
@@ -31,7 +31,9 @@
             <%
             if(req.session.alunoStatus){
             %>
-                <div style="padding: 5px; border-radius: 10px;" class="alert-warning text-center">Você já realizou um envio! <a href="/status">Clique aqui</a> para checar seu status.
+                <div style="padding: 5px; border-radius: 10px;" class="alert-warning text-center">Você já realizou um
+                    envio! <a href="/status">Clique aqui</a> para checar seu status. <a href="/tentarnovamente">Clique
+                        aqui</a> para refazer o envio.
                 </div><br>
             <%
             }
@@ -43,7 +45,7 @@
                 </div>
             </div>
             <br>
-            <form method="POST" action="<%= sails.getUrlFor('AlunoController.tema') %>">
+            <form method="POST" action="<%= sails.getUrlFor('AlunoController.tema') ;%>">
                 <h2 class="section_title">Tema do TCC:</h2>
                 <div class="form-group add_bottom_30 add_top_20">
                     <label for="tema">Digite aqui seu tema:<br></label>
@@ -83,16 +85,16 @@
                         if(e && !req.session.alunoStatus){
                         %>
                             <select id="orientador" required name="orientador" class="form-control required">
-                                <% for(let i = 0; i < Object.keys(professores).length; i++){ %>
-                                    <option value="<%= professores[i].id ;%>"><%= professores[i].nome ;%></option>
+                                <% for(let i = 0; i < Object.keys(userProfessores).length; i++){ %>
+                                    <option value="<%= professores[i].id; %>"><%= userProfessores[i].nome; %></option>
                                 <% } %>
                             </select>
                         <%
                         }else{
                         %>
                             <select disabled id="orientador" required name="orientador" class="form-control required">
-                                <% for(let i = 0; i < Object.keys(professores).length; i++){ %>
-                                    <option value="<%= professores[i].id ;%>"><%= professores[i].nome ;%></option>
+                                <% for(let i = 0; i < Object.keys(userProfessores).length; i++){ %>
+                                    <option value="<%= professores[i].id; %>"><%= userProfessores[i].nome; %></option>
                                 <% } %>
                             </select>
                         <%
@@ -114,9 +116,9 @@
             </form>
             <br>
             <div class="form-group">
-                <button type="submit" onclick="window.location.replace('/etapa2')" class="submit buttons">Próxima Etapa
-                </button>
                 <button type="submit" onclick="window.location.replace('/')" class="submit buttons">Voltar
+                </button>
+                <button type="submit" onclick="window.location.replace('/etapa2')" class="submit buttons">Próxima Etapa
                 </button>
             </div>
         </div>

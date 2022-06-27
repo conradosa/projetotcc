@@ -1,15 +1,15 @@
 module.exports.routes = {
 
   'GET /': {
-      policy: 'home',
-      view: 'pages/login'
+    policy: 'home',
+    view: 'pages/login'
   },
 
   'GET /pendencia': {
     policy: 'logado',
     controller: 'aluno',
     action: 'pendencia'
-},
+  },
 
   // Rotas Usuário //
 
@@ -36,6 +36,7 @@ module.exports.routes = {
   'POST /alunos': {action: 'aluno/criar'},
   'DELETE /alunos/:id': {action: 'aluno/deletar'},
   'PUT /alunos/:id': {action: 'aluno/atualizar'},
+  'GET /tentarnovamente': {policy: 'logado', controller: 'aluno', action: 'tentarnovamente'},
 
   // Rotas Etapas Aluno //
 
@@ -59,17 +60,38 @@ module.exports.routes = {
 
   'GET /etapa2': {
     policy: 'logado',
-    view: 'pages/aluno/etapas/etapa2'
+    controller: 'aluno',
+    action: 'etapa2'
+  },
+
+  'POST /etapa2': {
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'proposta'
   },
 
   'GET /etapa3': {
     policy: 'logado',
-    view: 'pages/aluno/etapas/etapa3'
+    controller: 'aluno',
+    action: 'etapa3'
+  },
+
+  'POST /etapa3': {
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'previa'
   },
 
   'GET /etapa4': {
     policy: 'logado',
-    view: 'pages/aluno/etapas/etapa4'
+    controller: 'aluno',
+    action: 'etapa4'
+  },
+
+  'POST /etapa4': {
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'documentacao'
   },
 
   // Rotas Login //
