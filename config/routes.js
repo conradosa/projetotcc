@@ -65,6 +65,22 @@ module.exports.routes = {
     }
   },
 
+  // '/criarAluno': {
+  //   //policy: 'logado',
+  //   view: 'pages/adm/criarAluno',
+  //   locals: {
+  //     title: 'Home'
+  //   }
+  // },
+
+  // '/criarProfessor': {
+  //   //policy: 'logado',
+  //   view: 'pages/adm/criarProfessor',
+  //   locals: {
+  //     title: 'Home'
+  //   }
+  // },
+
   '/etapa4': {
     //policy: 'logado',
     view: 'pages/etapa4',
@@ -85,8 +101,16 @@ module.exports.routes = {
   },
 
   'GET /user/criar': {
+    //policy: 'naologado',
+    view: 'pages/adm/criarAluno',
+    locals: {
+      title: 'Criar Usuário'
+    }
+  },
+
+  'POST /user/criar': {
     controller: 'usuario',
-    action: 'insert'
+    action: 'insertAluno'
   },
 
   'GET /user/retorna': {

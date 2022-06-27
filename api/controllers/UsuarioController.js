@@ -38,6 +38,40 @@ module.exports = {
     sails.log('Usuário criado, seu nome: ', user.nome);
   },
 
+  insertAluno: async function (req, res) {
+
+    const valor = req.body;
+
+    const matricula = valor.matricula;
+
+    if (isNaN(matricula)) {
+      req.session.erro = 'O campo matrícula deve ser um número!';
+      return res.redirect('back');
+    }
+
+    const senha = valor.senha;
+
+    const crypto = require('crypto');
+
+    const salt = 'TFpYLRSwvkM-';
+
+    const senhasalted = senha + salt;
+
+    const senhabd = crypto.createHash('sha256').update(senhasalted).digest('hex');
+    
+    
+    //senha: senha123
+    var user = await Usuario.create({
+      matricula: matricula,
+      senha: senhabd,
+      nome: valor.nome,
+      email: valor.email,
+      tipo: valor.tipo,
+      etapa: valor.etapa
+    }).fetch();
+    sails.log('Usuário criado, seu nome: ', user.nome);
+  },
+
   login: async function (req, res) {
 
     const valor = req.body;

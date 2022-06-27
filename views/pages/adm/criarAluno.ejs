@@ -11,7 +11,7 @@
   <div class="col-xl-8 col-lg-8 content-right">
     <div>
 
-      <form id="" method="post" action="<%= sails.getUrlFor('UsuarioController.login') %>">
+      <form id="" method="post" action="<%= sails.getUrlFor('UsuarioController.insertAluno') %>">
           <h2 class="section_title">Criar Aluno</h2>
           <div class="form-group add_top_20">
               <label for="matricula">Número de Matrícula</label>
@@ -33,44 +33,40 @@
           <div class="form-group">
               <label for="etapa">Etapa</label>
               <select name="etapa" id="etapa">
-                <option value="etapa1">Etapa 1</option>
-                <option value="etapa2">Etapa 2</option>
-                <option value="etapa3">Etapa 3</option>
-                <option value="etapa4">Etapa 4</option>
+                <option value=1>Etapa 1</option>
+                <option value=2>Etapa 2</option>
+                <option value=3>Etapa 3</option>
+                <option value=4>Etapa 4</option>
               </select>
           </div>
           <div class="form-group">
-              <label for="status">Status</label>
-              <select name="status" id="status">
-                <option value="Aprovado">Aprovado</option>
-                <option value="Reprovado">Reprovado</option>
-                <option value="Em andamento">Em andamento</option>
-              </select>
+              <label for="status">Tipo</label>
+              <input required type="text" name="tipo" id="tipo" class="form-control required">
               <!-- <input required type="password" name="senha" id="senha" class="form-control required"> -->
           </div>
 
           <!-- Collections -->
-          <div class="form-group">
+        <!-- <div class="form-group">
               <label for="tema">Tema</label>
-              <input required type="text" name="tema" id="tema" class="form-control required">
+              <input  type="text" name="tema" id="tema" class="form-control ">
           </div>
           <div class="form-group">
               <label for="proposta">Proposta</label>
-              <input required type="text" name="proposta" id="proposta" class="form-control required">
+              <input  type="text" name="proposta" id="proposta" class="form-control ">
           </div>
           <div class="form-group">
               <label for="previa">Previa</label>
-              <input required type="text" name="previa" id="previa" class="form-control required">
+              <input  type="text" name="previa" id="previa" class="form-control ">
           </div>
           <div class="form-group">
               <label for="documentacao">Documentacao</label>
-              <input required type="file" name="documentacao" id="documentacao" class="form-control required">
+              <input  type="file" name="documentacao" id="documentacao" class="form-control ">
           </div>
           <div class="form-group">
               <label for="professor">Professor</label>
-              <input required type="text" name="professor" id="professor" class="form-control required">
-          </div>
-          <button type="submit" class="submit">Enviar</button>
+              <input  type="text" name="professor" id="professor" class="form-control ">
+          </div> -->
+          <button type="submit" class="submit">Enviar</button> 
           <!-- __________________________________________________________________________ -->
       </form>
 
