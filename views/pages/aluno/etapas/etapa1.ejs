@@ -9,118 +9,105 @@
         </div>
     </div>
 
-    <%
-    let e = false;
+    <% let e=false; if (req.session.alunoEtapa===1) { e=true; } %>
 
-    if (req.session.alunoEtapa === 1) {
-        e = true;
-    }
-    %>
-
-    <div class="col-xl-8 col-lg-8 content-right">
-        <div id="wizard_container">
-            <%
-            if(!e){
-            %>
-                <div style="padding: 5px; border-radius: 10px;" class="alert-info text-center">Você não está nesta
-                    etapa!
-                </div><br>
-            <%
-            }
-            %>
-            <%
-            if(req.session.alunoStatus){
-            %>
-                <div style="padding: 5px; border-radius: 10px;" class="alert-warning text-center">Você já realizou um
-                    envio! <a href="/status">Clique aqui</a> para checar seu status. <a href="/tentarnovamente">Clique
-                        aqui</a> para refazer o envio.
-                </div><br>
-            <%
-            }
-            %>
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"
-                     style="width: 25%" aria-valuenow="25" aria-valuemin="0"
-                     aria-valuemax="100">1 de 4
-                </div>
-            </div>
-            <br>
-            <form method="POST" action="<%= sails.getUrlFor('AlunoController.tema') ;%>">
-                <h2 class="section_title">Tema do TCC:</h2>
-                <div class="form-group add_bottom_30 add_top_20">
-                    <label for="tema">Digite aqui seu tema:<br></label>
-                    <div class="form-group">
-                        <%
-                        if(e && !req.session.alunoStatus){
-                        %>
-                            <input id="tema" required type="text" class="form-control required" name="nome">
-                        <%
-                        }else{
-                        %>
-                            <input id="tema" required type="text" class="form-control required" name="nome" disabled>
-                        <%
-                        }
-                        %>
-                    </div>
-                    <label for="descrição">Descrição:<br></label>
-                    <div class="form-group">
-                        <%
-                        if(e && !req.session.alunoStatus){
-                        %>
-                            <textarea id="descrição" required name="descricao" cols="3" rows="5" class="form-control"
-                                      placeholder="Digite aqui..."></textarea>
-                        <%
-                        }else{
-                        %>
-                            <textarea id="descrição" disabled name="descricao" required cols="3" rows="5"
-                                      class="form-control"
-                                      placeholder="Digite aqui..."></textarea>
-                        <%
-                        }
-                        %>
-                    </div>
-                    <label for="orientador">Escolha seu orientador:<br></label>
-                    <div class="form-group">
-                        <%
-                        if(e && !req.session.alunoStatus){
-                        %>
-                            <select id="orientador" required name="orientador" class="form-control required">
-                                <% for(let i = 0; i < Object.keys(userProfessores).length; i++){ %>
-                                    <option value="<%= professores[i].id; %>"><%= userProfessores[i].nome; %></option>
-                                <% } %>
-                            </select>
-                        <%
-                        }else{
-                        %>
-                            <select disabled id="orientador" required name="orientador" class="form-control required">
-                                <% for(let i = 0; i < Object.keys(userProfessores).length; i++){ %>
-                                    <option value="<%= professores[i].id; %>"><%= userProfessores[i].nome; %></option>
-                                <% } %>
-                            </select>
-                        <%
-                        }
-                        %>
-                    </div>
-                </div>
-                <%
-                if(e && !req.session.alunoStatus){
-                %>
-                    <button type="submit" class="submit buttons buttonsCustom">Enviar</button>
-                <%
-                }else{
-                %>
-                    <button disabled type="submit" class="submit buttons buttonsCustom">Enviar</button>
-                <%
-                }
-                %>
-            </form>
-            <br>
-            <div class="form-group">
-                <button type="submit" onclick="window.location.replace('/')" class="submit buttons">Voltar
-                </button>
-                <button type="submit" onclick="window.location.replace('/etapa2')" class="submit buttons">Próxima Etapa
-                </button>
+        <div class="col-xl-8 col-lg-8 content-right">
+            <div id="wizard_container">
+                <% if(!e){ %>
+                    <div style="padding: 5px; border-radius: 10px;" class="alert-info text-center">Você não está nesta
+                        etapa!
+                    </div><br>
+                    <% } %>
+                        <% if(req.session.alunoStatus){ %>
+                            <% if(req.session.alunoPendencia){ %>
+                                <div style="padding: 5px; border-radius: 10px;" class="alert-warning text-center">Seu
+                                    orientador avaliou seu envio, <a href="/status">Clique aqui</a> para checar seu
+                                    status.
+                                </div><br>
+                                <% } else { %>
+                                    <div style="padding: 5px; border-radius: 10px;" class="alert-warning text-center">
+                                        Você já
+                                        realizou um
+                                        envio! <a href="/status">Clique aqui</a> para checar seu status. <a
+                                            href="/tentarnovamente">Clique
+                                            aqui</a> para refazer o envio.
+                                    </div><br>
+                                    <% } } %>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped bg-success progress-bar-animated"
+                                                role="progressbar" style="width: 25%" aria-valuenow="25"
+                                                aria-valuemin="0" aria-valuemax="100">1 de 4
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <form method="POST" action="<%= sails.getUrlFor('AlunoController.tema') ;%>">
+                                            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+                                            <h2 class="section_title">Tema do TCC:</h2>
+                                            <div class="form-group add_bottom_30 add_top_20">
+                                                <label for="tema">Digite aqui seu tema:<br></label>
+                                                <div class="form-group">
+                                                    <% if(e && !req.session.alunoStatus){ %>
+                                                        <input id="tema" required type="text"
+                                                            class="form-control required" name="nome">
+                                                        <% }else{ %>
+                                                            <input id="tema" required type="text"
+                                                                class="form-control required" name="nome" disabled>
+                                                            <% } %>
+                                                </div>
+                                                <label for="descrição">Descrição:<br></label>
+                                                <div class="form-group">
+                                                    <% if(e && !req.session.alunoStatus){ %>
+                                                        <textarea id="descrição" required name="descricao" cols="3"
+                                                            rows="5" class="form-control"
+                                                            placeholder="Digite aqui..."></textarea>
+                                                        <% }else{ %>
+                                                            <textarea id="descrição" disabled name="descricao" required
+                                                                cols="3" rows="5" class="form-control"
+                                                                placeholder="Digite aqui..."></textarea>
+                                                            <% } %>
+                                                </div>
+                                                <label for="orientador">Escolha seu orientador:<br></label>
+                                                <div class="form-group">
+                                                    <% if(e && !req.session.alunoStatus){ %>
+                                                        <select id="orientador" required name="orientador"
+                                                            class="form-control required">
+                                                            <% for(let i=0; i < Object.keys(userProfessores).length;
+                                                                i++){ %>
+                                                                <option value="<%= professores[i].id; %>">
+                                                                    <%= userProfessores[i].nome; %>
+                                                                </option>
+                                                                <% } %>
+                                                        </select>
+                                                        <% }else{ %>
+                                                            <select disabled id="orientador" required name="orientador"
+                                                                class="form-control required">
+                                                                <% for(let i=0; i < Object.keys(userProfessores).length;
+                                                                    i++){ %>
+                                                                    <option value="<%= professores[i].id; %>">
+                                                                        <%= userProfessores[i].nome; %>
+                                                                    </option>
+                                                                    <% } %>
+                                                            </select>
+                                                            <% } %>
+                                                </div>
+                                            </div>
+                                            <% if(e && !req.session.alunoStatus){ %>
+                                                <button type="submit"
+                                                    class="submit buttons buttonsCustom">Enviar</button>
+                                                <% }else{ %>
+                                                    <button disabled type="submit"
+                                                        class="submit buttons buttonsCustom">Enviar</button>
+                                                    <% } %>
+                                        </form>
+                                        <br>
+                                        <div class="form-group">
+                                            <button type="submit" onclick="window.location.replace('/')"
+                                                class="submit buttons">Voltar
+                                            </button>
+                                            <button type="submit" onclick="window.location.replace('/etapa2')"
+                                                class="submit buttons">Próxima Etapa
+                                            </button>
+                                        </div>
             </div>
         </div>
-    </div>
 </div>
