@@ -9,121 +9,118 @@
         </div>
     </div>
 
-    <%
-    let e = false;
+    <% let e=false; if (req.session.alunoEtapa===3) { e=true; } %>
 
-    if (req.session.alunoEtapa === 3) {
-        e = true;
-    }
-    %>
-
-    <div class="col-xl-8 col-lg-8 content-right">
-        <div id="wizard_container">
-            <%
-            if(!e){
-            %>
-                <div style="padding: 5px; border-radius: 10px;" class="alert-info text-center">Você não está nesta
-                    etapa!
-                </div><br>
-            <%
-            }
-            %>
-            <% if(req.session.alunoStatus){ %>
-                <div style="padding: 5px; border-radius: 10px;" class="alert-warning text-center">Você já realizou um
-                    envio! <a href="/status">Clique aqui</a> para checar seu status. <a href="/tentarnovamente">Clique
-                        aqui</a> para refazer o envio.
-                </div><br>
-            <% } %>
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"
-                     style="width: 75%" aria-valuenow="75" aria-valuemin="0"
-                     aria-valuemax="100">3 de 4
-                </div>
-            </div>
-            <br>
-            <form method="POST" action="<%= sails.getUrlFor('AlunoController.previa') ;%>" enctype="multipart/form-data">
-                <h2 class="section_title">Envio da Prévia do TCC</h2>
-                <div class="form-group add_bottom_30 add_top_20">
-                    <label>Upload de documentação<br><small style="color: red">*apenas .pdf *max 5mb</small></label>
-                    <div class="fileupload">
-                        <%
-                        if(e && !req.session.alunoStatus){
-                        %>
-                            <input required type="file" name="documento" accept=".pdf" class="required">
-                        <%
-                        }else{
-                        %>
-                            <input disabled type="file" name="documento" accept=".pdf" class="required">
-                        <%
-                        }
-                        %>
-                    </div>
-                    <p>Selecione os professores que vão participar da banca:</p>
-                    <label for="orientadores1">Professor 1:<br></label>
-                    <div class="form-group">
-                        <%
-                        if(e && !req.session.alunoStatus){
-                        %>
-                            <select id="orientadores1" required name="professor1" class="form-control required">
-                                <% for(let i = 0; i < Object.keys(userProfessores).length; i++){ %>
-                                    <option value="<%= professores[i].id; %>"><%= userProfessores[i].nome; %></option>
-                                <% } %>
-                            </select>
-                        <%
-                        }else{
-                        %>
-                            <select disabled id="orientadores1" name="professor1" class="form-control required">
-                                <% for(let i = 0; i < Object.keys(userProfessores).length; i++){ %>
-                                    <option value="<%= professores[i].id; %>"><%= userProfessores[i].nome; %></option>
-                                <% } %>
-                            </select>
-                        <%
-                        }
-                        %>
-                    </div>
-                    <br>
-                    <label for="orientadores2">Professor 2:<br></label>
-                    <div class="form-group">
-                        <%
-                        if(e && !req.session.alunoStatus){
-                        %>
-                            <select id="orientadores2" required name="professor2" class="form-control required">
-                                <% for(let i = 0; i < Object.keys(userProfessores).length; i++){ %>
-                                    <option value="<%= professores[i].id; %>"><%= userProfessores[i].nome; %></option>
-                                <% } %>
-                            </select>
-                        <%
-                        }else{
-                        %>
-                            <select disabled id="orientadores2" name="professor2" class="form-control required">
-                                <% for(let i = 0; i < Object.keys(userProfessores).length; i++){ %>
-                                    <option value="<%= professores[i].id; %>"><%= userProfessores[i].nome; %></option>
-                                <% } %>
-                            </select>
-                        <%
-                        }
-                        %>
-                    </div>
-                </div>
-                <input value="previa" type="hidden" name="nomeDocumento">
-                <%
-                if (e && !req.session.alunoStatus) {
-                %>
-                    <button type="submit" class="submit buttons buttonsCustom">Enviar</button>
-                <%
-                }else{
-                %>
-                    <button disabled type="submit" class="submit buttons buttonsCustom">Enviar</button>
-                <%
-                }
-                %>
-            </form>
-            <br>
-            <div class="form-group">
-                <button onclick="window.location.replace('/etapa2')" class="submit buttons">Etapa Anterior</button>
-                <button onclick="window.location.replace('/etapa4')" class="submit buttons buttonsmg2">Próxima Etapa
-                </button>
+        <div class="col-xl-8 col-lg-8 content-right">
+            <div id="wizard_container">
+                <% if(!e){ %>
+                    <div style="padding: 5px; border-radius: 10px;" class="alert-info text-center">Você não está nesta
+                        etapa!
+                    </div><br>
+                    <% } %>
+                    <% if(req.session.alunoStatus){ %>
+                        <% if(req.session.alunoPendencia){ %>
+                            <div style="padding: 5px; border-radius: 10px;" class="alert-warning text-center">Seu
+                                orientador avaliou seu envio, <a href="/status">Clique aqui</a> para checar seu
+                                status.
+                            </div><br>
+                            <% } else { %>
+                                <div style="padding: 5px; border-radius: 10px;" class="alert-warning text-center">
+                                    Você já
+                                    realizou um
+                                    envio! <a href="/status">Clique aqui</a> para checar seu status. <a
+                                        href="/tentarnovamente">Clique
+                                        aqui</a> para refazer o envio.
+                                </div><br>
+                                <% } } %>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated"
+                                        role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0"
+                                        aria-valuemax="100">3 de 4
+                                    </div>
+                                </div>
+                                <br>
+                                <form method="POST" action="<%= sails.getUrlFor('AlunoController.previa') ;%>"
+                                    enctype="multipart/form-data">
+                                    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+                                    <h2 class="section_title">Envio da Prévia do TCC</h2>
+                                    <div class="form-group add_bottom_30 add_top_20">
+                                        <label>Upload de documentação<br><small style="color: red">*apenas .pdf *max
+                                                5mb</small></label>
+                                        <div class="fileupload">
+                                            <% if(e && !req.session.alunoStatus){ %>
+                                                <input required type="file" name="documento" accept=".pdf"
+                                                    class="required">
+                                                <% }else{ %>
+                                                    <input disabled type="file" name="documento" accept=".pdf"
+                                                        class="required">
+                                                    <% } %>
+                                        </div>
+                                        <p>Selecione os professores que vão participar da banca:</p>
+                                        <label for="orientadores1">Professor 1:<br></label>
+                                        <div class="form-group">
+                                            <% if(e && !req.session.alunoStatus){ %>
+                                                <select id="orientadores1" required name="professor1"
+                                                    class="form-control required">
+                                                    <% for(let i=0; i < Object.keys(userProfessores).length; i++){ %>
+                                                        <option value="<%= professores[i].id; %>">
+                                                            <%= userProfessores[i].nome; %>
+                                                        </option>
+                                                        <% } %>
+                                                </select>
+                                                <% }else{ %>
+                                                    <select disabled id="orientadores1" name="professor1"
+                                                        class="form-control required">
+                                                        <% for(let i=0; i < Object.keys(userProfessores).length; i++){
+                                                            %>
+                                                            <option value="<%= professores[i].id; %>">
+                                                                <%= userProfessores[i].nome; %>
+                                                            </option>
+                                                            <% } %>
+                                                    </select>
+                                                    <% } %>
+                                        </div>
+                                        <br>
+                                        <label for="orientadores2">Professor 2:<br></label>
+                                        <div class="form-group">
+                                            <% if(e && !req.session.alunoStatus){ %>
+                                                <select id="orientadores2" required name="professor2"
+                                                    class="form-control required">
+                                                    <% for(let i=0; i < Object.keys(userProfessores).length; i++){ %>
+                                                        <option value="<%= professores[i].id; %>">
+                                                            <%= userProfessores[i].nome; %>
+                                                        </option>
+                                                        <% } %>
+                                                </select>
+                                                <% }else{ %>
+                                                    <select disabled id="orientadores2" name="professor2"
+                                                        class="form-control required">
+                                                        <% for(let i=0; i < Object.keys(userProfessores).length; i++){
+                                                            %>
+                                                            <option value="<%= professores[i].id; %>">
+                                                                <%= userProfessores[i].nome; %>
+                                                            </option>
+                                                            <% } %>
+                                                    </select>
+                                                    <% } %>
+                                        </div>
+                                    </div>
+                                    <input value="previa" type="hidden" name="nomeDocumento">
+                                    <% if (e && !req.session.alunoStatus) { %>
+                                        <button type="submit" class="submit buttons buttonsCustom">Enviar</button>
+                                        <% }else{ %>
+                                            <button disabled type="submit"
+                                                class="submit buttons buttonsCustom">Enviar</button>
+                                            <% } %>
+                                </form>
+                                <br>
+                                <div class="form-group">
+                                    <button onclick="window.location.replace('/etapa2')" class="submit buttons">Etapa
+                                        Anterior</button>
+                                    <button onclick="window.location.replace('/etapa4')"
+                                        class="submit buttons buttonsmg2">Próxima Etapa
+                                    </button>
+                                </div>
             </div>
         </div>
-    </div>
 </div>
