@@ -21,6 +21,7 @@ module.exports.routes = {
 
   // Rotas Professor //
 
+  'GET /professor/alunos': {action: 'professor/listarAlunos'},
   'GET /professores': {action: 'professor/listarAll'},
   'GET /professores/:id': {action: 'professor/listar'},
   'POST /professores': {action: 'professor/criar'},
@@ -122,6 +123,8 @@ module.exports.routes = {
     policy: 'logado',
     view: 'pages/professor/index'
   },
+
+
 
   'GET /status': {
     policy: 'logado',
