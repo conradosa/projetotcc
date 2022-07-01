@@ -1,25 +1,197 @@
+const { proxetapa } = require("../api/controllers/AlunoController");
+
 module.exports.routes = {
 
-  '/': function (req, res) {
-    res.redirect('/login');
+  'GET /': {
+    // policy: 'home',
+    view: 'pages/login'
   },
 
+  'GET /pendencia': {
+    // policy: 'logado',
+    controller: 'aluno',
+    action: 'pendencia'
+  },
+
+  // Rotas Usuário //
+
+  'GET /prox': {
+    controller: 'aluno', action: 'proxetapa'
+  },
+
+  'GET /verificar': {
+    controller: 'aluno', action: 'verificar'
+  },
+
+  'GET /usuarios/:id': {
+    action: 'usuario/listar'
+  },
+
+  'GET /usuarios': {
+    action: 'usuario/listarAll'
+  },
+
+  'POST /usuarios': {
+    policy: 'admin', action: 'usuario/criar'
+  },
+
+  'DELETE /usuarios/:id': {
+    action: 'usuario/deletar'
+  },
+
+  'PUT /usuarios/:id': {
+    action: 'usuario/atualizar'
+  },
+
+
+  // Rotas Professor //
+
+  'GET /professor/alunos': {
+    action: 'professor/listarAlunos'
+  },
+
+  'GET /professores': {
+    action: 'professor/listarAll'
+  },
+
+  'GET /professores/:id': {
+    action: 'professor/listar'
+  },
+
+  'POST /professores': {
+    action: 'professor/criar'
+  },
+
+  'DELETE /professores/:id': {
+    action: 'professor/deletar'
+  },
+
+  'PUT /professores/:id': {
+    action: 'professor/atualizar'
+  },
+
+  'GET /user/criarProfessor': {
+    //policy: 'naologado',
+    view: 'pages/adm/criarProfessor',
+    locals: {
+      title: 'Criar Usuário'
+    }
+  },
+
+  'POST /user/criarProfessor': {
+    controller: 'usuario',
+    action: 'insertProfessor'
+  },
+
+
+
+
+  // Rotas Aluno //
+
+  'GET /alunos': {
+    action: 'aluno/listarAll'
+  },
+  
+  'GET /alunos/:id': {
+    action: 'aluno/listar'
+  },
+  
+  'POST /alunos/:id/orientador/:idOrientador': {
+    action: 'aluno/addOrientador'
+  },
+  
+  'POST /alunos': {
+    action: 'aluno/criar'
+  },
+  
+  'DELETE /alunos/:id': {
+    action: 'aluno/deletar'
+  },
+  
+  'PUT /alunos/:id': {
+    action: 'aluno/atualizar'
+  },
+  
+  'GET /tentarnovamente': {
+    policy: 'logado', controller: 'aluno', action: 'tentarnovamente'
+  },
+
+
+  'GET /user/criarAluno': {
+    //policy: 'naologado',
+    view: 'pages/adm/criarAluno',
+    locals: {
+      title: 'Criar Usuário'
+    }
+  },
+
+  'POST /user/criarAluno': {
+    controller: 'usuario',
+    action: 'insertAluno'
+  },
+  
+
+  // Rotas Etapas Aluno //
+
   'GET /etapa': {
-    controller: 'etapas',
+    policy: 'logado',
+    controller: 'aluno',
     action: 'etapa'
   },
 
-  'POST /etapa': {
-    controller: 'etapa',
-    action: 'nav'
+  'GET /etapa1': {
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'etapa1'
   },
 
+  'POST /etapa1': {
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'tema'
+  },
+
+  'GET /etapa2': {
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'etapa2'
+  },
+
+  'POST /etapa2': {
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'proposta'
+  },
+
+  'GET /etapa3': {
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'etapa3'
+  },
+
+  'POST /etapa3': {
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'previa'
+  },
+
+  'GET /etapa4': {
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'etapa4'
+  },
+
+  'POST /etapa4': {
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'documentacao'
+  },
+
+  // Rotas Login //
+
   'GET /login': {
-    //policy: 'naologado',
-    view: 'pages/login',
-    locals: {
-      title: 'Login'
-    }
+    policy: 'naologado',
+    view: 'pages/login'
   },
 
   'POST /login': {
@@ -28,58 +200,21 @@ module.exports.routes = {
   },
 
   'GET /logout': {
-    //policy: 'logado',
+    policy: 'logado',
     controller: 'usuario',
     action: 'logout'
   },
 
-  '/home': {
-    //policy: 'logado',
-    view: 'pages/home',
-    locals: {
-      title: 'Home'
-    }
+  'GET /aluno': {
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'index'
   },
 
-  '/etapa1': {
-    //policy: 'logado',
-    view: 'pages/etapa1',
-    locals: {
-      title: 'Home'
-    }
+  'GET /professor': {
+    policy: 'logado',
+    view: 'pages/professor/index'
   },
-
-  '/etapa2': {
-    //policy: 'logado',
-    view: 'pages/etapa2',
-    locals: {
-      title: 'Home'
-    }
-  },
-
-  '/etapa3': {
-    //policy: 'logado',
-    view: 'pages/etapa3',
-    locals: {
-      title: 'Home'
-    }
-  },
-
-  // '/criarAluno': {
-  //   //policy: 'logado',
-  //   view: 'pages/adm/criarAluno',
-  //   locals: {
-  //     title: 'Home'
-  //   }
-  // },
-
-  // '/criarProfessor': {
-  //   //policy: 'logado',
-  //   view: 'pages/adm/criarProfessor',
-  //   locals: {
-  //     title: 'Home'
-  //   }
-  // },
 
   '/etapa4': {
     //policy: 'logado',
@@ -90,38 +225,25 @@ module.exports.routes = {
   },
 
   'POST /upload': {
-    //policy: 'logado',
-    controller: 'usuario',
-    action: 'uploadDocumento'
+    policy: 'logado',
+    controller: 'aluno',
+    action: 'upload'
   },
 
-  'GET /user/remove': {
+  // Rotas para Testes
+
+  
+
+  'GET /p/c': {
     controller: 'usuario',
-    action: 'remove'
+    action: 'insertProfessor'
   },
 
-  'GET /user/criar': {
-    //policy: 'naologado',
-    view: 'pages/adm/criarAluno',
-    locals: {
-      title: 'Criar Usuário'
-    }
-  },
-
-  'POST /user/criar': {
-    controller: 'usuario',
-    action: 'insertAluno'
-  },
-
-  'GET /user/retorna': {
-    controller: 'usuario',
-    action: 'retorna'
-  },
 
   'GET /adm/criarADM': {
     //policy: 'admin',
     controller: 'administrador',
-    action: 'criaADM'
+    action: 'criaAdm'
   },
 
   'GET /adm/retornaADM': {

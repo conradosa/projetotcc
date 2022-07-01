@@ -1,0 +1,54 @@
+<div class="row row-height">
+    <div class="col-xl-4 col-lg-4 content-left">
+        <div class="content-left-wrapper">
+            <div>
+                <h2>Olá, <%= req.session.usuarioNome; %>!</h2>
+                <p>Essa é a página de status do envio, aqui você pode verificar se seu envio foi aprovado ou não pelo
+                    orientador, entre outras informações.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-8 content-right">
+        <div id="wizard_container" class="text-center">
+            <% if(req.session.alunoStatus){ %>
+                <h2 style="color: #1DBE72;">Status do Envio:</h2><br>
+                <h5><b>
+                        <%= req.session.alunoStatus %>
+                    </b></h5><br><br>
+                <h2 style="color: #1DBE72;">Referente a:</h2><br>
+                <h2><b>
+                        <%= etapa %>
+                    </b></h2>
+                <% if(diretorio) { %>
+                    <a href="<%= diretorio %>" target="_blank">Ver o documento enviado</a>
+                <% } %>
+                <% }else{ %>
+                    <h2><b>Nenhuma notificação atribuída</b></h2>
+                    <% } %>
+                        <br><br>
+                        <% if(req.session.alunoPendencia===1){ %>
+                            <button onclick="
+                                Swal.fire({
+                                title: 'Tem certeza?',
+                                text: 'Ao clicar em `Sim` a notificação será excluída.',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#1dbe72',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Sim, entendi!',
+                                cancelButtonText: 'Não...'
+                                }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.replace('<%= sails.getUrlFor('AlunoController.pendencia') %>');
+                                }
+                                });"
+                                class="btn submit">Entendi
+                            </button>
+                            <% } %>
+                                <button
+                                    onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.index') %>')"
+                                    class="btn submit">Voltar
+                                </button>
+        </div>
+    </div>
+</div>

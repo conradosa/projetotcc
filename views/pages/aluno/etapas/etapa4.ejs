@@ -1,0 +1,75 @@
+<div class="row row-height">
+    <div class="col-xl-4 col-lg-4 content-left">
+        <div class="content-left-wrapper">
+            <div>
+                <h2>Etapa 4 - Envio da documentação do TCC!</h2>
+                <p>Tation argumentum et usu, dicit viderer evertitur te has. Eu dictas concludaturque usu, facete
+                    detracto patrioque an per, lucilius pertinacia eu vel.</p>
+            </div>
+        </div>
+    </div>
+
+    <% let e=false; if (req.session.alunoEtapa===4) { e=true; } %>
+
+        <div class="col-xl-8 col-lg-8 content-right">
+            <div id="wizard_container">
+                <% if(!e){ %>
+                    <div style="padding: 5px; border-radius: 10px;" class="alert-info text-center">Você não está nesta
+                        etapa!
+                    </div><br>
+                    <% } %>
+                    <% if(req.session.alunoStatus){ %>
+                        <% if(req.session.alunoPendencia){ %>
+                            <div style="padding: 5px; border-radius: 10px;" class="alert-warning text-center">Seu
+                                orientador avaliou seu envio, <a href="/status">Clique aqui</a> para checar seu
+                                status.
+                            </div><br>
+                            <% } else { %>
+                                <div style="padding: 5px; border-radius: 10px;" class="alert-warning text-center">
+                                    Você já
+                                    realizou um
+                                    envio! <a href="/status">Clique aqui</a> para checar seu status. <a
+                                        href="/tentarnovamente">Clique
+                                        aqui</a> para refazer o envio.
+                                </div><br>
+                                <% } } %>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated"
+                                        role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                        aria-valuemax="100">4 de 4
+                                    </div>
+                                </div>
+                                <br>
+                                <form method="POST" action="<%= sails.getUrlFor('AlunoController.documentacao') ;%>"
+                                    enctype="multipart/form-data">
+                                    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+                                    <h2 class="section_title">Envio da Documentação do TCC</h2>
+                                    <div class="form-group add_bottom_30 add_top_20">
+                                        <label>Upload de documentação<br><small style="color: red">*apenas .pdf *max
+                                                5mb</small></label>
+                                        <div class="fileupload">
+                                            <% if(e && !req.session.alunoStatus){ %>
+                                                <input required type="file" name="documento" accept=".pdf"
+                                                    class="required">
+                                                <% }else { %>
+                                                    <input disabled type="file" name="documento" accept=".pdf"
+                                                        class="required">
+                                                    <% } %>
+                                        </div>
+                                    </div>
+                                    <input value="documentacao" type="hidden" name="nomeDocumento">
+                                    <% if(e && !req.session.alunoStatus){ %>
+                                        <button type="submit" class="submit buttons buttonsCustom">Enviar</button>
+                                        <% }else { %>
+                                            <button disabled type="submit"
+                                                class="submit buttons buttonsCustom">Enviar</button>
+                                            <% } %>
+                                </form>
+                                <br>
+                                <div class="form-group">
+                                    <button onclick="window.location.replace('/etapa3')" class="submit buttons">Etapa
+                                        Anterior</button>
+                                </div>
+            </div>
+        </div>
+</div>

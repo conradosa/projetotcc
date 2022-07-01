@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Projeto de gerenciamento de TCC para o IFRS Campus Restinga">
-    <title><%- title %></title>
+    <title>Projeto TCC</title>
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600">
     <!--STYLES-->
@@ -36,7 +36,7 @@
         icon: 'error',
         confirmButtonColor: '#20c997',
         title: 'Ops...',
-        text: '<%= req.session.erro %>'
+        text: '<%= req.session.erro ;%>'
       });
     </script>
 <%
@@ -49,7 +49,7 @@
         icon: 'warning',
         confirmButtonColor: '#20c997',
         title: 'Atenção!',
-        text: '<%= req.session.aviso %>'
+        text: '<%= req.session.aviso ;%>'
       });
     </script>
 <%
@@ -62,7 +62,7 @@
         icon: 'success',
         confirmButtonColor: '#20c997',
         title: 'Oba!',
-        text: '<%= req.session.sucesso %>'
+        text: '<%= req.session.sucesso ;%>'
       });
     </script>
 <%
@@ -79,12 +79,16 @@
 
 <nav>
     <ul class="cd-primary-nav">
-        <li><a href="" class="animated_link">Link1</a></li>
-        <li><a href="" class="animated_link">Link2</a></li>
-        <li><a href="" class="animated_link">Link3</a></li>
+        <% if(req.session.usuarioTipo === 'Aluno'){ %>
+            <li><a href="/aluno" class="animated_link">Início</a></li>
+        <% } %>
+        <% if(req.session.usuarioTipo === 'Professor'){ %>
+            <li><a href="/professor" class="animated_link">Início</a></li>
+        <% } %>
         <% if(req.session.logado){ %>
-            <li><a href="/home" class="animated_link">Home</a></li>
             <li><a href="<%= sails.getUrlFor('UsuarioController.logout'); %>" class="animated_link">Sair</a></li>
+        <% }else{ %>
+            <li><a href="/login" class="animated_link">Login</a></li>
         <% } %>
     </ul>
 </nav>
