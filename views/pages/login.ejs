@@ -10,6 +10,7 @@
     </div>
     <div class="col-xl-8 col-lg-8 content-right">
         <form id="form_login" method="post" action="<%= sails.getUrlFor('UsuarioController.login') %>">
+            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
             <h2 class="section_title">Login</h2>
             <div class="form-group add_top_20">
                 <label for="matricula">Número de Matrícula</label>

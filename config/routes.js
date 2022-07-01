@@ -1,3 +1,5 @@
+const { proxetapa } = require("../api/controllers/AlunoController");
+
 module.exports.routes = {
 
   'GET /': {
@@ -12,6 +14,9 @@ module.exports.routes = {
   },
 
   // Rotas Usuário //
+
+  'GET /prox': {controller: 'aluno', action: 'proxetapa'},
+  'GET /verificar': {controller: 'aluno', action: 'verificar'},
 
   'GET /usuarios/:id': {action: 'usuario/listar'},
   'GET /usuarios': {action: 'usuario/listarAll'},

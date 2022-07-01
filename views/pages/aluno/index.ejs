@@ -15,14 +15,10 @@
                 <button onclick="window.location.replace('/status')"
                         class="btn submit" style="background-color: coral">Status do Envio
                 </button>
-            <% } else { %>
-                <button onclick="window.location.replace('/status')"
-                        class="btn submit">Status do Envio
-                </button>
             <% } %>
             <br>
             <button onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.etapa') %>')"
-                    class="btn submit">Fluxo de Etapas
+                    class="btn submit">Iniciar
             </button>
             <br>
             <button class="btn submit">Sugestões de Temas</button>
