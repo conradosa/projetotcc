@@ -16,19 +16,29 @@ module.exports = {
   },
 
   listarAlunos: async function (req, res) {
+
     await Professor
-    .findOne({
-      usuario: req.session.usuarioId
-    })
-    .populate('alunos').then((data) => {
-      return res.view('pages/professor/alunos', {
-        alunos: data.alunos
+      .findOne({
+        usuario: req.session.usuarioId
+      })
+      .populate('alunos').then(async (data) => {
+        for(var i = 0; i < data.alunos.length; i++) {
+          let user = await Usuario.findOne({
+            id: data.alunos[i].usuario
+          });
+
+          data.alunos[i].nome = user.nome;
+          data.alunos[i].matricula = user.matricula;
+          data.alunos[i].email = user.email;
+        }
+
+        sails.log(data.alunos);
+        return res.view('pages/professor/alunos', {
+          alunos: data.alunos
+        })
+      })
+      .catch((erro) => {
+        return res.serverError(erro);
       });
-    })
-    .catch((erro) => {
-      return res.serverError(erro);
-    });
   },
-
-};
-
+}
