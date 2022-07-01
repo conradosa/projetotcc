@@ -16,7 +16,6 @@ module.exports = {
   },
 
   listarAlunos: async function (req, res) {
-
     await Professor
       .findOne({
         usuario: req.session.usuarioId
@@ -40,5 +39,26 @@ module.exports = {
       .catch((erro) => {
         return res.serverError(erro);
       });
+  },
+
+  verAluno: async function (req, res) {
+    await Aluno.findOne({
+      usuario: req.params.id
+    }).then(async (data) => {
+      let user = await Usuario.findOne({
+        id: data.id
+      });
+
+      data.nome = user.nome;
+      data.email = user.email;
+      data.matricula = user.matricula;
+
+      return res.view('pages/professor/aluno', {
+        aluno: data
+      })
+    })
+    .catch((erro) => {
+      return res.serverError(erro);
+    });
   },
 }

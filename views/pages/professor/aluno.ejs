@@ -11,7 +11,7 @@
   <div class="col-xl-8 col-lg-8 content-right row">
 
     <%
-    if(alunos.length > 0){
+    if(aluno){
     %>
     <div class="row col-sm-10">
       <table class="table table-striped">
@@ -24,14 +24,12 @@
           </tr>
         </thead>
         <tbody>
-          <% for(i = 0; i < alunos.length; i++ ) { %>
           <tr>
-            <th scope="row"><%= alunos[i].id %></th>
-            <td><%= alunos[i].nome %></td>
-            <td><%= alunos[i].status %></td>
+            <th scope="row"><%= aluno.id %></th>
+            <td><%= aluno.nome %></td>
+            <td><%= aluno.status %></td>
             <td>Action</td>
           </tr>
-          <% } %>
         </tbody>
       </table>
     </div>
