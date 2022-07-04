@@ -12,10 +12,9 @@ module.exports = {
 
   criaAdm: async function (req,res) {
     let adm = await Usuario.create({
-      id: 1,
-      matricula: '000',
+      matricula: 12345,
       nome: 'Administrador',
-      senha: 000,
+      senha: 0000,
       email: 'administrador@restinga.ifrs.edu.br',
       tipo: 'adm'
     }).fetch();

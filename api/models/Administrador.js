@@ -9,7 +9,7 @@ module.exports = {
 
   attributes: {
     id: {
-      type: 'number', unique: true, autoIncrement: true
+      type: 'number', autoIncrement: true
     },
     matricula: {
       type: 'number', required: true

@@ -14,4 +14,5 @@ module.exports.policies = {
   'usuario/login': true,
   'usuario/insertAluno': true,
   'usuario/insertProfessor': true,
+  'administrador/criaAdm': true,
 };
