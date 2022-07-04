@@ -5,6 +5,8 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+const { tema, proposta, documentacao } = require("./AlunoController");
+
 module.exports = {
 
   listarAll: async function (req, res) {
@@ -42,9 +44,37 @@ module.exports = {
   },
 
   verAluno: async function (req, res) {
+    var conteudo = {};
+
     await Aluno.findOne({
       usuario: req.params.id
     }).then(async (data) => {
+      if(data.etapa == 1) {
+        conteudo = await Tema.findOne({
+          aluno: data.id
+        });
+      } else if(data.etapa == 2) {
+        conteudo = await Proposta.findOne({
+          aluno: data.id
+        });
+      } else if(data.etapa == 3) {
+        conteudo = await Previa.findOne({
+          aluno: data.id
+        });
+
+        conteudo.firstProf = Professor.findOne({
+          id: conteudo.prof1
+        });
+
+        conteudo.secondProf = Professor.findOne({
+          id: conteudo.prof2
+        });
+      } else if(data.etapa == 4) {
+        conteudo = await Documentacao.findOne({
+          aluno: data.id
+        });
+      }
+
       let user = await Usuario.findOne({
         id: data.id
       });
@@ -54,7 +84,8 @@ module.exports = {
       data.matricula = user.matricula;
 
       return res.view('pages/professor/aluno', {
-        aluno: data
+        aluno: data,
+        conteudo: conteudo
       })
     })
     .catch((erro) => {
