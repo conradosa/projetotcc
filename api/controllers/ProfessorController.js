@@ -23,7 +23,7 @@ module.exports = {
         usuario: req.session.usuarioId
       })
       .populate('alunos').then(async (data) => {
-        for(var i = 0; i < data.alunos.length; i++) {
+        for (var i = 0; i < data.alunos.length; i++) {
           let user = await Usuario.findOne({
             id: data.alunos[i].usuario
           });
@@ -49,15 +49,15 @@ module.exports = {
     await Aluno.findOne({
       usuario: req.params.id
     }).then(async (data) => {
-      if(data.etapa == 1) {
+      if (data.etapa == 1) {
         conteudo = await Tema.findOne({
           aluno: data.id
         });
-      } else if(data.etapa == 2) {
+      } else if (data.etapa == 2) {
         conteudo = await Proposta.findOne({
           aluno: data.id
         });
-      } else if(data.etapa == 3) {
+      } else if (data.etapa == 3) {
         conteudo = await Previa.findOne({
           aluno: data.id
         });
@@ -69,7 +69,7 @@ module.exports = {
         conteudo.secondProf = Professor.findOne({
           id: conteudo.prof2
         });
-      } else if(data.etapa == 4) {
+      } else if (data.etapa == 4) {
         conteudo = await Documentacao.findOne({
           aluno: data.id
         });
@@ -88,7 +88,27 @@ module.exports = {
         conteudo: conteudo
       })
     })
-    .catch((erro) => {
+      .catch((erro) => {
+        return res.serverError(erro);
+      });
+  },
+
+  avaliarTrabalho: async function (req, res) {
+    await Aluno.find({
+      id: req.params.id
+    }).then(async (data) => {
+      sails.log(req.body);
+
+      if (req.body.approve === 'approve') {
+        //do stuff
+        sails.log("aprova");
+      } else if (req.body.result === 'reprove') {
+        //do stuff
+        sails.log("reprova");
+      }
+
+      return res.redirect('back');
+    }).catch((erro) => {
       return res.serverError(erro);
     });
   },
