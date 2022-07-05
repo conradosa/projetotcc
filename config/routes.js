@@ -1,4 +1,4 @@
-const { proxetapa } = require("../api/controllers/AlunoController");
+const { proxetapa } = require('../api/controllers/AlunoController');
 
 module.exports.routes = {
 
@@ -26,6 +26,8 @@ module.exports.routes = {
 
   // Rotas Professor //
 
+  'GET /professor/alunos/:id': {action: 'professor/verAluno'},
+  'POST /professor/alunos/:id': {action: 'professor/avaliarTrabalho'},
   'GET /professores': {action: 'professor/listarAll'},
   'GET /professores/:id': {action: 'professor/listar'},
   'POST /professores': {action: 'professor/criar'},
