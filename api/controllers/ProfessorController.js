@@ -43,6 +43,24 @@ module.exports = {
       return res.serverError(erro);
     });
   },
+<<<<<<< HEAD
+=======
+
+  listarAlunos: async function (req, res) {
+    await Professor
+    .findOne({
+      usuario: req.session.usuarioId
+    })
+    .populate('alunos').then((data) => {
+      return res.view('pages/professor/alunos', {
+        alunos: data.alunos
+      });
+    })
+    .catch((erro) => {
+      return res.serverError(erro);
+    });
+  },
+>>>>>>> 7a068354e30f4bf30b9ab89c81b99de65e13027b
 
   listarAlunos: async function (req, res) {
     await Professor
