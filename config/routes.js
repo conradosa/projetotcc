@@ -13,6 +13,12 @@ module.exports.routes = {
     action: 'pendencia'
   },
 
+  
+  
+  'GET /cadastro': {
+    view: 'pages/aluno/cadastro'
+  },
+
   // Rotas Usuário //
 
   'GET /prox': {controller: 'aluno', action: 'proxetapa'},
