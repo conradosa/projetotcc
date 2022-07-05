@@ -5,9 +5,36 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-const { tema, proposta, documentacao } = require('./AlunoController');
+const {tema, proposta, documentacao} = require('./AlunoController');
 
 module.exports = {
+
+  index: async function (req, res) {
+    const professor = await Professor.findOne({usuario: req.session.usuarioId});
+    return res.view('pages/professor/index', {
+      disponivel: professor.disponivel
+    });
+  },
+
+  disponivel: async function (req, res) {
+    const professor = await Professor.findOne({usuario: req.session.usuarioId});
+    try {
+      if (professor.disponivel) {
+        await Professor.update({usuario: req.session.usuarioId}).set({
+          disponivel: false
+        });
+        return res.redirect('/professor');
+      } else {
+        await Professor.update({usuario: req.session.usuarioId}).set({
+          disponivel: true
+        });
+        return res.redirect('/professor');
+      }
+    } catch (err) {
+      req.session.erro = err.name;
+      return res.redirect('/professor');
+    }
+  },
 
   listarAll: async function (req, res) {
     await Professor.find().populateAll().then((data) => {
