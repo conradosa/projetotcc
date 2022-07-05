@@ -15,9 +15,9 @@ module.exports.routes = {
 
   // Rotas Usuário //
 
+  'GET /ajuda': {controller: 'usuario', action: 'ajuda'},
   'GET /prox': {controller: 'aluno', action: 'proxetapa'},
   'GET /verificar': {controller: 'aluno', action: 'verificar'},
-
   'GET /usuarios/:id': {action: 'usuario/listar'},
   'GET /usuarios': {action: 'usuario/listarAll'},
   'POST /usuarios': {policy: 'admin', action: 'usuario/criar'},
@@ -26,14 +26,11 @@ module.exports.routes = {
 
   // Rotas Professor //
 
-<<<<<<< HEAD
-  'GET /professor': {action: 'professor/index'},
-  'GET /professor/disponivel': {action: 'professor/disponivel'},
-  'GET /professor/alunos/:id': {action: 'professor/verAluno'},
-  'POST /professor/alunos/:id': {action: 'professor/avaliarTrabalho'},
-=======
->>>>>>> 7a068354e30f4bf30b9ab89c81b99de65e13027b
-  'GET /professor/alunos': {action: 'professor/listarAlunos'},
+  'GET /professor': { policy: 'professor', controller: 'professor', action: 'index'},
+  'GET /professor/disponivel': { policy: 'professor', controller: 'professor', action: 'disponivel'},
+  'GET /professor/alunos': {policy: 'professor', controller: 'professor', action: 'listarAlunos'},
+  'GET /professor/alunos/:id': {policy: 'professor', controller: 'professor', action: 'verAluno'},
+  'POST /professor/alunos/:id': {policy: 'professor', controller: 'professor', action: 'avaliarTrabalho'},
   'GET /professores': {action: 'professor/listarAll'},
   'GET /professores/:id': {action: 'professor/listar'},
   'POST /professores': {action: 'professor/criar'},
@@ -131,16 +128,6 @@ module.exports.routes = {
     action: 'index'
   },
 
-<<<<<<< HEAD
-=======
-  'GET /professor': {
-    policy: 'logado',
-    view: 'pages/professor/index'
-  },
-
-
-
->>>>>>> 7a068354e30f4bf30b9ab89c81b99de65e13027b
   'GET /status': {
     policy: 'logado',
     controller: 'aluno',

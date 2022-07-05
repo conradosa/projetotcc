@@ -6,8 +6,14 @@
  */
 const fs = require('fs');
 const path = require('path');
+const sailsSockets = require('sails-hook-sockets/lib/sails.sockets');
 
 module.exports = {
+
+  ajuda: function(req, res)
+  {
+    return res.view('pages/ajuda');
+  },
 
   insertAluno: async function (req, res) {
     //senha: senha123
@@ -73,7 +79,10 @@ module.exports = {
       req.session.usuarioMatricula = user.matricula;
       req.session.usuarioEmail = user.email;
       req.session.usuarioTipo = user.tipo;
+      sails.log(user);
       if (user.tipo === 'Aluno') {
+        const teste = await Aluno.findOne({usuario: user.id});
+        sails.log(teste);
         req.session.alunoEtapa = user.etapa;
         res.redirect('/aluno');
       } else {

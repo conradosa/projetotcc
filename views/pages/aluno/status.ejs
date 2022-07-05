@@ -21,13 +21,13 @@
                     </b></h2>
                 <% if(diretorio) { %>
                     <a href="<%= diretorio %>" target="_blank">Ver o documento enviado</a>
-                <% } %>
-                <% }else{ %>
-                    <h2><b>Nenhuma notificação atribuída</b></h2>
                     <% } %>
-                        <br><br>
-                        <% if(req.session.alunoPendencia===1){ %>
-                            <button onclick="
+                        <% }else{ %>
+                            <h2><b>Nenhuma notificação atribuída</b></h2>
+                            <% } %>
+                                <br><br>
+                                <% if(req.session.alunoPendencia===1){ %>
+                                    <button onclick="
                                 Swal.fire({
                                 title: 'Tem certeza?',
                                 text: 'Ao clicar em `Sim` a notificação será excluída.',
@@ -41,14 +41,13 @@
                                 if (result.isConfirmed) {
                                     window.location.replace('<%= sails.getUrlFor('AlunoController.pendencia') %>');
                                 }
-                                });"
-                                class="btn submit">Entendi
-                            </button>
-                            <% } %>
-                                <button
-                                    onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.index') %>')"
-                                    class="btn submit">Voltar
-                                </button>
+                                });" class="btn submit">Entendi
+                                    </button>
+                                    <% } %>
+                                        <button
+                                            onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.index') %>')"
+                                            class="btn submit">Voltar
+                                        </button>
         </div>
     </div>
 </div>
