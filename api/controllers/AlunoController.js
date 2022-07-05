@@ -84,10 +84,10 @@ module.exports = {
 
   tentarnovamente: async function (req, res) {
     if(req.session.alunoPendencia === 0){
-    await Aluno.update({ usuario: req.session.usuarioId }).set({ pendencia: 0, status: '' });
-    return res.redirect('/aluno');
+      await Aluno.update({ usuario: req.session.usuarioId }).set({ pendencia: 0, status: '' });
+      return res.redirect('/aluno');
     }else{
-      req.session.erro = 'Seu orientador avaliou seu envio. Cheque seu status antes de prosseguir.'
+      req.session.erro = 'Seu orientador avaliou seu envio. Cheque seu status antes de prosseguir.';
       return res.redirect('/aluno');
     }
   },
