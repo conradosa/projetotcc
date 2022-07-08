@@ -7,6 +7,10 @@ module.exports.routes = {
     view: 'pages/login'
   },
 
+  'GET /ajuda': {
+    view: 'pages/ajuda'
+  },
+
   'GET /pendencia': {
     policy: 'logado',
     controller: 'aluno',
