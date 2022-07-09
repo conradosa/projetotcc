@@ -1,27 +1,17 @@
-<!-- <div class="row row-height">
+<div class="row row-height">
   <div class="col-xl-4 col-lg-4 content-left">
       <div class="content-left-wrapper">
           <div>
               <h2>Olá, <%= req.session.usuarioNome; %>!</h2>
-              <p>Esta é a página do aluno, aqui você pode acessar o seu fluxo de etapas para saber em qual etapa da
-                  entrega do TCC você se encontra. Além de ter acesso às sugestões de temas na planilha alimentada
-                  pelo campus e ao status do seu envio quando realizado.</p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, quae atque tempore nemo aliquid autem facilis quaerat, laudantium quisquam distinctio at. Et cumque perspiciatis ipsa expedita repudiandae ducimus iure sed.</p>
           </div>
       </div>
   </div>
   <div class="col-xl-8 col-lg-8 content-right">
       <div class="btn-group-vertical">
-          <% if(req.session.alunoStatus){ %>
-              <button onclick="window.location.replace('/status')"
-                      class="btn submit" style="background-color: coral">Status do Envio
-              </button>
-          <% } %>
-          <br>
-          <button onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.etapa') %>')"
-                  class="btn submit">Iniciar
-          </button>
-          <br>
-          <button class="btn submit">Sugestões de Temas</button>
+          <button class="btn submit" onclick="window.location.replace('/user/criarAluno')" >Criar Aluno</button>
+          <button class="btn submit" onclick="window.location.replace('/user/criarProfessor')" >Criar Professor</button>
+          <!-- <button class="btn submit" onclick="window.location.replace('/editarUsuario')" >Editar Usuario</button> -->
       </div>
   </div>
-</div> -->
+</div>

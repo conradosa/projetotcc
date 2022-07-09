@@ -10,16 +10,33 @@
 
 module.exports = {
 
-  criaAdm: async function (req,res) {
+  // criaAdm: async function (req,res) {
+  //   let adm = await Usuario.create({
+  //     id: 1,
+  //     matricula: '0000000000',
+  //     nome: 'Administrador',
+  //     senha: 0000,
+  //     email: 'administrador@restinga.ifrs.edu.br',
+  //     tipo: 'adm'
+  //   }).fetch();
+  //   await Administrador.create({usuario: adm.id}).fetch()
+  //   sails.log('Administrador criado, seu id: ', adm.id);
+  //   res.redirect('/login');
+  // },
+  
+  //Senha adm: admin123 (salt 42)
+
+  criaAdm: async function (req, res) {
     let adm = await Usuario.create({
-      matricula: 12345,
+      id: 1,
+      matricula: '0000000000',
       nome: 'Administrador',
-      senha: 0000,
+      // senha: '2f81a89d6f6e531a24d98451c3f60760b6440369306e4f37b4d79b091f9ef9c5',
+      senha: 'admin123',
       email: 'administrador@restinga.ifrs.edu.br',
       tipo: 'adm'
     }).fetch();
-    await Administrador.create({usuario: adm.id})
-    sails.log('Administrador criado, seu id: ', adm.id);
+    sails.log('Usuário criado, seu id: ', adm.id);
     res.redirect('/login');
   },
 

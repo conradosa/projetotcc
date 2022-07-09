@@ -250,6 +250,11 @@ module.exports.routes = {
     //policy: 'admin',
     controller: 'administrador',
     action: 'retornaADM'
+  },
+
+  'GET /adm/index': {
+    policy: 'naologado',
+    view: 'pages/adm/index'
   }
 
 };
