@@ -8,10 +8,12 @@
       </div>
   </div>
   <div class="col-xl-8 col-lg-8 content-right">
-      <div class="btn-group-vertical">
-          <button class="btn submit" onclick="window.location.replace('/adm/criarAluno')">Criar Aluno</button>
-          <button class="btn submit" onclick="window.location.replace('/adm/criarProfessor')">Criar Professor</button>
-          <button class="btn submit" onclick="window.location.replace('/adm/procurarUsuario')">Editar Usuario</button>
-      </div>
+    <form id="editForm" method="post" action="<%= sails.getUrlFor('UsuarioController.findUsuario') %>">
+      <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+        <label for="matricula">Informe a mátricula do usuário: </label>
+        <input required type="number" name="matricula" id="matricula" class="form-control required">
+
+        <button type="submit" class="submit"  style="margin-top: 10px;">Pesquisar</button>
+    </form>
   </div>
 </div>

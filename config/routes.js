@@ -70,7 +70,11 @@ module.exports.routes = {
     action: 'professor/atualizar'
   },
 
-  'GET /user/criarProfessor': {
+  
+
+  // Rotas Admin
+
+  'GET /adm/criarProfessor': {
     //policy: 'naologado',
     view: 'pages/adm/criarProfessor',
     locals: {
@@ -78,12 +82,75 @@ module.exports.routes = {
     }
   },
 
-  'POST /user/criarProfessor': {
+  'POST /adm/criarProfessor': {
     controller: 'usuario',
     action: 'insertProfessor'
   },
 
 
+
+
+
+
+  'GET /adm/criarAluno': {
+    //policy: 'naologado',
+    view: 'pages/adm/criarAluno',
+    locals: {
+      title: 'Criar Usuário'
+    }
+  },
+
+  'POST /adm/criarAluno': {
+    controller: 'usuario',
+    action: 'insertAluno'
+  },
+
+
+
+
+
+  'GET /adm/procurarUsuario': {
+    // policy:'naologado',
+    view: 'pages/adm/procurarUsuario',
+    locals : {
+      title: 'Procurar Usuário'
+    }
+  },
+
+  'POST /adm/procurarUsuario':{
+    controller: 'usuario',
+    action: 'findUsuario'
+  },
+
+  'GET /adm/editarUsuario': {
+    view: 'pages/adm/editarUsuario',
+    locals: {
+      title: 'Editar Usuário'
+    }
+  },
+
+
+
+
+
+  'GET /adm/index': {
+    policy: 'naologado',
+    view: 'pages/adm/index'
+  },
+
+  // 'GET /adm/criarADM': {
+  //   //policy: 'admin',
+  //   controller: 'administrador',
+  //   action: 'criaAdm'
+  // },
+
+  // 'GET /adm/retornaADM': {
+  //   //policy: 'admin',
+  //   controller: 'administrador',
+  //   action: 'retornaADM'
+  // },
+
+  
 
 
   // Rotas Aluno //
@@ -117,18 +184,7 @@ module.exports.routes = {
   },
 
 
-  'GET /user/criarAluno': {
-    //policy: 'naologado',
-    view: 'pages/adm/criarAluno',
-    locals: {
-      title: 'Criar Usuário'
-    }
-  },
-
-  'POST /user/criarAluno': {
-    controller: 'usuario',
-    action: 'insertAluno'
-  },
+  
   
 
   // Rotas Etapas Aluno //
@@ -240,21 +296,6 @@ module.exports.routes = {
   },
 
 
-  'GET /adm/criarADM': {
-    //policy: 'admin',
-    controller: 'administrador',
-    action: 'criaAdm'
-  },
-
-  'GET /adm/retornaADM': {
-    //policy: 'admin',
-    controller: 'administrador',
-    action: 'retornaADM'
-  },
-
-  'GET /adm/index': {
-    policy: 'naologado',
-    view: 'pages/adm/index'
-  }
+  
 
 };

@@ -121,6 +121,30 @@ module.exports = {
     }
   },
 
+  findUsuario: async function(req, res){
+
+    const valor = req.body;
+
+    const matricula = valor.matricula;
+
+    let user = await Usuario.findOne({
+      matricula: matricula
+    })
+
+    if(!user){
+      req.session.erro = 'Usuário não encontrado.';
+      res.redirect('index');
+    }else {
+      req.session.logado = true;
+      req.session.usuarioId = user.id;
+      req.session.usuarioNome = user.nome;
+      req.session.usuarioMatricula = user.matricula;
+      req.session.usuarioEmail = user.email;
+      req.session.usuarioTipo = user.tipo;
+      res.redirect('editarUsuario');
+    }
+  },
+
   logout: async function (req, res) {
 
     delete req.session.logado;
