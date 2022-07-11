@@ -1,5 +1,3 @@
-const { proxetapa } = require('../api/controllers/AlunoController');
-
 module.exports.routes = {
 
   'GET /': {
@@ -15,9 +13,9 @@ module.exports.routes = {
 
   // Rotas Usuário //
 
+  'GET /ajuda': {controller: 'usuario', action: 'ajuda'},
   'GET /prox': {controller: 'aluno', action: 'proxetapa'},
   'GET /verificar': {controller: 'aluno', action: 'verificar'},
-
   'GET /usuarios/:id': {action: 'usuario/listar'},
   'GET /usuarios': {action: 'usuario/listarAll'},
   'POST /usuarios': {policy: 'admin', action: 'usuario/criar'},
@@ -25,11 +23,11 @@ module.exports.routes = {
   'PUT /usuarios/:id': {action: 'usuario/atualizar'},
 
   // Rotas Professor //
-  'GET /professor': {action: 'professor/index'},
-  'GET /professor/disponivel': {action: 'professor/disponivel'},
-  'GET /professor/alunos/:id': {action: 'professor/verAluno'},
-  'POST /professor/alunos/:id': {action: 'professor/avaliarTrabalho'},
-  'GET /professor/alunos': {action: 'professor/listarAlunos'},
+  'GET /professor': {policy: 'professor', controller: 'professor', action: 'index'},
+  'GET /professor/disponivel': {policy: 'professor', controller: 'professor', action: 'disponivel'},
+  'GET /professor/alunos': {policy: 'professor', controller: 'professor', action: 'listarAlunos'},
+  'GET /professor/alunos/:id': {policy: 'professor', controller: 'professor', action: 'verAluno'},
+  'POST /professor/alunos/:id': {policy: 'professor', controller: 'professor', action: 'avaliarTrabalho'},
   'GET /professores': {action: 'professor/listarAll'},
   'GET /professores/:id': {action: 'professor/listar'},
   'POST /professores': {action: 'professor/criar'},

@@ -106,20 +106,20 @@
             <% if(req.session.alunoStatus){ %>
                 <h2 style="color: #1DBE72;">Status do Envio:</h2><br>
                 <h5><b>
-                        <%= req.session.alunoStatus; %>
+                        <%= req.session.alunoStatus %>
                     </b></h5><br><br>
                 <h2 style="color: #1DBE72;">Referente a:</h2><br>
                 <h2><b>
-                        <%= etapaText; %>
+                        <%= etapaText %>
                     </b></h2>
                 <% if(diretorio) { %>
-                    <a class="btn btn-link" href="<%= diretorio; %>" target="_blank">Ver o documento enviado</a>
+                    <a class="btn btn-link" href="<%= diretorio %>" target="_blank">Ver o documento enviado</a>
                 <% } %>
             <% }else{ %>
                 <h2><b>Nenhuma notificação atribuída</b></h2>
             <% } %>
             <br><br>
-            <% if(req.session.alunoPendencia === 1){ %>
+            <% if(req.session.alunoPendencia===1){ %>
                 <button onclick="
                         Swal.fire({
                         title: 'Tem certeza?',
@@ -132,14 +132,13 @@
                         cancelButtonText: 'Não...'
                         }).then((result) => {
                         if (result.isConfirmed) {
-                        window.location.replace('<%= sails.getUrlFor('AlunoController.pendencia'); %>');
+                        window.location.replace('<%= sails.getUrlFor('AlunoController.pendencia') %>');
                         }
-                        });"
-                        class="btn submit">Entendi
+                        });" class="btn submit">Entendi
                 </button>
             <% } %>
             <button
-                    onclick="window.location.replace('/tentarnovamente')"
+                    onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.tentarnovamente') %>')"
                     class="btn btn-link">refazer o envio
             </button>
         </div>

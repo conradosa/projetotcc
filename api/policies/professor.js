@@ -1,6 +1,6 @@
 module.exports = async function (req, res, proceed) {
 
-  if (req.session.tipo === 'professor') {
+  if (req.session.usuarioTipo === 'Professor') {
     return proceed();
   }
 

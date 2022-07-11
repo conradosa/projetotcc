@@ -1,49 +1,4 @@
 <div class="row row-height">
-<<<<<<< HEAD
-    <div class="col-xl-4 col-lg-4 content-left">
-        <div class="content-left-wrapper">
-            <div>
-                <h2>Olá, <%= req.session.usuarioNome; %>!</h2>
-                <p>Esta é a página que lista todos os seus orientados e suas dependências.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-8 col-lg-8 content-right row">
-
-        <%
-        if(alunos.length > 0){
-        %>
-            <div class="row col-sm-10">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <% for(i = 0; i < alunos.length; i++ ) { %>
-                        <tr>
-                            <th scope="row"><%= alunos[i].id %></th>
-                            <td><%= alunos[i].nome %></td>
-                            <td><%= alunos[i].status %></td>
-                            <td>Action</td>
-                        </tr>
-                    <% } %>
-                    </tbody>
-                </table>
-            </div>
-        <% } %>
-
-        <div class="row col-12 col-sm-4 col-md-3 btn-group-vertical">
-            <br>
-            <button onclick="window.location.replace('/professor')" class="btn submit">Voltar</button>
-        </div>
-    </div>
-=======
   <div class="col-xl-4 col-lg-4 content-left">
     <div class="content-left-wrapper">
       <div>
@@ -62,7 +17,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">Id</th>
             <th scope="col">Nome</th>
             <th scope="col">Status</th>
             <th scope="col">Action</th>
@@ -74,7 +29,7 @@
             <th scope="row"><%= alunos[i].id %></th>
             <td>Nome</td>
             <td><%= alunos[i].status %></td>
-            <td>Action</td>
+            <td><a href="/professor/alunos/<%= alunos[i].id %>">Selecionar</a></td>
           </tr>
           <% } %>
         </tbody>
@@ -84,8 +39,7 @@
 
     <div class="row col-12 col-sm-4 col-md-3 btn-group-vertical">
         <br>
-        <button class="btn submit">Sugestões de Temas</button>
+        <button onclick="window.location.replace('/professor')" class="btn submit">Voltar</button>
     </div>
   </div>
->>>>>>> 7a068354e30f4bf30b9ab89c81b99de65e13027b
 </div>
