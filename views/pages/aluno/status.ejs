@@ -1,10 +1,103 @@
 <div class="row row-height">
     <div class="col-xl-4 col-lg-4 content-left">
         <div class="content-left-wrapper">
-            <div>
-                <h2>Olá, <%= req.session.usuarioNome; %>!</h2>
-                <p>Essa é a página de status do envio, aqui você pode verificar se seu envio foi aprovado ou não pelo
-                    orientador, entre outras informações.</p>
+            <div style="width: 90%;" class="accordion accordion-flush" id="accordionExample">
+                <div style="border: 0;" class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button <% if(etapa !== 1){ %>collapsed<% } %>" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                aria-expanded="<% if(etapa === 1){ %>true<% }else{ %>false<% } %>"
+                                aria-controls="collapseOne">
+                            <b>Etapa 1</b>
+                            <% if(etapa === 1){ %>&nbsp <b>-</b> &nbsp<b style="color: #1DBE72">Você está aqui</b>
+                            <% } %>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse <% if(etapa === 1){ %>show<% } %>"
+                         aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <h4 style="margin-bottom: -10px;">Título</h4>
+                        <div style="color:#000;" class="accordion-body">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec velit arcu. Vestibulum
+                            ornare ut tellus ac consectetur. Sed velit ligula, dignissim a vulputate et, interdum ut
+                            orci. Quisque maximus scelerisque dui varius consequat. Nunc lectus nisl, porttitor in
+                            luctus eget, condimentum quis nisl. Curabitur augue enim, tincidunt luctus ultrices a,
+                            euismod et tortor. Integer enim eros, accumsan non fermentum in, semper at odio.
+                        </div>
+                    </div>
+                </div>
+                <div style="border: 0;" class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button <% if(etapa !== 2){ %>collapsed<% } %>" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                aria-expanded="<% if(etapa === 2){ %>true<% }else{ %>false<% } %>"
+                                aria-controls="collapseTwo">
+                            <b>Etapa 2</b>
+                            <% if(etapa === 2){ %>&nbsp <b>-</b> &nbsp<b style="color: #1DBE72">Você está aqui</b>
+                            <% } %>
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse <% if(etapa === 2){ %>show<% } %>"
+                         aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <h4 style="margin-bottom: -10px;">Título</h4>
+                        <div style="color:#000;" class="accordion-body">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec velit arcu. Vestibulum
+                            ornare ut tellus ac consectetur. Sed velit ligula, dignissim a vulputate et, interdum ut
+                            orci. Quisque maximus scelerisque dui varius consequat. Nunc lectus nisl, porttitor in
+                            luctus eget, condimentum quis nisl. Curabitur augue enim, tincidunt luctus ultrices a,
+                            euismod et tortor. Integer enim eros, accumsan non fermentum in, semper at odio.
+                        </div>
+                    </div>
+                </div>
+                <div style="border: 0;" class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button <% if(etapa !== 3){ %>collapsed<% } %>" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                aria-expanded="<% if(etapa === 3){ %>true<% }else{ %>false<% } %>"
+                                aria-controls="collapseThree">
+                            <b>Etapa 3</b>
+                            <% if(etapa === 3){ %>&nbsp <b>-</b> &nbsp<b style="color: #1DBE72">Você está aqui</b>
+                            <% } %>
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse <% if(etapa === 3){ %>show<% } %>"
+                         aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <h4 style="margin-bottom: -10px;">Título</h4>
+                        <div style="color:#000;" class="accordion-body">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec velit arcu. Vestibulum
+                            ornare ut tellus ac consectetur. Sed velit ligula, dignissim a vulputate et, interdum ut
+                            orci. Quisque maximus scelerisque dui varius consequat. Nunc lectus nisl, porttitor in
+                            luctus eget, condimentum quis nisl. Curabitur augue enim, tincidunt luctus ultrices a,
+                            euismod et tortor. Integer enim eros, accumsan non fermentum in, semper at odio.
+                        </div>
+                    </div>
+                </div>
+                <div style="border: 0;" class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button <% if(etapa !== 4){ %>collapsed<% } %>" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                aria-expanded="<% if(etapa === 4){ %>true<% }else{ %>false<% } %>"
+                                aria-controls="collapseFour">
+                            <b>Etapa 4</b>
+                            <% if(etapa === 4){ %>&nbsp <b>-</b> &nbsp<b style="color: #1DBE72">Você está aqui</b>
+                            <% } %>
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse <% if(etapa === 4){ %>show<% } %>"
+                         aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                        <h4 style="margin-bottom: -10px;">Título</h4>
+                        <div style="color:#000;" class="accordion-body">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec velit arcu. Vestibulum
+                            ornare ut tellus ac consectetur. Sed velit ligula, dignissim a vulputate et, interdum ut
+                            orci. Quisque maximus scelerisque dui varius consequat. Nunc lectus nisl, porttitor in
+                            luctus eget, condimentum quis nisl. Curabitur augue enim, tincidunt luctus ultrices a,
+                            euismod et tortor. Integer enim eros, accumsan non fermentum in, semper at odio.
+                        </div>
+                    </div>
+                </div>
+                <button
+                        onclick="window.location.replace('/etapas')"
+                        class="btn btn-link">ajuda?
+                </button>
             </div>
         </div>
     </div>
@@ -17,38 +110,37 @@
                     </b></h5><br><br>
                 <h2 style="color: #1DBE72;">Referente a:</h2><br>
                 <h2><b>
-                        <%= etapa %>
+                        <%= etapaText %>
                     </b></h2>
                 <% if(diretorio) { %>
-                    <a href="<%= diretorio %>" target="_blank">Ver o documento enviado</a>
+                    <a class="btn btn-link" href="<%= diretorio %>" target="_blank">Ver o documento enviado</a>
                 <% } %>
-                <% }else{ %>
-                    <h2><b>Nenhuma notificação atribuída</b></h2>
-                    <% } %>
-                        <br><br>
-                        <% if(req.session.alunoPendencia===1){ %>
-                            <button onclick="
-                                Swal.fire({
-                                title: 'Tem certeza?',
-                                text: 'Ao clicar em `Sim` a notificação será excluída.',
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#1dbe72',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'Sim, entendi!',
-                                cancelButtonText: 'Não...'
-                                }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.replace('<%= sails.getUrlFor('AlunoController.pendencia') %>');
-                                }
-                                });"
-                                class="btn submit">Entendi
-                            </button>
-                            <% } %>
-                                <button
-                                    onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.index') %>')"
-                                    class="btn submit">Voltar
-                                </button>
+            <% }else{ %>
+                <h2><b>Nenhuma notificação atribuída</b></h2>
+            <% } %>
+            <br><br>
+            <% if(req.session.alunoPendencia===1){ %>
+                <button onclick="
+                        Swal.fire({
+                        title: 'Tem certeza?',
+                        text: 'Ao clicar em `Sim` a notificação será excluída.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#1dbe72',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Sim, entendi!',
+                        cancelButtonText: 'Não...'
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                        window.location.replace('<%= sails.getUrlFor('AlunoController.pendencia') %>');
+                        }
+                        });" class="btn submit">Entendi
+                </button>
+            <% } %>
+            <button
+                    onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.tentarnovamente') %>')"
+                    class="btn btn-link">refazer o envio
+            </button>
         </div>
     </div>
 </div>

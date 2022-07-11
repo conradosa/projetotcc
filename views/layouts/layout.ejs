@@ -89,6 +89,7 @@
             <li><a href="/professor" class="animated_link">Início</a></li>
         <% } %>
         <% if(req.session.logado){ %>
+            <li><a href="/aluno-ajuda" class="animated_link">Ajuda</a></li>
             <li><a href="<%= sails.getUrlFor('UsuarioController.logout'); %>" class="animated_link">Sair</a></li>
         <% }else{ %>
             <li><a href="/login" class="animated_link">Login</a></li>
