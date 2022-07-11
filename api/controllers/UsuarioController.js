@@ -127,22 +127,37 @@ module.exports = {
 
     const matricula = valor.matricula;
 
+    // let user = await Usuario.findOne({
+    //   matricula: matricula
+    // })
+
+    let users =  await Usuario.find();
+
+    if(!users){
+      req.session.erro = 'Nenhum usuário não encontrado.';
+      res.redirect('index');
+    }else {
+      return res.view('pages/adm/painelUsuario', {
+        usuario: users
+      });
+    }
+  },
+
+  alterarNome: async function(req,res){
+    const valor = req.body;
+
+    const matricula = valor.matricula;
+
+    const nome = valor.nome;
+
     let user = await Usuario.findOne({
       matricula: matricula
     })
 
-    if(!user){
-      req.session.erro = 'Usuário não encontrado.';
-      res.redirect('index');
-    }else {
-      req.session.logado = true;
-      req.session.usuarioId = user.id;
-      req.session.usuarioNome = user.nome;
-      req.session.usuarioMatricula = user.matricula;
-      req.session.usuarioEmail = user.email;
-      req.session.usuarioTipo = user.tipo;
-      res.redirect('editarUsuario');
-    }
+    await Usuario.update({usuario: '<%= usuario.id; %>'}).set({
+      
+    })
+
   },
 
   logout: async function (req, res) {

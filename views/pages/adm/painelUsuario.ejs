@@ -8,16 +8,35 @@
       </div>
   </div>
   <div class="col-xl-8 col-lg-8 content-right">
-    <form id="editForm" method="post" action="<%= sails.getUrlFor('UsuarioController.findUsuario') %>">
-      <input type="hidden" name="_csrf" value="<%= _csrf %>" />
 
-      <label for="email">Informe o novo email do usuário: </label>
-      <input required type="email" name="email", id="email" class="form-control required">
-
-      <label for="senha">Informe a nova senha do Usuário: </label>
-      <input required type="number" name="senha" id="senha" class="form-control required">
-
+    <% if(Object.keys(usuario).length > 0)
+    {
+    %>
+      <div class="row col-sm-10">
+        <table class="table table-stripped">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Matricula</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Senha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(i=0;i < Object.keys(usuario).length; i++){ %>
+            <tr>
+              <th scope="row"> <%= usuario[i].id;    %> </th>
+              <td><a href="#"> <%= usuario[i].matricula;%></a> </td>
+              <td><a href="#"> <%= usuario[i].nome;  %> </a></td>
+              <td><a href="#"> <%= usuario[i].email; %> </a></td>
+              <td><a href="#"> <%= usuario[i].senha; %> </a></td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
       
-    </form>
   </div>
 </div>

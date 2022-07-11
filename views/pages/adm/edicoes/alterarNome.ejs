@@ -8,12 +8,16 @@
       </div>
   </div>
   <div class="col-xl-8 col-lg-8 content-right">
-      <div class="btn-group-vertical">
-          <button class="btn submit" onclick="window.location.replace('/adm/criarAluno')">Criar Aluno</button>
-          <button class="btn submit" onclick="window.location.replace('/adm/criarProfessor')">Criar Professor</button>
-          <button class="btn submit" onclick="window.location.replace('/adm/painelUsuario')">
-            <a class="teste" href="<%= sails.getUrlFor('UsuarioController.findUsuario') %>">Painel de Usuários</a>
-          </button>
-      </div>
+    <form id="editForm" method="post" action="<%= sails.getUrlFor('UsuarioController.alterarNome') %>">
+      <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+
+      <label for="nome">Informe o novo nome do usuário: </label>
+      <input required type="text" name="nome", id="nome" class="form-control required">
+
+
+      <button type="submit" class="submit">Enviar</button>
+    </form>
+
+      
   </div>
 </div>

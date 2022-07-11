@@ -122,6 +122,13 @@ module.exports.routes = {
     action: 'findUsuario'
   },
 
+  'GET /adm/painelUsuario': {
+    view: 'pages/adm/painelUsuario',
+    locals: {
+      title: 'Painel do Usuario'
+    }
+  },
+
   'GET /adm/editarUsuario': {
     view: 'pages/adm/editarUsuario',
     locals: {
