@@ -5,14 +5,21 @@ module.exports.routes = {
     view: 'pages/login'
   },
 
+  'GET /aluno-ajuda': {
+    view: 'pages/aluno/ajuda'
+  },
+
   'GET /pendencia': {
     policy: 'logado',
     controller: 'aluno',
     action: 'pendencia'
   },
 
-  // Rotas Usuário //
+  'GET /cadastro': {
+    view: 'pages/aluno/cadastro'
+  },
 
+  // Rotas Usuário //
   'GET /ajuda': {controller: 'usuario', action: 'ajuda'},
   'GET /prox': {controller: 'aluno', action: 'proxetapa'},
   'GET /verificar': {controller: 'aluno', action: 'verificar'},
