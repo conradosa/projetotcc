@@ -25,14 +25,10 @@ module.exports.routes = {
   'PUT /usuarios/:id': {action: 'usuario/atualizar'},
 
   // Rotas Professor //
-
-<<<<<<< HEAD
   'GET /professor': {action: 'professor/index'},
   'GET /professor/disponivel': {action: 'professor/disponivel'},
   'GET /professor/alunos/:id': {action: 'professor/verAluno'},
   'POST /professor/alunos/:id': {action: 'professor/avaliarTrabalho'},
-=======
->>>>>>> 7a068354e30f4bf30b9ab89c81b99de65e13027b
   'GET /professor/alunos': {action: 'professor/listarAlunos'},
   'GET /professores': {action: 'professor/listarAll'},
   'GET /professores/:id': {action: 'professor/listar'},
@@ -52,6 +48,11 @@ module.exports.routes = {
   'GET /tentarnovamente': {policy: 'logado', controller: 'aluno', action: 'tentarnovamente'},
 
   // Rotas Etapas Aluno //
+
+  'GET /etapas': {
+    policy: 'logado',
+    view: 'pages/aluno/etapas'
+  },
 
   'GET /etapa': {
     policy: 'logado',
@@ -131,16 +132,6 @@ module.exports.routes = {
     action: 'index'
   },
 
-<<<<<<< HEAD
-=======
-  'GET /professor': {
-    policy: 'logado',
-    view: 'pages/professor/index'
-  },
-
-
-
->>>>>>> 7a068354e30f4bf30b9ab89c81b99de65e13027b
   'GET /status': {
     policy: 'logado',
     controller: 'aluno',

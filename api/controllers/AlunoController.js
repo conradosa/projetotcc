@@ -11,12 +11,12 @@ module.exports = {
 
   proxetapa: async function (req, res) {
     try {
-      const aluno = await Aluno.findOne({ usuario: req.session.usuarioId });
-      if(aluno.etapa === 4){
-        await Aluno.update({ usuario: req.session.usuarioId }).set({ etapa: 1 });
+      const aluno = await Aluno.findOne({usuario: req.session.usuarioId});
+      if (aluno.etapa === 4) {
+        await Aluno.update({usuario: req.session.usuarioId}).set({etapa: 1});
         return res.redirect('/aluno');
       }
-      await Aluno.update({ usuario: req.session.usuarioId }).set({ etapa: aluno.etapa + 1 });
+      await Aluno.update({usuario: req.session.usuarioId}).set({etapa: aluno.etapa + 1});
       return res.redirect('/aluno');
     } catch (err) {
       req.session.erro = err.name;
@@ -26,8 +26,12 @@ module.exports = {
 
   verificar: async function (req, res) {
     try {
-      const aluno = await Aluno.findOne({ usuario: req.session.usuarioId });
-      await Aluno.update({ usuario: req.session.usuarioId }).set({ etapa: aluno.etapa + 1, status: 'Aprovado', pendencia: 1 });
+      const aluno = await Aluno.findOne({usuario: req.session.usuarioId});
+      await Aluno.update({usuario: req.session.usuarioId}).set({
+        etapa: aluno.etapa + 1,
+        status: 'Aprovado',
+        pendencia: 1
+      });
       return res.redirect('/aluno');
     } catch (err) {
       req.session.erro = err.name;
@@ -39,42 +43,18 @@ module.exports = {
     let user = await Aluno.findOne({
       usuario: req.session.usuarioId
     });
-    if (user.status !== null) {
+    if (user.status !== '') {
       req.session.alunoStatus = user.status;
+      return res.redirect('/status');
     }
     req.session.alunoEtapa = user.etapa;
     req.session.alunoPendencia = user.pendencia;
     return res.view('pages/aluno/index');
-
-    /*
-    switch (req.session.alunoEtapa) {
-      case 1:
-        return res.view('pages/aluno/index', {
-          etapa: 'Definir Tema do TCC'
-        });
-      case 2:
-          return res.view('pages/aluno/index', {
-            etapa: 'Enviar Proposta do TCC'
-          });
-      case 3:
-          return res.view('pages/aluno/index', {
-            etapa: 'Enviar Prévia do TCC'
-          });
-      case 4:
-          return res.view('pages/aluno/index', {
-            etapa: 'Envio Final do TCC'
-          });
-      default:
-        return res.view('pages/aluno/index', {
-          etapa: 'Iniciar'
-        });
-    }
-    */
   },
 
   pendencia: async function (req, res) {
     try {
-      await Aluno.update({ usuario: req.session.usuarioId }).set({ pendencia: 0, status: '' });
+      await Aluno.update({usuario: req.session.usuarioId}).set({pendencia: 0, status: ''});
       return res.redirect('/aluno');
     } catch (err) {
       req.session.erro = err.name;
@@ -83,72 +63,81 @@ module.exports = {
   },
 
   tentarnovamente: async function (req, res) {
-    if(req.session.alunoPendencia === 0){
-      await Aluno.update({ usuario: req.session.usuarioId }).set({ pendencia: 0, status: '' });
-      return res.redirect('/aluno');
-    }else{
+    if (req.session.alunoPendencia === 0) {
+      await Aluno.update({usuario: req.session.usuarioId}).set({pendencia: 0, status: ''});
+      return res.redirect('/etapa');
+    } else {
       req.session.erro = 'Seu orientador avaliou seu envio. Cheque seu status antes de prosseguir.';
       return res.redirect('/aluno');
     }
   },
 
   status: async function (req, res) {
-    const aluno = await Aluno.findOne({ usuario: req.session.usuarioId });
+    const aluno = await Aluno.findOne({usuario: req.session.usuarioId});
     req.session.alunoStatus = aluno.status;
     req.session.alunoPendencia = aluno.pendencia;
+    req.session.alunoEtapa = aluno.etapa;
     let etapa = '';
     switch (req.session.alunoEtapa) {
       case 1:
         etapa = 'Tema do TCC';
         return res.view('pages/aluno/status', {
-          etapa: etapa,
+          etapaText: etapa,
+          etapa: req.session.alunoEtapa,
           diretorio: false
         });
       case 2:
         etapa = 'Proposta do TCC';
-        const proposta = await Proposta.findOne({ aluno: aluno.id });
+        const proposta = await Proposta.findOne({aluno: aluno.id});
         if (proposta) {
           return res.view('pages/aluno/status', {
-            etapa: etapa,
+            etapaText: etapa,
+            etapa: req.session.alunoEtapa,
             diretorio: proposta.diretorio
           });
         } else {
           return res.view('pages/aluno/status', {
-            etapa: etapa,
+            etapaText: etapa,
+            etapa: req.session.alunoEtapa,
             diretorio: false
           });
         }
       case 3:
         etapa = 'Prévia do TCC';
-        const previa = await Previa.findOne({ aluno: aluno.id });
+        const previa = await Previa.findOne({aluno: aluno.id});
         if (previa) {
           return res.view('pages/aluno/status', {
-            etapa: etapa,
+            etapaText: etapa,
+            etapa: req.session.alunoEtapa,
             diretorio: previa.diretorio
           });
         } else {
           return res.view('pages/aluno/status', {
-            etapa: etapa,
+            etapaText: etapa,
+            etapa: req.session.alunoEtapa,
             diretorio: false
           });
         }
       case 4:
         etapa = 'Documentação do TCC';
-        const documentacao = await Documentacao.findOne({ aluno: aluno.id });
+        const documentacao = await Documentacao.findOne({aluno: aluno.id});
         if (documentacao) {
           return res.view('pages/aluno/status', {
-            etapa: etapa,
+            etapaText: etapa,
+            etapa: req.session.alunoEtapa,
             diretorio: documentacao.diretorio
           });
         } else {
           return res.view('pages/aluno/status', {
-            etapa: etapa,
+            etapaText: etapa,
+            etapa: req.session.alunoEtapa,
             diretorio: false
           });
         }
       default:
         return res.view('pages/aluno/status', {
-          etapa: etapa,
+          etapaText: etapa,
+          etapa: req.session.alunoEtapa,
           diretorio: false
         });
     }
@@ -165,6 +154,7 @@ module.exports = {
     const etapa = user.etapa;
 
     req.session.alunoEtapa = etapa;
+    req.session.alunoStatus = user.status;
     req.session.alunoPendencia = user.pendencia;
 
     switch (etapa) {
@@ -198,7 +188,7 @@ module.exports = {
     let userProfs = '';
     let profs = '';
     try {
-      userProfs = await Usuario.find({ tipo: 'Professor' });
+      userProfs = await Usuario.find({tipo: 'Professor'});
       profs = await Professor.find();
       return res.view('pages/aluno/etapas/etapa1', {
         userProfessores: userProfs,
@@ -212,18 +202,18 @@ module.exports = {
 
   tema: async function (req, res) {
     try {
-      const aluno = await Aluno.findOne({ usuario: req.session.usuarioId });
-      const orientador = await Professor.findOne({ id: aluno.orientador });
+      const aluno = await Aluno.findOne({usuario: req.session.usuarioId});
+      const orientador = await Professor.findOne({id: aluno.orientador});
 
       if (orientador) {
         await Professor.removeFromCollection(orientador.id, 'alunos')
           .members(aluno.id);
       }
 
-      const tema = await Tema.findOne({ aluno: aluno.id });
+      const tema = await Tema.findOne({aluno: aluno.id});
 
       if (tema) {
-        await Tema.destroy({ aluno: aluno.id });
+        await Tema.destroy({aluno: aluno.id});
       }
       const tema_b = req.body;
 
@@ -233,7 +223,7 @@ module.exports = {
         aluno: aluno.id
       }).fetch();
 
-      await Aluno.update({ usuario: req.session.usuarioId }).set({
+      await Aluno.update({usuario: req.session.usuarioId}).set({
         orientador: tema_b.orientador,
         status: 'Aguardando aprovação do orientador.'
       });
@@ -258,7 +248,7 @@ module.exports = {
     //criar diretórios
 
     try {
-      fs.mkdirSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring), { recursive: true });
+      fs.mkdirSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring), {recursive: true});
     } catch (err) {
       req.session.erro = err.name;
       res.redirect('/aluno');
@@ -267,69 +257,69 @@ module.exports = {
     //upload dos arquivos
 
     req.file('documento').upload({
-      maxBytes: 5000000,
-      saveAs: 'proposta.pdf',
-      dirname: path.join(sails.config.appPath, '/assets/alunos/', matriculastring)
-    }, async (err, file) => {
-      if (file.length === 0) {
-        req.session.erro = 'Nenhum arquivo enviado!';
-        return res.redirect('/aluno');
-      }
-      if (file.length > 1) {
-        if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'proposta.pdf'))) {
-          fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'proposta.pdf'));
+        maxBytes: 5000000,
+        saveAs: 'proposta.pdf',
+        dirname: path.join(sails.config.appPath, '/assets/alunos/', matriculastring)
+      }, async (err, file) => {
+        if (file.length === 0) {
+          req.session.erro = 'Nenhum arquivo enviado!';
+          return res.redirect('/aluno');
         }
-        req.session.erro = 'Somente um arquivo pode ser enviado!';
-        return res.redirect('/aluno');
-      }
-      if (path.extname(file[0].filename) !== '.pdf') {
-        if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'proposta.pdf'))) {
-          fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'proposta.pdf'));
-        }
-        req.session.erro = 'O arquivo enviado não é um pdf!';
-        return res.redirect('/aluno');
-      }
-      if (err) {
-        req.session.erro = err.toString();
-        return res.redirect('/aluno');
-      } else {
-
-        try {
-
-          const aluno = await Aluno.findOne({ usuario: req.session.usuarioId });
-          const proposta = await Proposta.findOne({ aluno: aluno.id });
-
-          if (proposta) {
-            await Proposta.destroy({ aluno: aluno.id });
-          }
-
-          await Proposta.create({
-            diretorio: '/alunos/' + matriculastring + '/proposta.pdf',
-            aluno: aluno.id
-          }).fetch();
-
-          await Aluno.update({ usuario: req.session.usuarioId }).set({
-            status: 'Aguardando aprovação do orientador.'
-          });
-
-        } catch (err) {
+        if (file.length > 1) {
           if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'proposta.pdf'))) {
             fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'proposta.pdf'));
           }
-          req.session.erro = err.name;
+          req.session.erro = 'Somente um arquivo pode ser enviado!';
+          return res.redirect('/aluno');
+        }
+        if (path.extname(file[0].filename) !== '.pdf') {
+          if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'proposta.pdf'))) {
+            fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'proposta.pdf'));
+          }
+          req.session.erro = 'O arquivo enviado não é um pdf!';
+          return res.redirect('/aluno');
+        }
+        if (err) {
+          req.session.erro = err.toString();
+          return res.redirect('/aluno');
+        } else {
+
+          try {
+
+            const aluno = await Aluno.findOne({usuario: req.session.usuarioId});
+            const proposta = await Proposta.findOne({aluno: aluno.id});
+
+            if (proposta) {
+              await Proposta.destroy({aluno: aluno.id});
+            }
+
+            await Proposta.create({
+              diretorio: '/alunos/' + matriculastring + '/proposta.pdf',
+              aluno: aluno.id
+            }).fetch();
+
+            await Aluno.update({usuario: req.session.usuarioId}).set({
+              status: 'Aguardando aprovação do orientador.'
+            });
+
+          } catch (err) {
+            if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'proposta.pdf'))) {
+              fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'proposta.pdf'));
+            }
+            req.session.erro = err.name;
+            res.redirect('/aluno');
+          }
+
+          req.session.sucesso = 'Arquivo enviado!';
           res.redirect('/aluno');
         }
-
-        req.session.sucesso = 'Arquivo enviado!';
-        res.redirect('/aluno');
       }
-    }
     );
   },
   etapa3: async function (req, res) {
     try {
       const orientadores = await Professor.find();
-      const userOrientadores = await Usuario.find({ tipo: 'Professor' });
+      const userOrientadores = await Usuario.find({tipo: 'Professor'});
       return res.view('pages/aluno/etapas/etapa3', {
         userProfessores: userOrientadores,
         professores: orientadores
@@ -351,7 +341,7 @@ module.exports = {
     //criar diretórios
 
     try {
-      fs.mkdirSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring), { recursive: true });
+      fs.mkdirSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring), {recursive: true});
     } catch (err) {
       req.session.erro = err.name;
       res.redirect('/aluno');
@@ -360,65 +350,65 @@ module.exports = {
     //upload dos arquivos
 
     req.file('documento').upload({
-      maxBytes: 5000000,
-      saveAs: 'previa.pdf',
-      dirname: path.join(sails.config.appPath, '/assets/alunos/', matriculastring)
-    }, async (err, file) => {
-      if (file.length === 0) {
-        req.session.erro = 'Nenhum arquivo enviado!';
-        return res.redirect('/aluno');
-      }
-      if (file.length > 1) {
-        if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'previa.pdf'))) {
-          fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'previa.pdf'));
+        maxBytes: 5000000,
+        saveAs: 'previa.pdf',
+        dirname: path.join(sails.config.appPath, '/assets/alunos/', matriculastring)
+      }, async (err, file) => {
+        if (file.length === 0) {
+          req.session.erro = 'Nenhum arquivo enviado!';
+          return res.redirect('/aluno');
         }
-        req.session.erro = 'Somente um arquivo pode ser enviado!';
-        return res.redirect('/aluno');
-      }
-      if (path.extname(file[0].filename) !== '.pdf') {
-        if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'previa.pdf'))) {
-          fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'previa.pdf'));
-        }
-        req.session.erro = 'O arquivo enviado não é um pdf!';
-        return res.redirect('/aluno');
-      }
-      if (err) {
-        req.session.erro = err.toString();
-        return res.redirect('/aluno');
-      } else {
-
-        try {
-
-          const aluno = await Aluno.findOne({ usuario: req.session.usuarioId });
-          const previa = await Previa.findOne({ aluno: aluno.id });
-
-          if (previa) {
-            await Previa.destroy({ aluno: aluno.id });
-          }
-
-          await Previa.create({
-            diretorio: '/alunos/' + matriculastring + '/previa.pdf',
-            prof1Id: value.professor1,
-            prof2Id: value.professor2,
-            aluno: aluno.id
-          }).fetch();
-
-          await Aluno.update({ usuario: req.session.usuarioId }).set({
-            status: 'Aguardando aprovação do orientador.'
-          });
-
-        } catch (err) {
+        if (file.length > 1) {
           if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'previa.pdf'))) {
             fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'previa.pdf'));
           }
-          req.session.erro = err.name;
+          req.session.erro = 'Somente um arquivo pode ser enviado!';
+          return res.redirect('/aluno');
+        }
+        if (path.extname(file[0].filename) !== '.pdf') {
+          if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'previa.pdf'))) {
+            fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'previa.pdf'));
+          }
+          req.session.erro = 'O arquivo enviado não é um pdf!';
+          return res.redirect('/aluno');
+        }
+        if (err) {
+          req.session.erro = err.toString();
+          return res.redirect('/aluno');
+        } else {
+
+          try {
+
+            const aluno = await Aluno.findOne({usuario: req.session.usuarioId});
+            const previa = await Previa.findOne({aluno: aluno.id});
+
+            if (previa) {
+              await Previa.destroy({aluno: aluno.id});
+            }
+
+            await Previa.create({
+              diretorio: '/alunos/' + matriculastring + '/previa.pdf',
+              prof1Id: value.professor1,
+              prof2Id: value.professor2,
+              aluno: aluno.id
+            }).fetch();
+
+            await Aluno.update({usuario: req.session.usuarioId}).set({
+              status: 'Aguardando aprovação do orientador.'
+            });
+
+          } catch (err) {
+            if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'previa.pdf'))) {
+              fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'previa.pdf'));
+            }
+            req.session.erro = err.name;
+            res.redirect('/aluno');
+          }
+
+          req.session.sucesso = 'Arquivo enviado!';
           res.redirect('/aluno');
         }
-
-        req.session.sucesso = 'Arquivo enviado!';
-        res.redirect('/aluno');
       }
-    }
     );
   },
   etapa4: async function (req, res) {
@@ -439,7 +429,7 @@ module.exports = {
     //criar diretórios
 
     try {
-      fs.mkdirSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring), { recursive: true });
+      fs.mkdirSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring), {recursive: true});
     } catch (err) {
       req.session.erro = err.name;
       res.redirect('/aluno');
@@ -448,63 +438,63 @@ module.exports = {
     //upload dos arquivos
 
     req.file('documento').upload({
-      maxBytes: 5000000,
-      saveAs: 'documentacao.pdf',
-      dirname: path.join(sails.config.appPath, '/assets/alunos/', matriculastring)
-    }, async (err, file) => {
-      if (file.length === 0) {
-        req.session.erro = 'Nenhum arquivo enviado!';
-        return res.redirect('/aluno');
-      }
-      if (file.length > 1) {
-        if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentacao.pdf'))) {
-          fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentacao.pdf'));
+        maxBytes: 5000000,
+        saveAs: 'documentacao.pdf',
+        dirname: path.join(sails.config.appPath, '/assets/alunos/', matriculastring)
+      }, async (err, file) => {
+        if (file.length === 0) {
+          req.session.erro = 'Nenhum arquivo enviado!';
+          return res.redirect('/aluno');
         }
-        req.session.erro = 'Somente um arquivo pode ser enviado!';
-        return res.redirect('/aluno');
-      }
-      if (path.extname(file[0].filename) !== '.pdf') {
-        if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentacao.pdf'))) {
-          fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentacao.pdf'));
-        }
-        req.session.erro = 'O arquivo enviado não é um pdf!';
-        return res.redirect('/aluno');
-      }
-      if (err) {
-        req.session.erro = err.toString();
-        return res.redirect('/aluno');
-      } else {
-
-        try {
-
-          const aluno = await Aluno.findOne({ usuario: req.session.usuarioId });
-          const documentacao = await Documentacao.findOne({ aluno: aluno.id });
-
-          if (documentacao) {
-            await Documentacao.destroy({ aluno: aluno.id });
-          }
-
-          await Documentacao.create({
-            diretorio: '/alunos/' + matriculastring + '/documentacao.pdf',
-            aluno: aluno.id
-          }).fetch();
-
-          await Aluno.update({ usuario: req.session.usuarioId }).set({
-            status: 'Aguardando aprovação do orientador.'
-          });
-
-        } catch (err) {
+        if (file.length > 1) {
           if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentacao.pdf'))) {
             fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentacao.pdf'));
           }
-          req.session.erro = err.name;
+          req.session.erro = 'Somente um arquivo pode ser enviado!';
+          return res.redirect('/aluno');
+        }
+        if (path.extname(file[0].filename) !== '.pdf') {
+          if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentacao.pdf'))) {
+            fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentacao.pdf'));
+          }
+          req.session.erro = 'O arquivo enviado não é um pdf!';
+          return res.redirect('/aluno');
+        }
+        if (err) {
+          req.session.erro = err.toString();
+          return res.redirect('/aluno');
+        } else {
+
+          try {
+
+            const aluno = await Aluno.findOne({usuario: req.session.usuarioId});
+            const documentacao = await Documentacao.findOne({aluno: aluno.id});
+
+            if (documentacao) {
+              await Documentacao.destroy({aluno: aluno.id});
+            }
+
+            await Documentacao.create({
+              diretorio: '/alunos/' + matriculastring + '/documentacao.pdf',
+              aluno: aluno.id
+            }).fetch();
+
+            await Aluno.update({usuario: req.session.usuarioId}).set({
+              status: 'Aguardando aprovação do orientador.'
+            });
+
+          } catch (err) {
+            if (fs.existsSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentacao.pdf'))) {
+              fs.unlinkSync(path.join(sails.config.appPath, '/assets/alunos/', matriculastring, 'documentacao.pdf'));
+            }
+            req.session.erro = err.name;
+            res.redirect('/aluno');
+          }
+
+          req.session.sucesso = 'Arquivo enviado!';
           res.redirect('/aluno');
         }
-
-        req.session.sucesso = 'Arquivo enviado!';
-        res.redirect('/aluno');
       }
-    }
     );
   }
 };
