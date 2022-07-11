@@ -141,6 +141,34 @@
                     onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.tentarnovamente') %>')"
                     class="btn btn-link">refazer o envio
             </button>
+                    <a href="<%= diretorio %>" target="_blank">Ver o documento enviado</a>
+                    <% } %>
+                        <% }else{ %>
+                            <h2><b>Nenhuma notificação atribuída</b></h2>
+                            <% } %>
+                                <br><br>
+                                <% if(req.session.alunoPendencia===1){ %>
+                                    <button onclick="
+                                Swal.fire({
+                                title: 'Tem certeza?',
+                                text: 'Ao clicar em `Sim` a notificação será excluída.',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#1dbe72',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Sim, entendi!',
+                                cancelButtonText: 'Não...'
+                                }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.replace('<%= sails.getUrlFor('AlunoController.pendencia') %>');
+                                }
+                                });" class="btn submit">Entendi
+                                    </button>
+                                    <% } %>
+                                        <button
+                                            onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.index') %>')"
+                                            class="btn submit">Voltar
+                                        </button>
         </div>
     </div>
 </div>
