@@ -104,16 +104,15 @@ module.exports.routes = {
     }
   },
 
-  'GET /adm/index': {
-    policy: 'naologado',
+  'GET /adm': {
     view: 'pages/adm/index'
   },
 
-  // 'GET /adm/criarADM': {
-  //   //policy: 'admin',
-  //   controller: 'administrador',
-  //   action: 'criaAdm'
-  // },
+  'GET /adm/criarADM': {
+    //policy: 'admin',
+    controller: 'administrador',
+    action: 'criaAdm'
+  },
 
   // 'GET /adm/retornaADM': {
   //   //policy: 'admin',

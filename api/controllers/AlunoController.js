@@ -5,6 +5,8 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+//Senha (senha123): 100b945c050b7d1f82b1fe84c6274553159c12cba0345bb2c63935095050c32c
+
 const fs = require('fs');
 const path = require('path');
 module.exports = {
