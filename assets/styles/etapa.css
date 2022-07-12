@@ -1,0 +1,29 @@
+.custom{
+  display: flex;
+}
+
+.buttons {
+  height: 40px;
+  width: 160px;
+  padding: 0px;
+}
+
+.buttonsCustom{
+  margin-right: 10px;
+}
+
+.buttonsmg2{
+  margin-right: 5px;
+}
+
+.formulario {
+  margin-bottom: 1rem;
+}
+
+.teste {
+  color: white;
+}
+
+.teste:hover{
+  transition:0ms;
+}

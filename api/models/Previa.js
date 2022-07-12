@@ -1,5 +1,5 @@
 /**
- * Usuario.js
+ * Previa.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -8,22 +8,20 @@
 module.exports = {
 
   attributes: {
-    matricula: {
+    diretorio: {
+      type: 'string', required: true, maxLength: 255
+    },
+    prof1Id: {
       type: 'number', required: true
     },
-    nome: {
-      type: 'string', required: true, maxLength: 255
+    prof2Id: {
+      type: 'number', required: true
     },
-    senha: {
-      type: 'string', required: true, maxLength: 100
-    },
-    email: {
-      type: 'string', required: true, maxLength: 255
-    },
-    tipo: {
-      type: 'string', required: true
+    aluno: {
+      model: 'aluno',
+      columnName: 'alunoId',
+      unique: true
     }
-
   },
 
 };
