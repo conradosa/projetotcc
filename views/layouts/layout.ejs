@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Projeto de gerenciamento de TCC para o IFRS Campus Restinga">
-    <title><%- title %></title>
+    <title>Projeto TCC</title>
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600">
     <!--STYLES-->
@@ -26,6 +26,9 @@
     <!--STYLES END-->
     <script src="/js/modernizr.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -36,7 +39,7 @@
         icon: 'error',
         confirmButtonColor: '#20c997',
         title: 'Ops...',
-        text: '<%= req.session.erro %>'
+        text: '<%= req.session.erro ;%>'
       });
     </script>
 <%
@@ -49,7 +52,7 @@
         icon: 'warning',
         confirmButtonColor: '#20c997',
         title: 'Atenção!',
-        text: '<%= req.session.aviso %>'
+        text: '<%= req.session.aviso ;%>'
       });
     </script>
 <%
@@ -62,7 +65,7 @@
         icon: 'success',
         confirmButtonColor: '#20c997',
         title: 'Oba!',
-        text: '<%= req.session.sucesso %>'
+        text: '<%= req.session.sucesso ;%>'
       });
     </script>
 <%
@@ -79,12 +82,17 @@
 
 <nav>
     <ul class="cd-primary-nav">
-        <li><a href="" class="animated_link">Link1</a></li>
-        <li><a href="" class="animated_link">Link2</a></li>
-        <li><a href="" class="animated_link">Link3</a></li>
+        <% if(req.session.usuarioTipo === 'Aluno'){ %>
+            <li><a href="/aluno" class="animated_link">Início</a></li>
+        <% } %>
+        <% if(req.session.usuarioTipo === 'Professor'){ %>
+            <li><a href="/professor" class="animated_link">Início</a></li>
+        <% } %>
         <% if(req.session.logado){ %>
-            <li><a href="/home" class="animated_link">Home</a></li>
+            <li><a href="/aluno-ajuda" class="animated_link">Ajuda</a></li>
             <li><a href="<%= sails.getUrlFor('UsuarioController.logout'); %>" class="animated_link">Sair</a></li>
+        <% }else{ %>
+            <li><a href="/login" class="animated_link">Login</a></li>
         <% } %>
     </ul>
 </nav>

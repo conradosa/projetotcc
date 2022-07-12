@@ -1,0 +1,23 @@
+<div class="row row-height">
+  <div class="col-xl-4 col-lg-4 content-left">
+      <div class="content-left-wrapper">
+          <div>
+              <h2>Olá, <%= req.session.usuarioNome; %>!</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, quae atque tempore nemo aliquid autem facilis quaerat, laudantium quisquam distinctio at. Et cumque perspiciatis ipsa expedita repudiandae ducimus iure sed.</p>
+          </div>
+      </div>
+  </div>
+  <div class="col-xl-8 col-lg-8 content-right">
+    <form id="editForm" method="post" action="<%= sails.getUrlFor('UsuarioController.alterarNome') %>">
+      <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+
+      <label for="nome">Informe o novo nome do usuário: </label>
+      <input required type="text" name="nome", id="nome" class="form-control required">
+
+
+      <button type="submit" class="submit">Enviar</button>
+    </form>
+
+      
+  </div>
+</div>

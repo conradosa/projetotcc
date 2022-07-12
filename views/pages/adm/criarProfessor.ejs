@@ -11,7 +11,8 @@
   <div class="col-xl-8 col-lg-8 content-right">
     <div>
 
-      <form id="" method="post" action="<%= sails.getUrlFor('UsuarioController.login') %>">
+      <form id="" method="post" action="<%= sails.getUrlFor('UsuarioController.insertProfessor') %>">
+        <input type="hidden" name="_csrf" value="<%= _csrf %>" />
           <h2 class="section_title">Criar Professor</h2>
           <div class="form-group add_top_20">
               <label for="matricula">Número de Matrícula</label>
@@ -29,12 +30,8 @@
               <label for="email">Email</label>
               <input required type="email" name="email" id="email" class="form-control required">
           </div>
-          <!-- Discutir como vai ficar isso aqui -->
-          <div class="form-group">
-              <label for="alunos">Alunos</label>
-              <input required type="text" name="alunos" id="alunos" class="form-control required">
-          </div>
-          <!-- __________________________________________________________________________ -->
+
+          <button type="submit" class="submit">Enviar</button>
       </form>
 
     </div>
