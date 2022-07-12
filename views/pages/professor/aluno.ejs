@@ -1,38 +1,51 @@
 <div class="row row-height">
-  <div class="col-xl-4 col-lg-4 content-left">
-    <div class="content-left-wrapper">
-      <div>
-        <h2>Olá, <%= req.session.usuarioNome; %>!</h2>
-        <p>Esta é a página que lista todos os seus orientados e suas dependências.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-xl-8 col-lg-8 content-right row">
-    <% if(aluno){ %>
-      <div class="row col-sm-10">
-        <div class="card p-0">
-          <div class="card-header">
-            <h5 class="card-title">Nome do Aluno: <%= aluno.nome %>
-            </h5>
-            <h6 class="card-subtitle mb-2 text-muted">
-              <%= aluno.status %>
-            </h6>
-          </div>
-          <div class="body">
-            <div class="text-center row p-2">
-              <% if(aluno.etapa==1){ %>
-                <h5 class="card-title">Tema: <%= conteudo.nome %>
-                </h5>
-                <p>Descrição: <%= conteudo.descricao %>
-                </p>
-                <% } %>
+    <div class="col-xl-4 col-lg-4 content-left">
+        <div class="content-left-wrapper">
+            <div>
+                <h2>Olá, <%= req.session.usuarioNome; %>!</h2>
+                <p>Esta é a página que lista todos os seus orientados e suas dependências.</p>
             </div>
-            <div class="text-center p-2">
-              <form method="POST" id="sendResult" enctype="multipart/form-data">
-                <input type="hidden" name="_csrf" value="<%= _csrf %>" />
-                <input type="hidden" id="result" name="result" value="" />
-                <input type="submit" name="approve" value="Aprovar" onclick="
+        </div>
+    </div>
+
+    <div class="col-xl-8 col-lg-8 content-right row">
+        <% if(aluno){ %>
+            <div class="row col-sm-10">
+                <div class="card p-0">
+                    <div class="card-header">
+                        <h5 class="card-title">Nome do Aluno: <%= aluno.nome %>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <%= aluno.status %>
+                        </h6>
+                    </div>
+                    <div class="body">
+                        <div class="text-center row p-2">
+                            <% if(aluno.etapa==1){ %>
+                                <h3 class="card-title">Etapa 1 - Definição do Tema</h3>
+                                <h5>Tema: <%= conteudo.nome %>
+                                </h5>
+                                <p>Descrição: <%= conteudo.descricao %>
+                                </p>
+                            <% } %>
+                            <% if(aluno.etapa==2){ %>
+                                <h3 class="card-title">Etapa 2 - Envio da Proposta</h3>    
+                                <a href="<%= conteudo.diretorio %>">Ver Documento</a>
+                            <% } %>
+                            <% if(aluno.etapa==3){ %>
+                                <h3 class="card-title">Etapa 3 - Envio da Prévia</h3>    
+                                <a href="<%= conteudo.diretorio %>">Ver Documento</a>
+                            <% } %>
+                            <% if(aluno.etapa==4){ %>
+                                <h3 class="card-title">Etapa 4 - Envio da Documentação</h3>    
+                                <a href="<%= conteudo.diretorio %>">Ver Documento</a>
+                            <% } %>
+                        </div>
+                        <div class="text-center p-2">
+                            <form method="POST" id="sendResult" enctype="multipart/form-data">
+                                <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+                                <input type="hidden" id="result" name="result" value="" />
+                                <input type="submit" name="approve" value="Aprovar" onclick="
                 Swal.fire({
                 title: 'Tem certeza?',
                 text: 'Ao clicar em `Sim` a aprovação da etapa será confirmada.',
@@ -48,7 +61,7 @@
                     document.getElementById('sendResult').submit();
                   }
                 });" class="btn btn-success"> </input>
-                <input type="submit" name="reprove" value="Reprovar" onclick="
+                                <input type="submit" name="reprove" value="Reprovar" onclick="
                 Swal.fire({
                 title: 'Tem certeza?',
                 text: 'Ao clicar em `Sim` a reprovação da etapa será confirmada.',
@@ -64,14 +77,13 @@
                     document.getElementById('sendResult').submit();
                   }
                 });" class="btn btn-danger">
-                </input>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <% } %>
-
-  </div>
+                                </input>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="window.location.replace('/professor/alunos')" style="max-width: 200px; margin: auto;" class="btn mt-3 submit">Voltar</button>
+            </div> 
+        <% } %>
+    </div>
 </div>

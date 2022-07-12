@@ -12,6 +12,6 @@ module.exports.policies = {
   '*': 'logado',
   //'*': true,
   'usuario/login': true,
-  'usuario/insertAluno': true,
-  'usuario/insertProfessor': true,
+  //'usuario/insertAluno': true,
+  //'usuario/insertProfessor': true,
 };

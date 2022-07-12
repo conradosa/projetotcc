@@ -17,10 +17,10 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">Id</th>
             <th scope="col">Nome</th>
+            <th scope="col">Etapa</th>
             <th scope="col">Status</th>
-            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -28,8 +28,12 @@
           <tr>
             <th scope="row"><%= alunos[i].id %></th>
             <td><%= alunos[i].nome %></td>
-            <td><%= alunos[i].status %></td>
-            <td>Action</td>
+            <td><%= alunos[i].etapaText %></td>
+            <% if(alunos[i].status === '' || alunos[i].status === null){ %>
+            <td>Aguardando envio</td>
+            <% }else{ %>
+            <td><a href="/professor/alunos/<%= alunos[i].id %>"><%= alunos[i].status %></a></td>  
+            <% } %>
           </tr>
           <% } %>
         </tbody>
@@ -39,7 +43,7 @@
 
     <div class="row col-12 col-sm-4 col-md-3 btn-group-vertical">
         <br>
-        <button class="btn submit">Sugestões de Temas</button>
+        <button onclick="window.location.replace('/professor')" class="btn submit">Voltar</button>
     </div>
   </div>
 </div>

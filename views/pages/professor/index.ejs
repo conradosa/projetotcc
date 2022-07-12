@@ -3,17 +3,27 @@
         <div class="content-left-wrapper">
             <div>
                 <h2>Olá, <%= req.session.usuarioNome; %>!</h2>
-                <p>Esta é a página do professor, aqui você pode acessar o seu fluxo de etapas para saber em qual etapa da entrega do TCC você se encontra. Além de ter acesso às sugestões de temas na planilha alimentada pelo campus.</p>
+                <p>Esta é a página do professor, aqui você pode acessar o seu fluxo de etapas para saber em qual etapa
+                    da entrega do TCC você se encontra. Além de ter acesso às sugestões de temas na planilha alimentada
+                    pelo campus.</p>
             </div>
         </div>
     </div>
     <div class="col-xl-8 col-lg-8 content-right">
         <div class="btn-group-vertical">
-          <button onclick="window.location.replace('<%= sails.getUrlFor('ProfessorController.listarAlunos') %>')"
-            class="btn submit">Meus alunos
-          </button>
+            <button onclick="window.location.replace('<%= sails.getUrlFor('ProfessorController.listarAlunos') %>')"
+                    class="btn submit">Meus alunos
+            </button>
             <br>
-            <button class="btn submit">Sugestões de Temas</button>
+            <% if(disponivel){ %>
+                <button style="background-color: cornflowerblue" onclick="window.location.replace('<%= sails.getUrlFor('ProfessorController.disponivel') %>')"
+                        class="btn submit">Estou Disponível (Clique para Mudar)
+                </button>
+            <% }else{ %>
+                <button style="background-color: coral" onclick="window.location.replace('<%= sails.getUrlFor('ProfessorController.disponivel') %>')"
+                        class="btn submit">Não Estou Disponível (Clique para Mudar)
+                </button>
+            <% } %>
         </div>
     </div>
 </div>

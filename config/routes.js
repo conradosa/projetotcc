@@ -1,3 +1,4 @@
+
 const { proxetapa } = require("../api/controllers/AlunoController");
 
 module.exports.routes = {
@@ -7,6 +8,10 @@ module.exports.routes = {
     view: 'pages/login'
   },
 
+  'GET /aluno-ajuda': {
+    view: 'pages/aluno/ajuda'
+  },
+
   'GET /pendencia': {
     policy: 'logado',
     controller: 'aluno',
@@ -14,10 +19,14 @@ module.exports.routes = {
   },
 
   // Rotas Usuário //
+  'GET /cadastro': {
+    view: 'pages/aluno/cadastro'
+  },
 
+  // Rotas Usuário //
+  'GET /ajuda': {controller: 'usuario', action: 'ajuda'},
   'GET /prox': {controller: 'aluno', action: 'proxetapa'},
   'GET /verificar': {controller: 'aluno', action: 'verificar'},
-
   'GET /usuarios/:id': {action: 'usuario/listar'},
   'GET /usuarios': {action: 'usuario/listarAll'},
   'POST /usuarios': {policy: 'admin', action: 'usuario/criar'},
@@ -25,16 +34,91 @@ module.exports.routes = {
   'PUT /usuarios/:id': {action: 'usuario/atualizar'},
 
   // Rotas Professor //
-
-  'GET /professor/alunos': {action: 'professor/listarAlunos'},
-  'GET /professor/alunos/:id': {action: 'professor/verAluno'},
-  'POST /professor/alunos/:id': {action: 'professor/avaliarTrabalho'},
-
+  'GET /professor': {policy: 'professor', controller: 'professor', action: 'index'},
+  'GET /professor/disponivel': {policy: 'professor', controller: 'professor', action: 'disponivel'},
+  'GET /professor/alunos': {policy: 'professor', controller: 'professor', action: 'listarAlunos'},
+  'GET /professor/alunos/:id': {policy: 'professor', controller: 'professor', action: 'verAluno'},
+  'POST /professor/alunos/:id': {policy: 'professor', controller: 'professor', action: 'avaliarTrabalho'},
   'GET /professores': {action: 'professor/listarAll'},
   'GET /professores/:id': {action: 'professor/listar'},
   'POST /professores': {action: 'professor/criar'},
   'DELETE /professores/:id': {action: 'professor/deletar'},
   'PUT /professores/:id': {action: 'professor/atualizar'},
+
+
+  // Rotas ADM //
+
+
+  // Rotas Admin
+
+  'GET /adm/criarProfessor': {
+    //policy: 'naologado',
+    view: 'pages/adm/criarProfessor',
+    locals: {
+      title: 'Criar Usuário'
+    }
+  },
+
+  'POST /adm/criarProfessor': {
+    controller: 'usuario',
+    action: 'insertProfessor'
+  },
+
+  'GET /adm/criarAluno': {
+    //policy: 'naologado',
+    view: 'pages/adm/criarAluno',
+    locals: {
+      title: 'Criar Usuário'
+    }
+  },
+
+  'POST /adm/criarAluno': {
+    controller: 'usuario',
+    action: 'insertAluno'
+  },
+
+  'GET /adm/procurarUsuario': {
+    // policy:'naologado',
+    view: 'pages/adm/procurarUsuario',
+    locals : {
+      title: 'Procurar Usuário'
+    }
+  },
+
+  'POST /adm/procurarUsuario':{
+    controller: 'usuario',
+    action: 'findUsuario'
+  },
+
+  'GET /adm/painelUsuario': {
+    view: 'pages/adm/painelUsuario',
+    locals: {
+      title: 'Painel do Usuario'
+    }
+  },
+
+  'GET /adm/editarUsuario': {
+    view: 'pages/adm/editarUsuario',
+    locals: {
+      title: 'Editar Usuário'
+    }
+  },
+
+  'GET /adm': {
+    view: 'pages/adm/index'
+  },
+
+  'GET /adm/criarADM': {
+    //policy: 'admin',
+    controller: 'administrador',
+    action: 'criaAdm'
+  },
+
+  // 'GET /adm/retornaADM': {
+  //   //policy: 'admin',
+  //   controller: 'administrador',
+  //   action: 'retornaADM'
+  // },
 
 
   // Rotas Aluno //
@@ -48,6 +132,11 @@ module.exports.routes = {
   'GET /tentarnovamente': {policy: 'logado', controller: 'aluno', action: 'tentarnovamente'},
 
   // Rotas Etapas Aluno //
+
+  'GET /etapas': {
+    policy: 'logado',
+    view: 'pages/aluno/etapas'
+  },
 
   'GET /etapa': {
     policy: 'logado',
@@ -127,13 +216,6 @@ module.exports.routes = {
     action: 'index'
   },
 
-  'GET /professor': {
-    policy: 'logado',
-    view: 'pages/professor/index'
-  },
-
-
-
   'GET /status': {
     policy: 'logado',
     controller: 'aluno',
@@ -157,18 +239,5 @@ module.exports.routes = {
     controller: 'usuario',
     action: 'insertProfessor'
   },
-
-
-  'GET /adm/criarADM': {
-    //policy: 'admin',
-    controller: 'administrador',
-    action: 'criaADM'
-  },
-
-  'GET /adm/retornaADM': {
-    //policy: 'admin',
-    controller: 'administrador',
-    action: 'retornaADM'
-  }
 
 };
