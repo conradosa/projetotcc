@@ -1,3 +1,4 @@
+
 const { proxetapa } = require("../api/controllers/AlunoController");
 
 module.exports.routes = {
@@ -7,6 +8,10 @@ module.exports.routes = {
     view: 'pages/login'
   },
 
+  'GET /aluno-ajuda': {
+    view: 'pages/aluno/ajuda'
+  },
+
   'GET /pendencia': {
     // policy: 'logado',
     controller: 'aluno',
@@ -14,63 +19,35 @@ module.exports.routes = {
   },
 
   // Rotas Usuário //
-
-  'GET /prox': {
-    controller: 'aluno', action: 'proxetapa'
+  'GET /cadastro': {
+    view: 'pages/aluno/cadastro'
   },
 
-  'GET /verificar': {
-    controller: 'aluno', action: 'verificar'
-  },
-
-  'GET /usuarios/:id': {
-    action: 'usuario/listar'
-  },
-
-  'GET /usuarios': {
-    action: 'usuario/listarAll'
-  },
-
-  'POST /usuarios': {
-    policy: 'admin', action: 'usuario/criar'
-  },
-
-  'DELETE /usuarios/:id': {
-    action: 'usuario/deletar'
-  },
-
-  'PUT /usuarios/:id': {
-    action: 'usuario/atualizar'
-  },
-
+  // Rotas Usuário //
+  'GET /ajuda': {controller: 'usuario', action: 'ajuda'},
+  'GET /prox': {controller: 'aluno', action: 'proxetapa'},
+  'GET /verificar': {controller: 'aluno', action: 'verificar'},
+  'GET /usuarios/:id': {action: 'usuario/listar'},
+  'GET /usuarios': {action: 'usuario/listarAll'},
+  'POST /usuarios': {policy: 'admin', action: 'usuario/criar'},
+  'DELETE /usuarios/:id': {action: 'usuario/deletar'},
+  'PUT /usuarios/:id': {action: 'usuario/atualizar'},
 
   // Rotas Professor //
+  'GET /professor': {policy: 'professor', controller: 'professor', action: 'index'},
+  'GET /professor/disponivel': {policy: 'professor', controller: 'professor', action: 'disponivel'},
+  'GET /professor/alunos': {policy: 'professor', controller: 'professor', action: 'listarAlunos'},
+  'GET /professor/alunos/:id': {policy: 'professor', controller: 'professor', action: 'verAluno'},
+  'POST /professor/alunos/:id': {policy: 'professor', controller: 'professor', action: 'avaliarTrabalho'},
+  'GET /professores': {action: 'professor/listarAll'},
+  'GET /professores/:id': {action: 'professor/listar'},
+  'POST /professores': {action: 'professor/criar'},
+  'DELETE /professores/:id': {action: 'professor/deletar'},
+  'PUT /professores/:id': {action: 'professor/atualizar'},
 
-  'GET /professor/alunos': {
-    action: 'professor/listarAlunos'
-  },
 
-  'GET /professores': {
-    action: 'professor/listarAll'
-  },
+  // Rotas ADM //
 
-  'GET /professores/:id': {
-    action: 'professor/listar'
-  },
-
-  'POST /professores': {
-    action: 'professor/criar'
-  },
-
-  'DELETE /professores/:id': {
-    action: 'professor/deletar'
-  },
-
-  'PUT /professores/:id': {
-    action: 'professor/atualizar'
-  },
-
-  
 
   // Rotas Admin
 
@@ -87,11 +64,6 @@ module.exports.routes = {
     action: 'insertProfessor'
   },
 
-
-
-
-
-
   'GET /adm/criarAluno': {
     //policy: 'naologado',
     view: 'pages/adm/criarAluno',
@@ -104,10 +76,6 @@ module.exports.routes = {
     controller: 'usuario',
     action: 'insertAluno'
   },
-
-
-
-
 
   'GET /adm/procurarUsuario': {
     // policy:'naologado',
@@ -136,28 +104,21 @@ module.exports.routes = {
     }
   },
 
-
-
-
-
-  'GET /adm/index': {
-    policy: 'naologado',
+  'GET /adm': {
     view: 'pages/adm/index'
   },
 
-  // 'GET /adm/criarADM': {
-  //   //policy: 'admin',
-  //   controller: 'administrador',
-  //   action: 'criaAdm'
-  // },
+  'GET /adm/criarADM': {
+    //policy: 'admin',
+    controller: 'administrador',
+    action: 'criaAdm'
+  },
 
   // 'GET /adm/retornaADM': {
   //   //policy: 'admin',
   //   controller: 'administrador',
   //   action: 'retornaADM'
   // },
-
-  
 
 
   // Rotas Aluno //
@@ -195,6 +156,11 @@ module.exports.routes = {
   
 
   // Rotas Etapas Aluno //
+
+  'GET /etapas': {
+    policy: 'logado',
+    view: 'pages/aluno/etapas'
+  },
 
   'GET /etapa': {
     policy: 'logado',
@@ -274,17 +240,10 @@ module.exports.routes = {
     action: 'index'
   },
 
-  'GET /professor': {
+  'GET /status': {
     policy: 'logado',
-    view: 'pages/professor/index'
-  },
-
-  '/etapa4': {
-    //policy: 'logado',
-    view: 'pages/etapa4',
-    locals: {
-      title: 'Home'
-    }
+    controller: 'aluno',
+    action: 'status'
   },
 
   'POST /upload': {
@@ -301,8 +260,5 @@ module.exports.routes = {
     controller: 'usuario',
     action: 'insertProfessor'
   },
-
-
-  
 
 };

@@ -37,7 +37,11 @@ module.exports = {
       email: valor.email,
       tipo: 'Aluno'
     }).fetch();
+<<<<<<< HEAD
     await Aluno.create({usuario: user.id}).fetch();
+=======
+    await Aluno.create({ usuario: user.id }).fetch();
+>>>>>>> main
     sails.log('Aluno criado, seu nome: ', user.nome);
     res.redirect('/login');
   },
@@ -70,7 +74,11 @@ module.exports = {
       email: valor.email,
       tipo: 'Professor'
     }).fetch();
+<<<<<<< HEAD
     await Professor.create({usuario: user.id, disponivel: 1}).fetch();
+=======
+    await Professor.create({ usuario: user.id, disponivel: 1 }).fetch();
+>>>>>>> main
     sails.log('Professor criado, seu nome: ', user.nome);
     res.redirect('/login');
   },
@@ -104,7 +112,7 @@ module.exports = {
 
     if (!user) {
       req.session.erro = 'Usuário ou senha incorretos!';
-      res.redirect('back');
+      return res.redirect('back');
     } else {
       req.session.logado = true;
       req.session.usuarioId = user.id;
@@ -114,14 +122,19 @@ module.exports = {
       req.session.usuarioTipo = user.tipo;
       if (user.tipo === 'Aluno') {
         req.session.alunoEtapa = user.etapa;
-        res.redirect('/aluno');
-      } else {
-        res.redirect('/professor');
+        return res.redirect('/aluno');
+      } 
+      if (user.tipo === 'Professor') {
+        return res.redirect('/professor');
+      } 
+      if(user.tipo === 'adm') {
+        return res.redirect('/adm');
       }
+      return res.redirect('back');
     }
   },
 
-  findUsuario: async function(req, res){
+  findUsuario: async function (req, res) {
 
     const valor = req.body;
 
@@ -131,19 +144,19 @@ module.exports = {
     //   matricula: matricula
     // })
 
-    let users =  await Usuario.find();
+    let users = await Usuario.find();
 
-    if(!users){
+    if (!users) {
       req.session.erro = 'Nenhum usuário não encontrado.';
       res.redirect('index');
-    }else {
+    } else {
       return res.view('pages/adm/painelUsuario', {
         usuario: users
       });
     }
   },
 
-  alterarNome: async function(req,res){
+  alterarNome: async function (req, res) {
     const valor = req.body;
 
     const matricula = valor.matricula;
@@ -154,8 +167,8 @@ module.exports = {
       matricula: matricula
     })
 
-    await Usuario.update({usuario: '<%= usuario.id; %>'}).set({
-      
+    await Usuario.update({ usuario: '<%= usuario.id; %>' }).set({
+
     })
 
   },
@@ -174,4 +187,3 @@ module.exports = {
   }
 
 };
-
