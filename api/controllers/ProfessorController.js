@@ -69,6 +69,27 @@ module.exports = {
           let user = await Usuario.findOne({
             id: data.alunos[i].usuario
           });
+          let etapaText = '';
+          switch (data.alunos[i].etapa) {
+            case 1:
+              data.alunos[i].etapaText = 'Tema do TCC';
+              break;
+      
+            case 2:
+              data.alunos[i].etapaText = 'Proposta do TCC';
+              break;
+      
+            case 3:
+              data.alunos[i].etapaText = 'Prévia do TCC';
+              break;
+      
+            case 4:
+              data.alunos[i].etapaText = 'Documentação do TCC';
+              break;
+      
+            default:
+              break;
+          }
 
           data.alunos[i].nome = user.nome;
           data.alunos[i].matricula = user.matricula;

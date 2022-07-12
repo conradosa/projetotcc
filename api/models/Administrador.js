@@ -5,7 +5,7 @@
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
-module.exports = {
+ module.exports = {
 
   attributes: {
     id: {
@@ -26,10 +26,6 @@ module.exports = {
     tipo: {
       type: 'string', required: true, maxLength: 50
     },
-    etapa: {
-      type: 'number', required: true
-    }
   },
 
 };
-

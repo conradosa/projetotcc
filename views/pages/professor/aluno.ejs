@@ -22,10 +22,23 @@
                     <div class="body">
                         <div class="text-center row p-2">
                             <% if(aluno.etapa==1){ %>
-                                <h5 class="card-title">Tema: <%= conteudo.nome %>
+                                <h3 class="card-title">Etapa 1 - Definição do Tema</h3>
+                                <h5>Tema: <%= conteudo.nome %>
                                 </h5>
                                 <p>Descrição: <%= conteudo.descricao %>
                                 </p>
+                            <% } %>
+                            <% if(aluno.etapa==2){ %>
+                                <h3 class="card-title">Etapa 2 - Envio da Proposta</h3>    
+                                <a href="<%= conteudo.diretorio %>">Ver Documento</a>
+                            <% } %>
+                            <% if(aluno.etapa==3){ %>
+                                <h3 class="card-title">Etapa 3 - Envio da Prévia</h3>    
+                                <a href="<%= conteudo.diretorio %>">Ver Documento</a>
+                            <% } %>
+                            <% if(aluno.etapa==4){ %>
+                                <h3 class="card-title">Etapa 4 - Envio da Documentação</h3>    
+                                <a href="<%= conteudo.diretorio %>">Ver Documento</a>
                             <% } %>
                         </div>
                         <div class="text-center p-2">

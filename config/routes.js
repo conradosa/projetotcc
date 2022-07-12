@@ -1,3 +1,6 @@
+
+const { proxetapa } = require("../api/controllers/AlunoController");
+
 module.exports.routes = {
 
   'GET /': {
@@ -41,6 +44,82 @@ module.exports.routes = {
   'POST /professores': {action: 'professor/criar'},
   'DELETE /professores/:id': {action: 'professor/deletar'},
   'PUT /professores/:id': {action: 'professor/atualizar'},
+
+
+  // Rotas ADM //
+
+
+  // Rotas Admin
+
+  'GET /adm/criarProfessor': {
+    //policy: 'naologado',
+    view: 'pages/adm/criarProfessor',
+    locals: {
+      title: 'Criar Usuário'
+    }
+  },
+
+  'POST /adm/criarProfessor': {
+    controller: 'usuario',
+    action: 'insertProfessor'
+  },
+
+  'GET /adm/criarAluno': {
+    //policy: 'naologado',
+    view: 'pages/adm/criarAluno',
+    locals: {
+      title: 'Criar Usuário'
+    }
+  },
+
+  'POST /adm/criarAluno': {
+    controller: 'usuario',
+    action: 'insertAluno'
+  },
+
+  'GET /adm/procurarUsuario': {
+    // policy:'naologado',
+    view: 'pages/adm/procurarUsuario',
+    locals : {
+      title: 'Procurar Usuário'
+    }
+  },
+
+  'POST /adm/procurarUsuario':{
+    controller: 'usuario',
+    action: 'findUsuario'
+  },
+
+  'GET /adm/painelUsuario': {
+    view: 'pages/adm/painelUsuario',
+    locals: {
+      title: 'Painel do Usuario'
+    }
+  },
+
+  'GET /adm/editarUsuario': {
+    view: 'pages/adm/editarUsuario',
+    locals: {
+      title: 'Editar Usuário'
+    }
+  },
+
+  'GET /adm/index': {
+    policy: 'naologado',
+    view: 'pages/adm/index'
+  },
+
+  // 'GET /adm/criarADM': {
+  //   //policy: 'admin',
+  //   controller: 'administrador',
+  //   action: 'criaAdm'
+  // },
+
+  // 'GET /adm/retornaADM': {
+  //   //policy: 'admin',
+  //   controller: 'administrador',
+  //   action: 'retornaADM'
+  // },
 
 
   // Rotas Aluno //
@@ -161,18 +240,5 @@ module.exports.routes = {
     controller: 'usuario',
     action: 'insertProfessor'
   },
-
-
-  'GET /adm/criarADM': {
-    //policy: 'admin',
-    controller: 'administrador',
-    action: 'criaADM'
-  },
-
-  'GET /adm/retornaADM': {
-    //policy: 'admin',
-    controller: 'administrador',
-    action: 'retornaADM'
-  }
 
 };

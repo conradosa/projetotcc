@@ -55,6 +55,7 @@ module.exports = {
   pendencia: async function (req, res) {
     try {
       await Aluno.update({usuario: req.session.usuarioId}).set({pendencia: 0, status: ''});
+      delete req.session.alunoStatus;
       return res.redirect('/aluno');
     } catch (err) {
       req.session.erro = err.name;

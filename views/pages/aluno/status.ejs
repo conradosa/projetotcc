@@ -137,10 +137,12 @@
                         });" class="btn submit">Entendi
                 </button>
             <% } %>
+            <% if(req.session.alunoPendencia!==1){ %>
             <button
                     onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.tentarnovamente') %>')"
                     class="btn btn-link">refazer o envio
             </button>
+            <% } %>
         </div>
     </div>
 </div>
