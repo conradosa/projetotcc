@@ -29,15 +29,15 @@
                                 </p>
                             <% } %>
                             <% if(aluno.etapa==2){ %>
-                                <h3 class="card-title">Etapa 2 - Envio da Proposta</h3>    
+                                <h3 class="card-title">Etapa 2 - Envio da Proposta</h3>
                                 <a href="<%= conteudo.diretorio %>">Ver Documento</a>
                             <% } %>
                             <% if(aluno.etapa==3){ %>
-                                <h3 class="card-title">Etapa 3 - Envio da Prévia</h3>    
+                                <h3 class="card-title">Etapa 3 - Envio da Prévia</h3>
                                 <a href="<%= conteudo.diretorio %>">Ver Documento</a>
                             <% } %>
                             <% if(aluno.etapa==4){ %>
-                                <h3 class="card-title">Etapa 4 - Envio da Documentação</h3>    
+                                <h3 class="card-title">Etapa 4 - Envio da Documentação</h3>
                                 <a href="<%= conteudo.diretorio %>">Ver Documento</a>
                             <% } %>
                         </div>
@@ -45,7 +45,7 @@
                             <form method="POST" id="sendResult" enctype="multipart/form-data">
                                 <input type="hidden" name="_csrf" value="<%= _csrf %>" />
                                 <input type="hidden" id="result" name="result" value="" />
-                                <input type="submit" name="approve" value="Aprovar" onclick="
+                                <input type="button" name="approve" value="Aprovar" onclick="
                 Swal.fire({
                 title: 'Tem certeza?',
                 text: 'Ao clicar em `Sim` a aprovação da etapa será confirmada.',
@@ -61,7 +61,7 @@
                     document.getElementById('sendResult').submit();
                   }
                 });" class="btn btn-success"> </input>
-                                <input type="submit" name="reprove" value="Reprovar" onclick="
+                                <input type="button" name="reprove" value="Reprovar" onclick="
                 Swal.fire({
                 title: 'Tem certeza?',
                 text: 'Ao clicar em `Sim` a reprovação da etapa será confirmada.',
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <button onclick="window.location.replace('/professor/alunos')" style="max-width: 200px; margin: auto;" class="btn mt-3 submit">Voltar</button>
-            </div> 
+            </div>
         <% } %>
     </div>
 </div>

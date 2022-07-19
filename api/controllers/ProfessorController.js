@@ -74,19 +74,19 @@ module.exports = {
             case 1:
               data.alunos[i].etapaText = 'Tema do TCC';
               break;
-      
+
             case 2:
               data.alunos[i].etapaText = 'Proposta do TCC';
               break;
-      
+
             case 3:
               data.alunos[i].etapaText = 'Prévia do TCC';
               break;
-      
+
             case 4:
               data.alunos[i].etapaText = 'Documentação do TCC';
               break;
-      
+
             default:
               break;
           }
@@ -157,22 +157,53 @@ module.exports = {
   },
 
   avaliarTrabalho: async function (req, res) {
-    await Aluno.find({
-      id: req.params.id
-    }).then(async (data) => {
-      sails.log(req.body);
+    try {
+      const aluno = await Aluno.findOne({
+        id: req.params.id
+      });
 
-      if (req.body.approve === 'approve') {
-        //do stuff
-        sails.log('aprova');
+      if (req.body.result === 'approve') {
+        await Aluno.update({
+          id: aluno.id
+        }).set({
+          etapa: ++aluno.etapa,
+          status: '',
+          pendencia: 0,
+        });
+        sails.log("-- ");
+        sails.log(aluno.etapa + 1);
+
       } else if (req.body.result === 'reprove') {
-        //do stuff
-        sails.log('reprova');
+
+        /*var attStatus = '';
+        if(aluno.etapa === 1){
+          attStatus = 'Tema do TCC';
+          sails.log("chegou");
+        } else if (aluno.etapa === 2){
+          attStatus = 'Proposta do TCC';
+          sails.log("chegou2");
+        } else if (aluno.etapa === 3) {
+          attStatus = 'Prévia do TCC';
+          sails.log("chegou3");
+        } else if (aluno.etapa === 4) {
+          attStatus = 'Documentação do TCC';
+          sails.log("chegou4");
+        }
+        Não excluir log do ultimo envio (reprovado) para mostrar pro professor futuramente
+        */
+
+        await Aluno.update({
+          id: aluno.id
+        }).set({
+          status: '',
+          pendencia: 1,
+        });
       }
 
-      return res.redirect('back');
-    }).catch((erro) => {
-      return res.serverError(erro);
-    });
+      return res.redirect('/professor/alunos');
+    } catch (err) {
+      req.session.erro = err.name;
+      return res.redirect('/professor/alunos');
+    }
   },
 };
