@@ -232,12 +232,12 @@ module.exports.routes = {
 
   'GET /a/c': {
     controller: 'usuario',
-    action: 'insertAluno'
+    action: 'insertAlunoTest'
   },
 
   'GET /p/c': {
     controller: 'usuario',
-    action: 'insertProfessor'
+    action: 'insertProfessorTest'
   },
 
 };

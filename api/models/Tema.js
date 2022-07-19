@@ -5,6 +5,8 @@
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
+ const moment = require('moment');
+
 module.exports = {
 
   attributes: {
@@ -13,6 +15,15 @@ module.exports = {
     },
     descricao: {
       type: 'string', required: true
+    },
+    data_envio: { 
+      type: 'ref', 
+      columnType: 'datetime',
+      defaultsTo: moment().format("YYYY-MM-DD HH:mm:ss")  
+    },
+    data_aprovacao: { 
+      type: 'ref', 
+      columnType: 'datetime' 
     },
     aluno: {
       model: 'aluno',

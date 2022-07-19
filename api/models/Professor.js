@@ -21,7 +21,8 @@ module.exports = {
     },
 
     disponivel: {
-      type: 'boolean', required: true
+      type: 'boolean', 
+      defaultsTo: true
     },
 
     alunos: {

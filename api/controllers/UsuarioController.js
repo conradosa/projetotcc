@@ -9,6 +9,32 @@ const path = require('path');
 
 module.exports = {
 
+  insertAlunoTest: async function (req, res) {
+    var user = await Usuario.create({
+      matricula: '123',
+      nome: 'Aluno Teste',
+      senha: '100b945c050b7d1f82b1fe84c6274553159c12cba0345bb2c63935095050c32c',
+      email: 'aluno.teste@teste.com',
+      tipo: 'Aluno'
+    }).fetch();
+    await Aluno.create({ usuario: user.id }).fetch();
+    sails.log('Aluno criado, seu nome: ', user.nome);
+    res.redirect('/login');
+  },
+
+  insertProfessorTest: async function (req, res) {
+    var user = await Usuario.create({
+      matricula: '456',
+      nome: 'Professor Teste',
+      senha: '100b945c050b7d1f82b1fe84c6274553159c12cba0345bb2c63935095050c32c',
+      email: 'professor.teste@teste.com',
+      tipo: 'Professor'
+    }).fetch();
+    await Professor.create({ usuario: user.id }).fetch();
+    sails.log('Professor criado, seu nome: ', user.nome);
+    res.redirect('/login');
+  },
+
   insertAluno: async function (req, res) {
 
     const valor = req.body
