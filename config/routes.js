@@ -1,5 +1,5 @@
 
-const { proxetapa } = require("../api/controllers/AlunoController");
+const { proxetapa } = require('../api/controllers/AlunoController');
 
 module.exports.routes = {
 
@@ -24,26 +24,15 @@ module.exports.routes = {
   },
 
   // Rotas Usuário //
-  'GET /ajuda': {controller: 'usuario', action: 'ajuda'},
   'GET /prox': {controller: 'aluno', action: 'proxetapa'},
   'GET /verificar': {controller: 'aluno', action: 'verificar'},
-  'GET /usuarios/:id': {action: 'usuario/listar'},
-  'GET /usuarios': {action: 'usuario/listarAll'},
-  'POST /usuarios': {policy: 'admin', action: 'usuario/criar'},
-  'DELETE /usuarios/:id': {action: 'usuario/deletar'},
-  'PUT /usuarios/:id': {action: 'usuario/atualizar'},
 
   // Rotas Professor //
   'GET /professor': {policy: 'professor', controller: 'professor', action: 'index'},
-  'GET /professor/disponivel': {policy: 'professor', controller: 'professor', action: 'disponivel'},
+  'POST /professor/disponivel': {policy: 'professor', controller: 'professor', action: 'disponivel'},
   'GET /professor/alunos': {policy: 'professor', controller: 'professor', action: 'listarAlunos'},
   'GET /professor/alunos/:id': {policy: 'professor', controller: 'professor', action: 'verAluno'},
   'POST /professor/alunos/:id': {policy: 'professor', controller: 'professor', action: 'avaliarTrabalho'},
-  'GET /professores': {action: 'professor/listarAll'},
-  'GET /professores/:id': {action: 'professor/listar'},
-  'POST /professores': {action: 'professor/criar'},
-  'DELETE /professores/:id': {action: 'professor/deletar'},
-  'PUT /professores/:id': {action: 'professor/atualizar'},
 
 
   // Rotas ADM //
@@ -123,13 +112,7 @@ module.exports.routes = {
 
   // Rotas Aluno //
 
-  'GET /alunos': {action: 'aluno/listarAll'},
-  'GET /alunos/:id': {action: 'aluno/listar'},
-  'POST /alunos/:id/orientador/:idOrientador': {action: 'aluno/addOrientador'},
-  'POST /alunos': {action: 'aluno/criar'},
-  'DELETE /alunos/:id': {action: 'aluno/deletar'},
-  'PUT /alunos/:id': {action: 'aluno/atualizar'},
-  'GET /tentarnovamente': {policy: 'logado', controller: 'aluno', action: 'tentarnovamente'},
+  'GET /tentarNovamente': {policy: 'logado', controller: 'aluno', action: 'tentarNovamente'},
 
   // Rotas Etapas Aluno //
 
@@ -220,12 +203,6 @@ module.exports.routes = {
     policy: 'logado',
     controller: 'aluno',
     action: 'status'
-  },
-
-  'POST /upload': {
-    policy: 'logado',
-    controller: 'aluno',
-    action: 'upload'
   },
 
   // Rotas para Testes

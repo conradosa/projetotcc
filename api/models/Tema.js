@@ -16,19 +16,18 @@ module.exports = {
     descricao: {
       type: 'string', required: true
     },
-    data_envio: { 
-      type: 'ref', 
+    data_envio: {
+      type: 'ref',
       columnType: 'datetime',
-      defaultsTo: moment().format("YYYY-MM-DD HH:mm:ss")  
+      defaultsTo: moment().format("YYYY-MM-DD HH:mm:ss")
     },
-    data_aprovacao: { 
-      type: 'ref', 
-      columnType: 'datetime' 
+    data_aprovacao: {
+      type: 'ref',
+      columnType: 'datetime'
     },
     aluno: {
       model: 'aluno',
-      columnName: 'alunoId',
-      unique: true
+      columnName: 'alunoId'
     }
   },
 

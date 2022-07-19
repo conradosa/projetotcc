@@ -67,7 +67,7 @@ module.exports = {
     }
   },
 
-  tentarnovamente: async function (req, res) {
+  tentarNovamente: async function (req, res) {
     if (req.session.alunoPendencia === 0) {
       await Aluno.update({ usuario: req.session.usuarioId }).set({ pendencia: 0, status: '' });
       return res.redirect('/etapa');
@@ -93,12 +93,15 @@ module.exports = {
         });
       case 2:
         etapa = 'Proposta do TCC';
-        const proposta = await Proposta.findOne({ aluno: aluno.id });
-        if (proposta) {
+        const proposta = await Proposta.find({
+          where: { aluno: aluno.id  },
+          sort: 'id DESC'
+        });
+        if (proposta[0]) {
           return res.view('pages/aluno/status', {
             etapaText: etapa,
             etapa: req.session.alunoEtapa,
-            diretorio: proposta.diretorio
+            diretorio: proposta[0].diretorio
           });
         } else {
           return res.view('pages/aluno/status', {
@@ -109,12 +112,15 @@ module.exports = {
         }
       case 3:
         etapa = 'Prévia do TCC';
-        const previa = await Previa.findOne({ aluno: aluno.id });
-        if (previa) {
+        const previa = await Previa.find({
+          where: { aluno: aluno.id  },
+          sort: 'id DESC'
+        });
+        if (previa[0]) {
           return res.view('pages/aluno/status', {
             etapaText: etapa,
             etapa: req.session.alunoEtapa,
-            diretorio: previa.diretorio
+            diretorio: previa[0].diretorio
           });
         } else {
           return res.view('pages/aluno/status', {
@@ -125,12 +131,15 @@ module.exports = {
         }
       case 4:
         etapa = 'Documentação do TCC';
-        const documentacao = await Documentacao.findOne({ aluno: aluno.id });
-        if (documentacao) {
+        const documentacao = await Documentacao.find({
+          where: { aluno: aluno.id  },
+          sort: 'id DESC'
+        });
+        if (documentacao[0]) {
           return res.view('pages/aluno/status', {
             etapaText: etapa,
             etapa: req.session.alunoEtapa,
-            diretorio: documentacao.diretorio
+            diretorio: documentacao[0].diretorio
           });
         } else {
           return res.view('pages/aluno/status', {
@@ -215,18 +224,16 @@ module.exports = {
           .members(aluno.id);
       }
 
-      const tema = await Tema.findOne({ aluno: aluno.id });
-
-      const tema_b = req.body;
+      const tema = req.body;
 
       await Tema.create({
-        nome: tema_b.nome,
-        descricao: tema_b.descricao,
+        nome: tema.nome,
+        descricao: tema.descricao,
         aluno: aluno.id
       }).fetch();
 
       await Aluno.update({ usuario: req.session.usuarioId }).set({
-        orientador: tema_b.orientador,
+        orientador: tema.orientador,
         status: 'Aguardando aprovação do orientador.'
       });
       req.session.sucesso = 'Tema de TCC enviado!';
@@ -245,14 +252,21 @@ module.exports = {
 
     //transformar o inteiro em ‘string’ da matrícula
 
+    let matriculastring = req.session.usuarioMatricula.toString();
+
     const aluno = await Aluno.findOne({ usuario: req.session.usuarioId });
 
+    const propostas = await Proposta.find({
+      where: { aluno: aluno.id  },
+      sort: 'id DESC'
+    });
+
+    const idTopo = propostas[0].id + 1;
+
     const proposta = await Proposta.create({
-      diretorio: '/alunos/' + matriculastring + '/proposta.pdf',
+      diretorio: '/alunos/' + matriculastring + '/' + 'proposta' + idTopo + '.pdf',
       aluno: aluno.id
     }).fetch();
-
-    let matriculastring = req.session.usuarioMatricula.toString();
 
     //criar diretórios
 
@@ -333,8 +347,15 @@ module.exports = {
 
     const aluno = await Aluno.findOne({ usuario: req.session.usuarioId });
 
+    const previas = await Previa.find({
+      where: { aluno: aluno.id  },
+      sort: 'id DESC'
+    });
+
+    const idTopo = previas[0].id + 1;
+
     const previa = await Previa.create({
-      diretorio: '/alunos/' + matriculastring + '/previa.pdf',
+      diretorio: '/alunos/' + matriculastring + '/' + 'previa' + idTopo + '.pdf',
       prof1Id: value.professor1,
       prof2Id: value.professor2,
       aluno: aluno.id
@@ -416,8 +437,15 @@ module.exports = {
 
     const aluno = await Aluno.findOne({ usuario: req.session.usuarioId });
 
+    const documentacoes = await Documentacao.find({
+      where: { aluno: aluno.id  },
+      sort: 'id DESC'
+    });
+
+    const idTopo = documentacoes[0].id + 1;
+
     const documentacao = await Documentacao.create({
-      diretorio: '/alunos/' + matriculastring + '/documentacao.pdf',
+      diretorio: '/alunos/' + matriculastring + '/' + 'documentacao' + idTopo + '.pdf',
       aluno: aluno.id
     }).fetch();
 

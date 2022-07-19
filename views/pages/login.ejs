@@ -9,18 +9,24 @@
         </div>
     </div>
     <div class="col-xl-8 col-lg-8 content-right">
-        <form id="form_login" method="post" action="<%= sails.getUrlFor('UsuarioController.login') %>">
-            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
-            <h2 class="section_title">Login</h2>
-            <div class="form-group add_top_20">
-                <label for="matricula">Número de Matrícula</label>
-                <input required type="number" name="matricula" id="matricula" class="form-control required">
-            </div>
-            <div class="form-group">
-                <label for="senha">Senha</label>
-                <input required type="password" name="senha" id="senha" class="form-control required">
-            </div>
-            <button type="submit" class="submit">Enviar</button>
-        </form>
+        <div id="wizard_container">
+            <div class="row">
+                <img class="img-fluid" src="/images/logos/logo_horizontal.png"
+                     alt="Logo do IFRS Campus Restinga">
+            </div><br>
+            <form id="form_login" method="post" action="<%= sails.getUrlFor('UsuarioController.login'); %>">
+                <input type="hidden" name="_csrf" value="<%= _csrf; %>"/>
+                <h2 class="section_title">Login</h2>
+                <div class="form-group add_top_20">
+                    <label for="matricula">Número de Matrícula</label>
+                    <input required type="number" name="matricula" id="matricula" class="form-control required">
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input required type="password" name="senha" id="senha" class="form-control required">
+                </div>
+                <button type="submit" class="submit">Enviar</button>
+            </form>
+        </div>
     </div>
 </div>

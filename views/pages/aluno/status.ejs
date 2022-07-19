@@ -126,7 +126,7 @@
                         text: 'Ao clicar em `Sim` a notificação será excluída.',
                         icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#1dbe72',
+                        confirmButtonColor: '#32a041',
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Sim, entendi!',
                         cancelButtonText: 'Não...'
@@ -139,7 +139,7 @@
             <% } %>
             <% if(req.session.alunoPendencia!==1){ %>
             <button
-                    onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.tentarnovamente') %>')"
+                    onclick="window.location.replace('<%= sails.getUrlFor('AlunoController.tentarNovamente') %>')"
                     class="btn btn-link">refazer o envio
             </button>
             <% } %>

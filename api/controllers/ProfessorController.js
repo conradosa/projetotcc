@@ -36,29 +36,6 @@ module.exports = {
     }
   },
 
-  listarAll: async function (req, res) {
-    await Professor.find().populateAll().then((data) => {
-      return res.ok(data);
-    }).catch((erro) => {
-      return res.serverError(erro);
-    });
-  },
-
-  listarAlunos: async function (req, res) {
-    await Professor
-    .findOne({
-      usuario: req.session.usuarioId
-    })
-    .populate('alunos').then((data) => {
-      return res.view('pages/professor/alunos', {
-        alunos: data.alunos
-      });
-    })
-    .catch((erro) => {
-      return res.serverError(erro);
-    });
-  },
-
   listarAlunos: async function (req, res) {
     await Professor
       .findOne({
@@ -107,22 +84,24 @@ module.exports = {
   },
 
   verAluno: async function (req, res) {
-    var conteudo = {};
-
+    let conteudo = {};
     await Aluno.findOne({
       usuario: req.params.id
     }).then(async (data) => {
       if (data.etapa == 1) {
-        conteudo = await Tema.findOne({
-          aluno: data.id
+        conteudo = await Tema.find({
+          where: { aluno: data.id },
+          sort: 'id DESC'
         });
       } else if (data.etapa == 2) {
-        conteudo = await Proposta.findOne({
-          aluno: data.id
+        conteudo = await Proposta.find({
+          where: { aluno: data.id },
+          sort: 'id DESC'
         });
       } else if (data.etapa == 3) {
-        conteudo = await Previa.findOne({
-          aluno: data.id
+        conteudo = await Previa.find({
+          where: { aluno: data.id },
+          sort: 'id DESC'
         });
 
         conteudo.firstProf = Professor.findOne({
@@ -133,8 +112,9 @@ module.exports = {
           id: conteudo.prof2
         });
       } else if (data.etapa == 4) {
-        conteudo = await Documentacao.findOne({
-          aluno: data.id
+        conteudo = await Documentacao.find({
+          where: { aluno: data.id },
+          sort: 'id DESC'
         });
       }
 
@@ -167,12 +147,9 @@ module.exports = {
           id: aluno.id
         }).set({
           etapa: ++aluno.etapa,
-          status: '',
-          pendencia: 0,
+          status: 'Aprovado',
+          pendencia: 1,
         });
-        sails.log("-- ");
-        sails.log(aluno.etapa + 1);
-
       } else if (req.body.result === 'reprove') {
 
         /*var attStatus = '';
@@ -195,7 +172,7 @@ module.exports = {
         await Aluno.update({
           id: aluno.id
         }).set({
-          status: '',
+          status: 'Reprovado',
           pendencia: 1,
         });
       }

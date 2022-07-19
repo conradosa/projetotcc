@@ -12,46 +12,49 @@
         <% if(aluno){ %>
             <div class="row col-sm-10">
                 <div class="card p-0">
-                    <div class="card-header">
-                        <h5 class="card-title">Nome do Aluno: <%= aluno.nome %>
-                        </h5>
-                        <h6 class="card-subtitle mb-2 text-muted">
+                    <div class="card-header text-center">
+                        <h5 class="mt-2">Nome do Aluno:</h5>
+                        <h4 class="mb-2"><%= aluno.nome %></h4>
+                    </div>
+                    <div class="card-header text-center">
+                        <h5 class="mt-2">Status:</h5>
+                        <h4 class="card-subtitle mb-2 text-muted">
                             <%= aluno.status %>
-                        </h6>
+                        </h4>
                     </div>
                     <div class="body">
                         <div class="text-center row p-2">
-                            <% if(aluno.etapa==1){ %>
-                                <h3 class="card-title">Etapa 1 - Definição do Tema</h3>
-                                <h5>Tema: <%= conteudo.nome %>
+                            <% if(aluno.etapa == 1){ %>
+                                <h3 class="card-title mt-2">Etapa 1 - Definição do Tema</h3>
+                                <h5>Tema: <%= conteudo[0].nome %>
                                 </h5>
-                                <p>Descrição: <%= conteudo.descricao %>
+                                <p>Descrição: <%= conteudo[0].descricao %>
                                 </p>
                             <% } %>
-                            <% if(aluno.etapa==2){ %>
-                                <h3 class="card-title">Etapa 2 - Envio da Proposta</h3>
-                                <a href="<%= conteudo.diretorio %>">Ver Documento</a>
+                            <% if(aluno.etapa == 2){ %>
+                                <h3 class="card-title mt-2">Etapa 2 - Envio da Proposta</h3>
+                                <a href="<%= conteudo[0].diretorio %>">Ver Documento</a>
                             <% } %>
-                            <% if(aluno.etapa==3){ %>
-                                <h3 class="card-title">Etapa 3 - Envio da Prévia</h3>
-                                <a href="<%= conteudo.diretorio %>">Ver Documento</a>
+                            <% if(aluno.etapa == 3){ %>
+                                <h3 class="card-title mt-2">Etapa 3 - Envio da Prévia</h3>
+                                <a href="<%= conteudo[0].diretorio %>">Ver Documento</a>
                             <% } %>
-                            <% if(aluno.etapa==4){ %>
-                                <h3 class="card-title">Etapa 4 - Envio da Documentação</h3>
-                                <a href="<%= conteudo.diretorio %>">Ver Documento</a>
+                            <% if(aluno.etapa == 4){ %>
+                                <h3 class="card-title mt-2">Etapa 4 - Envio da Documentação</h3>
+                                <a href="<%= conteudo[0].diretorio %>">Ver Documento</a>
                             <% } %>
                         </div>
-                        <div class="text-center p-2">
+                        <div class="text-center mb-2 p-2">
                             <form method="POST" id="sendResult" enctype="multipart/form-data">
-                                <input type="hidden" name="_csrf" value="<%= _csrf %>" />
-                                <input type="hidden" id="result" name="result" value="" />
+                                <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+                                <input type="hidden" id="result" name="result" value=""/>
                                 <input type="button" name="approve" value="Aprovar" onclick="
                 Swal.fire({
                 title: 'Tem certeza?',
                 text: 'Ao clicar em `Sim` a aprovação da etapa será confirmada.',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#1dbe72',
+                confirmButtonColor: '#32a041',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Sim, entendi!',
                 cancelButtonText: 'Não...'
@@ -67,7 +70,7 @@
                 text: 'Ao clicar em `Sim` a reprovação da etapa será confirmada.',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#1dbe72',
+                confirmButtonColor: '#32a041',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Sim, entendi!',
                 cancelButtonText: 'Não...'
@@ -82,7 +85,9 @@
                         </div>
                     </div>
                 </div>
-                <button onclick="window.location.replace('/professor/alunos')" style="max-width: 200px; margin: auto;" class="btn mt-3 submit">Voltar</button>
+                <button onclick="window.location.replace('/professor/alunos')" style="max-width: 200px; margin: auto;"
+                        class="btn mt-3 submit">Voltar
+                </button>
             </div>
         <% } %>
     </div>

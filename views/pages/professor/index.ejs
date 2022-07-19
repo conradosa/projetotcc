@@ -10,20 +10,32 @@
         </div>
     </div>
     <div class="col-xl-8 col-lg-8 content-right">
-        <div class="btn-group-vertical">
-            <button onclick="window.location.replace('<%= sails.getUrlFor('ProfessorController.listarAlunos') %>')"
-                    class="btn submit">Meus alunos
-            </button>
+        <div class="text-center" id="wizard_container">
+            <div class="row d-flex justify-content-center">
+                <button style="width: 50%;" onclick="window.location.replace('<%= sails.getUrlFor('ProfessorController.listarAlunos') %>')"
+                        class="submit">Meus alunos
+                </button>
+            </div>
             <br>
-            <% if(disponivel){ %>
-                <button style="background-color: cornflowerblue" onclick="window.location.replace('<%= sails.getUrlFor('ProfessorController.disponivel') %>')"
-                        class="btn submit">Estou Disponível (Clique para Mudar)
-                </button>
-            <% }else{ %>
-                <button style="background-color: coral" onclick="window.location.replace('<%= sails.getUrlFor('ProfessorController.disponivel') %>')"
-                        class="btn submit">Não Estou Disponível (Clique para Mudar)
-                </button>
-            <% } %>
+            <div class="row d-flex justify-content-center">
+                <% if(disponivel){ %>
+                    <form method="POST" action="<%= sails.getUrlFor('ProfessorController.disponivel') %>">
+                        <label class="cl-switch custom-class">
+                            <input checked onChange="this.form.submit()" type="checkbox">
+                            <span class="switcher"></span>
+                            <span class="label">Estou disponível</span>
+                        </label>
+                    </form>
+                <% }else{ %>
+                    <form method="POST" action="<%= sails.getUrlFor('ProfessorController.disponivel') %>">
+                        <label class="cl-switch custom-class">
+                            <input onChange="this.form.submit()" type="checkbox">
+                            <span class="switcher"></span>
+                            <span class="label">Estou disponível</span>
+                        </label>
+                    </form>
+                <% } %>
+            </div>
         </div>
     </div>
 </div>
