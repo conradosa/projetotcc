@@ -37,9 +37,13 @@ module.exports = {
       email: valor.email,
       tipo: 'Aluno'
     }).fetch();
-    await Aluno.create({ usuario: user.id }).fetch();
-    sails.log('Aluno criado, seu nome: ', user.nome);
-    res.redirect('/login');
+    var aluno = await Aluno.create({ usuario: user.id }).fetch()
+      .then((data)=> {
+        req.session.sucesso = `Aluno ${user.nome} criado com sucesso!`
+        return res.view('pages/adm/criarAluno')})
+      .catch((err)=> {
+        req.session.sucesso = "Erro no servidor contate o Administrador!"
+        return res.view('pages/adm/criarAluno')})
   },
 
   insertProfessor: async function (req, res) {
@@ -70,9 +74,13 @@ module.exports = {
       email: valor.email,
       tipo: 'Professor'
     }).fetch();
-    await Professor.create({ usuario: user.id, disponivel: 1 }).fetch();
-    sails.log('Professor criado, seu nome: ', user.nome);
-    res.redirect('/login');
+    await Professor.create({ usuario: user.id, disponivel: 1 }).fetch()
+    .then((data)=> {
+      req.session.sucesso = `Professor ${user.nome} criado com sucesso!`
+      return res.view('pages/adm/criarProfessor')})
+    .catch((err)=> {
+      req.session.sucesso = "Erro no servidor contate o Administrador!"
+      return res.view('pages/adm/criarProfessor')})
   },
 
 

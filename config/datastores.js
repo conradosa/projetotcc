@@ -50,5 +50,6 @@ module.exports.datastores = {
     ***************************************************************************/
     adapter: 'sails-mysql',
     url: 'mysql://root:@127.0.0.1:3306/projetotcc',
+    // url: 'mysql://roger:roger@127.0.0.1:3306/sails',
   },
 };

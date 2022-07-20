@@ -10,8 +10,32 @@
   </div>
   <div class="col-xl-8 col-lg-8 content-right">
     <div>
+      <% if(req.session.erro){ %>
+          <script>
+            Swal.fire({
+              icon: 'error',
+              confirmButtonColor: '#20c997',
+              title: 'Ops...',
+              text: '<%= req.session.erro ;%>'
+            });
+          </script>
+      <%
+          delete req.session.erro;
+      } %>
 
-      <form id="" method="post" action="<%= sails.getUrlFor('UsuarioController.insertAluno') %>">
+      <% if(req.session.sucesso){ %>
+          <script>
+            Swal.fire({
+              icon: 'success',
+              confirmButtonColor: '#20c997',
+              title: 'Oba!',
+              text: '<%= req.session.sucesso ;%>'
+            });
+          </script>
+      <%
+          delete req.session.sucesso;
+      } %>
+      <form id="" method="post" action="/adm/criarAluno">
         <input type="hidden" name="_csrf" value="<%= _csrf %>" />
           <h2 class="section_title">Criar Aluno</h2>
           <div class="form-group add_top_20">
