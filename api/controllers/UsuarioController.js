@@ -6,6 +6,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const sailsHookGrunt = require('sails-hook-grunt');
 
 module.exports = {
 
@@ -94,6 +95,7 @@ module.exports = {
       req.session.erro = 'O campo matrícula deve ser um número!';
       return res.redirect('back');
     }
+   
 
     const senha = valor.senha;
 
@@ -171,6 +173,11 @@ module.exports = {
 
     })
 
+  },
+
+  atualizar:  async function (req,res) {
+    sails.log(req)
+    await Usuario.findOne({id:req.params.id}).then()
   },
 
   logout: async function (req, res) {

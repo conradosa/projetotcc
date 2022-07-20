@@ -71,6 +71,15 @@ module.exports.routes = {
       title: 'Criar Usuário'
     }
   },
+  'GET /adm/editarAluno/': {
+    //policy: 'naologado',
+    view: 'pages/adm/edicoes/editarAluno',
+    controller:'usuario',
+    action: 'atualizar',
+    locals: {
+      title: 'Editar Aluno'
+    }
+  },
 
   'POST /adm/criarAluno': {
     controller: 'usuario',

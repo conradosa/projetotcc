@@ -16,22 +16,18 @@
         <table class="table table-stripped">
           <thead>
             <tr>
-              <th>Id</th>
               <th>Matricula</th>
               <th>Nome</th>
               <th>Email</th>
-              <th>Senha</th>
+              <th>---</th>
             </tr>
           </thead>
           <tbody>
             <% for(i=0;i < Object.keys(usuario).length; i++){ %>
             <tr>
-              <th scope="row"> <%= usuario[i].id;    %> </th>
               <td><a href="#"> <%= usuario[i].matricula;%></a> </td>
               <td><a href="#"> <%= usuario[i].nome;  %> </a></td>
               <td><a href="#"> <%= usuario[i].email; %> </a></td>
-              <td><a href="#"> <%= usuario[i].senha; %> </a></td>
-            </tr>
             <% } %>
           </tbody>
         </table>
