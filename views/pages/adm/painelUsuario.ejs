@@ -27,7 +27,13 @@
             <% for(i=0;i < Object.keys(usuario).length; i++){ %>
             <tr>
               <th scope="row"> <%= usuario[i].id;    %> </th>
-              <td><a href="#"> <%= usuario[i].matricula;%></a> </td>
+              <td>
+                <form method="POST" action="<%= sails.getUrlFor('UsuarioController.alterarUsuario') %>">
+                  <input type="hidden" name="_csrf" value="<%= _csrf %>">
+                  <input type="hidden" name="id" value="<%= usuario[i].id; %>">
+                  <input type="hidden" name="action" value="matricula">
+                  <button class="btn btn-link" type="submit"><%= usuario[i].matricula; %></button>
+                </form>
               <td><a href="#"> <%= usuario[i].nome;  %> </a></td>
               <td><a href="#"> <%= usuario[i].email; %> </a></td>
               <td><a href="#"> <%= usuario[i].senha; %> </a></td>

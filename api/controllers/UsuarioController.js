@@ -174,21 +174,38 @@ module.exports = {
     }
   },
 
-  alterarNome: async function (req, res) {
+  alterarUsuario: async function (req, res) {
     const valor = req.body;
 
-    const matricula = valor.matricula;
+    const user = await Usuario.findOne({id:valor.id});
 
-    const nome = valor.nome;
+    switch(valor.action) {
+      case 'matricula':
+        return res.view('pages/adm/edicoes/alterarMatricula', {
+          user:user
+        });
+        break;
+      
+      
+    }
 
-    let user = await Usuario.findOne({
-      matricula: matricula
-    })
+    
 
-    await Usuario.update({ usuario: '<%= usuario.id; %>' }).set({
+  },
 
-    })
+  alterarMatricula: async function(req,res) {
+    const valor = req.body;
 
+    try{
+      await Usuario.update({id: valor.id}).set({
+        matricula: valor.matricula
+      });
+    }catch(err){
+      req.session.erro = err.name;
+        return res.redirect('/adm');
+    }
+    req.session.sucesso = 'Matricula alterada!';
+    return res.redirect('/adm/painelUsuarios')
   },
 
   logout: async function (req, res) {

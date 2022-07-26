@@ -66,24 +66,43 @@ module.exports.routes = {
     action: 'insertAluno'
   },
 
-  'GET /adm/procurarUsuario': {
-    // policy:'naologado',
-    view: 'pages/adm/procurarUsuario',
-    locals : {
-      title: 'Procurar Usuário'
-    }
+  // 'GET /adm/procurarUsuario': {
+  //   // policy:'naologado',
+  //   view: 'pages/adm/procurarUsuario',
+  //   locals : {
+  //     title: 'Procurar Usuário'
+  //   }
+  // },
+
+  // 'POST /adm/procurarUsuario':{
+  //   controller: 'usuario',
+  //   action: 'findUsuario'
+  // },
+
+  'POST /adm/alterarUsuario' : {
+    controller: 'usuario',
+    action: 'alterarUsuario',
   },
 
-  'POST /adm/procurarUsuario':{
+  'POST /adm/alterarMatricula' : {
     controller: 'usuario',
-    action: 'findUsuario'
+    action: 'alterarMatricula',
   },
 
   'GET /adm/painelUsuario': {
     view: 'pages/adm/painelUsuario',
     locals: {
       title: 'Painel do Usuario'
-    }
+    },
+  },
+
+  'GET /adm/painelUsuario': {
+    view: 'pages/adm/painelUsuario',
+    locals: {
+      title: 'Painel do Usuario'
+    },
+    controller: 'usuario',
+    action: 'findUsuario'
   },
 
   'GET /adm/editarUsuario': {

@@ -9,9 +9,11 @@
  */
 
 module.exports.policies = {
-  '*': 'logado',
-  //'*': true,
+  // '*': 'logado',
+  '*': true,
   'usuario/login': true,
   'usuario/insertAlunoTest': true,
   'usuario/insertProfessorTest': true,
+  'usuario/findUsuario': true,
+
 };
