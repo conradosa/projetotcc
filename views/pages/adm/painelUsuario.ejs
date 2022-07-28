@@ -17,6 +17,7 @@
           <thead>
             <tr>
               <th>Id</th>
+              <th>Tipo</th>
               <th>Matricula</th>
               <th>Nome</th>
               <th>Email</th>
@@ -28,15 +29,39 @@
             <tr>
               <th scope="row"> <%= usuario[i].id;    %> </th>
               <td>
+                <button class="btn-custom" style="cursor:default"><%= usuario[i].tipo; %></button>
+              </td>
+              <td>
                 <form method="POST" action="<%= sails.getUrlFor('UsuarioController.alterarUsuario') %>">
                   <input type="hidden" name="_csrf" value="<%= _csrf %>">
                   <input type="hidden" name="id" value="<%= usuario[i].id; %>">
                   <input type="hidden" name="action" value="matricula">
-                  <button class="btn btn-link" type="submit"><%= usuario[i].matricula; %></button>
+                  <button class="btn-custom" type="submit"><%= usuario[i].matricula; %></button>
                 </form>
-              <td><a href="#"> <%= usuario[i].nome;  %> </a></td>
-              <td><a href="#"> <%= usuario[i].email; %> </a></td>
-              <td><a href="#"> <%= usuario[i].senha; %> </a></td>
+              <td>
+                <form method="POST" action="<%= sails.getUrlFor('UsuarioController.alterarUsuario') %>">
+                  <input type="hidden" name="_csrf" value="<%= _csrf %>">
+                  <input type="hidden" name="id" value="<%= usuario[i].id; %>">
+                  <input type="hidden" name="action" value="nome">
+                  <button class="btn-custom" type="submit"><%= usuario[i].nome; %></button>
+                </form>
+              </td>
+              <td>
+                <form method="POST" action="<%= sails.getUrlFor('UsuarioController.alterarUsuario') %>">
+                  <input type="hidden" name="_csrf" value="<%= _csrf %>">
+                  <input type="hidden" name="id" value="<%= usuario[i].id; %>">
+                  <input type="hidden" name="action" value="email">
+                  <button class="btn-custom" type="submit"><%= usuario[i].email; %></button>
+                </form>
+              </td>
+              <td>
+                <form method="POST" action="<%= sails.getUrlFor('UsuarioController.alterarUsuario') %>">
+                  <input type="hidden" name="_csrf" value="<%= _csrf %>">
+                  <input type="hidden" name="id" value="<%= usuario[i].id; %>">
+                  <input type="hidden" name="action" value="senha">
+                  <button class="btn-custom" type="submit"><%= usuario[i].senha; %></button>
+                </form>
+              </td>
             </tr>
             <% } %>
           </tbody>

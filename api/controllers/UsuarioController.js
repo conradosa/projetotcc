@@ -156,7 +156,7 @@ module.exports = {
 
     const valor = req.body;
 
-    const matricula = valor.matricula;
+    // const matricula = valor.matricula;
 
     // let user = await Usuario.findOne({
     //   matricula: matricula
@@ -164,9 +164,9 @@ module.exports = {
 
     let users = await Usuario.find();
 
-    if (!users) {
+    if (users.length == 0) {
       req.session.erro = 'Nenhum usuário não encontrado.';
-      res.redirect('index');
+      res.redirect('/adm');
     } else {
       return res.view('pages/adm/painelUsuario', {
         usuario: users
@@ -181,10 +181,28 @@ module.exports = {
 
     switch(valor.action) {
       case 'matricula':
-        return res.view('pages/adm/edicoes/alterarMatricula', {
+        return res.view('pages/adm/edicoes/alterarMatricula', 
+        {
           user:user
         });
-        break;
+        
+      case 'nome':
+        return res.view('pages/adm/edicoes/alterarNome',
+        {
+          user:user
+        });
+
+      case 'email':
+        return res.view('pages/adm/edicoes/alterarEmail',
+        {
+          user:user
+        });
+
+      case 'senha':
+        return res.view('pages/adm/edicoes/alterarSenha',
+        {
+          user:user
+        });
       
       
     }
@@ -205,7 +223,60 @@ module.exports = {
         return res.redirect('/adm');
     }
     req.session.sucesso = 'Matricula alterada!';
-    return res.redirect('/adm/painelUsuarios')
+    return res.redirect('/adm/painelUsuario')
+  },
+
+  alterarNome: async function(req,res) {
+    const valor = req.body;
+
+    try{
+      await Usuario.update({id: valor.id}).set({
+        nome: valor.nome
+      });
+    }catch(err){
+      req.session.erro = err.name;
+        return res.redirect('/adm');
+    }
+    req.session.sucesso = 'Nome alterado!';
+    return res.redirect('/adm/painelUsuario')
+  },
+
+  alterarEmail: async function(req,res) {
+    const valor = req.body;
+
+    try{
+      await Usuario.update({id: valor.id}).set({
+        email: valor.email
+      });
+    }catch(err){
+      req.session.erro = err.name;
+        return res.redirect('/adm');
+    }
+    req.session.sucesso = 'Email alterado!';
+    return res.redirect('/adm/painelUsuario')
+  },
+
+  alterarSenha: async function(req,res) {
+    const valor = req.body;
+
+    //encriptação de senha
+    const senha = valor.senha;
+    const crypto = require('crypto');
+    const salt = 'TFpYLRSwvkM-';
+    const senhasalted = senha + salt;
+    const senhabd = crypto.createHash('sha256').update(senhasalted).digest('hex');
+    //------------------------------------------------------
+
+    try{
+      await Usuario.update({id: valor.id}).set({
+        senha: senhabd
+      });
+    }catch(err){
+      req.session.erro = err.name;
+        return res.redirect('/adm');
+    }
+    req.session.sucesso = 'Senha alterada!';
+    return res.redirect('/adm/painelUsuario')
   },
 
   logout: async function (req, res) {

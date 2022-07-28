@@ -88,6 +88,18 @@ module.exports.routes = {
     controller: 'usuario',
     action: 'alterarMatricula',
   },
+  'POST /adm/alterarNome' : {
+    controller: 'usuario',
+    action: 'alterarNome',
+  },
+  'POST /adm/alterarEmail' : {
+    controller: 'usuario',
+    action: 'alterarEmail',
+  },
+  'POST /adm/alterarSenha' : {
+    controller: 'usuario',
+    action: 'alterarSenha',
+  },
 
   'GET /adm/painelUsuario': {
     view: 'pages/adm/painelUsuario',
