@@ -47,7 +47,8 @@
                         <div class="text-center mb-2 p-2">
                             <form method="POST" id="sendResult" enctype="multipart/form-data">
                                 <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
-                                <input type="hidden" id="result" name="result" value=""/>
+                                <input type="hidden" id="situation" name="situation" value=""/>
+                                <input type="hidden" id="description" name="description" value=""/>
                                 <input type="button" name="approve" value="Aprovar" onclick="
                 Swal.fire({
                 title: 'Tem certeza?',
@@ -60,7 +61,7 @@
                 cancelButtonText: 'Não...'
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    document.getElementById('result').value = 'approve';
+                    document.getElementById('situation').value = 'approve';
                     document.getElementById('sendResult').submit();
                   }
                 });" class="btn btn-success"> </input>
@@ -68,6 +69,11 @@
                 Swal.fire({
                 title: 'Tem certeza?',
                 text: 'Ao clicar em `Sim` a reprovação da etapa será confirmada.',
+                input: 'textarea',
+                inputPlaceholder: 'Escreva o motivo de reprovação...',
+                inputAttributes: {
+                  'arial-label': 'Escreva o motivo da reprovação...'
+                },
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#32a041',
@@ -76,7 +82,8 @@
                 cancelButtonText: 'Não...'
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    document.getElementById('result').value = 'reprove';
+                    document.getElementById('description').value = result.value;
+                    document.getElementById('situation').value = 'reprove';
                     document.getElementById('sendResult').submit();
                   }
                 });" class="btn btn-danger">

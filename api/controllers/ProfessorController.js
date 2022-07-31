@@ -85,6 +85,7 @@ module.exports = {
 
   verAluno: async function (req, res) {
     let conteudo = {};
+    sails.log(req.params.id);
     await Aluno.findOne({
       usuario: req.params.id
     }).then(async (data) => {
@@ -138,44 +139,47 @@ module.exports = {
 
   avaliarTrabalho: async function (req, res) {
     try {
-      const aluno = await Aluno.findOne({
-        id: req.params.id
+      await Aluno.findOne({
+        usuario: req.params.id
+      }).then(async (data) => {
+        sails.log(data);
+        if (req.body.situation === 'approve') {
+          await Aluno.update({
+            id: data.id
+          }).set({
+            etapa: ++data.etapa,
+            status: 'Aprovado',
+            pendencia: 1,
+          });
+        } else if (req.body.situation === 'reprove') {
+
+          /*var attStatus = '';
+          if(aluno.etapa === 1){
+            attStatus = 'Tema do TCC';
+            sails.log("chegou");
+          } else if (aluno.etapa === 2){
+            attStatus = 'Proposta do TCC';
+            sails.log("chegou2");
+          } else if (aluno.etapa === 3) {
+            attStatus = 'Prévia do TCC';
+            sails.log("chegou3");
+          } else if (aluno.etapa === 4) {
+            attStatus = 'Documentação do TCC';
+            sails.log("chegou4");
+          }
+          Não excluir log do ultimo envio (reprovado) para mostrar pro professor futuramente
+          */
+          sails.log(req.body.description);
+          await Aluno.update({
+            id: data.id
+          }).set({
+            status: 'Reprovado',
+            pendencia: 1,
+          });
+        }
       });
 
-      if (req.body.result === 'approve') {
-        await Aluno.update({
-          id: aluno.id
-        }).set({
-          etapa: ++aluno.etapa,
-          status: 'Aprovado',
-          pendencia: 1,
-        });
-      } else if (req.body.result === 'reprove') {
 
-        /*var attStatus = '';
-        if(aluno.etapa === 1){
-          attStatus = 'Tema do TCC';
-          sails.log("chegou");
-        } else if (aluno.etapa === 2){
-          attStatus = 'Proposta do TCC';
-          sails.log("chegou2");
-        } else if (aluno.etapa === 3) {
-          attStatus = 'Prévia do TCC';
-          sails.log("chegou3");
-        } else if (aluno.etapa === 4) {
-          attStatus = 'Documentação do TCC';
-          sails.log("chegou4");
-        }
-        Não excluir log do ultimo envio (reprovado) para mostrar pro professor futuramente
-        */
-
-        await Aluno.update({
-          id: aluno.id
-        }).set({
-          status: 'Reprovado',
-          pendencia: 1,
-        });
-      }
 
       return res.redirect('/professor/alunos');
     } catch (err) {
