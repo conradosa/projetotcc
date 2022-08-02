@@ -4,6 +4,7 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
+const moment = require('moment');
 
 const {tema, proposta, documentacao} = require('./AlunoController');
 
@@ -139,10 +140,98 @@ module.exports = {
 
   avaliarTrabalho: async function (req, res) {
     try {
+      let conteudo = {};
+
       await Aluno.findOne({
         usuario: req.params.id
       }).then(async (data) => {
-        sails.log(data);
+        if(data.etapa == 1){
+          sails.log("entrou");
+
+          conteudo = await Tema.find({
+            where: { aluno: data.id, data_aprovacao: null, data_reprovacao: null },
+            sort: 'id DESC'
+          });
+
+          sails.log(conteudo);
+
+          if (req.body.situation === 'approve'){
+            await Tema.update({
+              id: conteudo.id
+            }).set({
+              data_aprovacao: moment().format("YYYY-MM-DD HH:mm:ss")
+            });
+          } else {
+            await Tema.update({
+              id: conteudo.id
+            }).set({
+              data_reprovacao: moment().format("YYYY-MM-DD HH:mm:ss"),
+              motivo_reprovacao: req.body.description
+            });
+          }
+
+        } else if (data.etapa == 2){
+          conteudo = await Proposta.find({
+            where: { aluno: data.id, data_aprovacao: null, data_reprovacao: null },
+            sort: 'id DESC'
+          });
+
+          if (req.body.situation === 'approve'){
+            await Proposta.update({
+              id: conteudo.id
+            }).set({
+              data_aprovacao: moment().format("YYYY-MM-DD HH:mm:ss")
+            });
+          } else {
+            await Proposta.update({
+              id: conteudo.id
+            }).set({
+              data_reprovacao: moment().format("YYYY-MM-DD HH:mm:ss"),
+              motivo_reprovacao: req.body.description
+            });
+          }
+        } else if (data.etapa == 3) {
+          conteudo = await Previa.find({
+            where: { aluno: data.id, data_aprovacao: null, data_reprovacao: null },
+            sort: 'id DESC'
+          });
+
+          if (req.body.situation === 'approve'){
+            await Previa.update({
+              id: conteudo.id
+            }).set({
+              data_aprovacao: moment().format("YYYY-MM-DD HH:mm:ss")
+            });
+          } else {
+            await Previa.update({
+              id: conteudo.id
+            }).set({
+              data_reprovacao: moment().format("YYYY-MM-DD HH:mm:ss"),
+              motivo_reprovacao: req.body.description
+            });
+          }
+        } else if (data.etapa == 4) {
+          conteudo = await Documentacao.find({
+            where: { aluno: data.id, data_aprovacao: null, data_reprovacao: null },
+            sort: 'id DESC'
+          });
+
+          if (req.body.situation === 'approve'){
+            await Documentacao.update({
+              id: conteudo.id
+            }).set({
+              data_aprovacao: moment().format("YYYY-MM-DD HH:mm:ss")
+            });
+          } else {
+            await Documentacao.update({
+              id: conteudo.id
+            }).set({
+              data_reprovacao: moment().format("YYYY-MM-DD HH:mm:ss"),
+              motivo_reprovacao: req.body.description
+            });
+          }
+        }
+
         if (req.body.situation === 'approve') {
           await Aluno.update({
             id: data.id
@@ -152,23 +241,6 @@ module.exports = {
             pendencia: 1,
           });
         } else if (req.body.situation === 'reprove') {
-
-          /*var attStatus = '';
-          if(aluno.etapa === 1){
-            attStatus = 'Tema do TCC';
-            sails.log("chegou");
-          } else if (aluno.etapa === 2){
-            attStatus = 'Proposta do TCC';
-            sails.log("chegou2");
-          } else if (aluno.etapa === 3) {
-            attStatus = 'Prévia do TCC';
-            sails.log("chegou3");
-          } else if (aluno.etapa === 4) {
-            attStatus = 'Documentação do TCC';
-            sails.log("chegou4");
-          }
-          Não excluir log do ultimo envio (reprovado) para mostrar pro professor futuramente
-          */
           sails.log(req.body.description);
           await Aluno.update({
             id: data.id
@@ -178,8 +250,6 @@ module.exports = {
           });
         }
       });
-
-
 
       return res.redirect('/professor/alunos');
     } catch (err) {
