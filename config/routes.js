@@ -66,19 +66,6 @@ module.exports.routes = {
     action: 'insertAluno'
   },
 
-  // 'GET /adm/procurarUsuario': {
-  //   // policy:'naologado',
-  //   view: 'pages/adm/procurarUsuario',
-  //   locals : {
-  //     title: 'Procurar Usuário'
-  //   }
-  // },
-
-  // 'POST /adm/procurarUsuario':{
-  //   controller: 'usuario',
-  //   action: 'findUsuario'
-  // },
-
   'POST /adm/alterarUsuario' : {
     controller: 'usuario',
     action: 'alterarUsuario',
@@ -106,13 +93,6 @@ module.exports.routes = {
     locals: {
       title: 'Painel do Usuario'
     },
-  },
-
-  'GET /adm/painelUsuario': {
-    view: 'pages/adm/painelUsuario',
-    locals: {
-      title: 'Painel do Usuario'
-    },
     controller: 'usuario',
     action: 'findUsuario'
   },
@@ -122,6 +102,15 @@ module.exports.routes = {
     locals: {
       title: 'Editar Usuário'
     }
+  },
+
+  'GET /adm/filtro': {
+    view: 'pages/adm/filtro',
+    locals: {
+      title: 'Filtro'
+    },
+    controller: 'usuario',
+    action: 'findProfessores'
   },
 
   'GET /adm': {
