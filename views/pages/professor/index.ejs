@@ -11,9 +11,14 @@
     </div>
     <div class="col-xl-8 col-lg-8 content-right">
         <div class="text-center" id="wizard_container">
-            <div class="row d-flex justify-content-center">
+            <div class="row d-flex justify-content-center mb-3">
                 <button style="width: 50%;" onclick="window.location.replace('<%= sails.getUrlFor('ProfessorController.listarAlunos') %>')"
                         class="submit">Meus alunos
+                </button>
+            </div>
+            <div class="row d-flex justify-content-center mb-3">
+                <button style="width: 50%;" onclick="window.location.replace('<%= sails.getUrlFor('SugestaoController.listar') %>')"
+                        class="submit">sugestão de temas
                 </button>
             </div>
             <br>

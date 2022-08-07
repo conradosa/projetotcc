@@ -1,0 +1,55 @@
+<div class="row row-height">
+    <div class="col-xl-4 col-lg-4 content-left">
+        <div class="content-left-wrapper">
+            <div>
+                <h2>Projeto de Gerenciamento de TCC</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-8 content-right">
+      <div>
+        <% if(req.session.erro){ %>
+          <script>
+            Swal.fire({
+              icon: 'error',
+              confirmButtonColor: '#20c997',
+              title: 'Ops...',
+              text: '<%= req.session.erro ;%>'
+            });
+          </script>
+      <%
+          delete req.session.erro;
+      } %>
+
+      <% if(req.session.sucesso){ %>
+          <script>
+            Swal.fire({
+              icon: 'success',
+              confirmButtonColor: '#20c997',
+              title: 'Oba!',
+              text: '<%= req.session.sucesso ;%>'
+            });
+          </script>
+      <%
+          delete req.session.sucesso;
+      } %>
+        <form method="post" action="/editarSugestao">
+          <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+          <input type="hidden" name="id" value="<%= sugestoes.id %>" />
+            <h2 class="section_title">Editar Sugestão de Tema</h2>
+            <div class="form-group add_top_20">
+                <label for="nome">Nome</label>
+                <input required type="text" name="nome" id="nome" value="<%= sugestoes.nome;%>" class="form-control required"/>
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                <textarea name="descricao" id="descricao" cols="50" rows="20" required ><%= sugestoes.descricao;%></textarea>
+            </div>
+            <button type="submit" class="submit">Editar</button> 
+        </form>
+      </div>
+    </div>
+  </div>
+  
