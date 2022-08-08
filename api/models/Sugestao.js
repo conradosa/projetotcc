@@ -1,5 +1,5 @@
 /**
- * Documentacao.js
+ * Sugestao.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -10,31 +10,21 @@
 module.exports = {
 
   attributes: {
-    diretorio: {
+    nome: {
       type: 'string', required: true, maxLength: 255
+    },
+    descricao: {
+      type: 'text', required: true
     },
     data_envio: {
       type: 'ref',
       columnType: 'datetime',
       defaultsTo: moment().format("YYYY-MM-DD HH:mm:ss")
     },
-    data_aprovacao: {
-      type: 'ref',
-      columnType: 'datetime'
-    },
-    data_reprovacao: {
-      description: 'string',
-      type: 'ref',
-      columnType: 'datetime'
-    },
-    motivo_reprovacao: {
-      type: 'string',
-    },
-    aluno: {
-      model: 'aluno',
-      columnName: 'alunoId'
+    Professor: {
+      model: 'Usuario',
+      columnName: 'usuarioId'
     }
   },
 
 };
-

@@ -36,7 +36,7 @@
                             <% }else if(alunos[i].status === 'Reprovado') { %>
                                 <td>Reprovado</td>
                             <% }else{ %>
-                                <td><a href="/professor/alunos/<%= alunos[i].id %>"><%= alunos[i].status %></a></td>
+                                <td><a href="/professor/alunos/<%= alunos[i].usuario %>"><%= alunos[i].status %></a></td>
                             <% } %>
                         </tr>
                     <% } %>

@@ -22,6 +22,14 @@ module.exports = {
       type: 'ref',
       columnType: 'datetime'
     },
+    data_reprovacao: {
+      description: 'string',
+      type: 'ref',
+      columnType: 'datetime'
+    },
+    motivo_reprovacao: {
+      type: 'string',
+    },
     aluno: {
       model: 'aluno',
       columnName: 'alunoId'
