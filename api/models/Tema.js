@@ -23,7 +23,15 @@ module.exports = {
     },
     data_aprovacao: {
       type: 'ref',
-      columnType: 'datetime'
+      columnType: 'datetime',
+    },
+    motivo_reprovacao: {
+      type: 'string',
+    },
+    data_reprovacao: {
+      description: 'string',
+      type: 'ref',
+      columnType: 'datetime',
     },
     aluno: {
       model: 'aluno',

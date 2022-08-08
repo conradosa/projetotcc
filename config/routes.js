@@ -12,6 +12,43 @@ module.exports.routes = {
     view: 'pages/aluno/ajuda'
   },
 
+
+  'GET /sugestoes': {
+    policy: 'logado',
+    controller: 'sugestao',
+    action: 'listar'
+  },
+
+  'GET /editarSugestoes/:id': {
+    view: 'pages/editarSugestao',
+    controller: 'sugestao',
+    action: 'buscar'
+  },
+
+
+  'GET /excluirSugestoes/:id': {
+    controller: 'sugestao',
+    action: 'excluir'
+  },
+
+  'POST /criarSugestao': {
+    policy: 'logado',
+    controller: 'sugestao',
+    action: 'criar'
+  },
+
+  
+  'POST /editarSugestao': {
+    policy: 'logado',
+    controller: 'sugestao',
+    action: 'editar'
+  },
+
+  'GET /criarSugestao': {
+    view: 'pages/criarSugestao'
+  },
+
+
   'GET /pendencia': {
     policy: 'logado',
     controller: 'aluno',
