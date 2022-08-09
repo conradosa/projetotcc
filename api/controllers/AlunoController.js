@@ -261,7 +261,12 @@ module.exports = {
       sort: 'id DESC'
     });
 
-    const idTopo = propostas[0].id + 1;
+    const idTopo = 1;
+
+    if(Object.keys(propostas).length > 0){
+      idTopo = propostas[0].id + 1;
+    }
+    
 
     const proposta = await Proposta.create({
       diretorio: '/alunos/' + matriculastring + '/' + 'proposta' + idTopo + '.pdf',
@@ -352,7 +357,11 @@ module.exports = {
       sort: 'id DESC'
     });
 
-    const idTopo = previas[0].id + 1;
+    const idTopo = 1;
+
+    if(Object.keys(propostas).length > 0){
+      idTopo = previas[0].id + 1;
+    }
 
     const previa = await Previa.create({
       diretorio: '/alunos/' + matriculastring + '/' + 'previa' + idTopo + '.pdf',
@@ -442,7 +451,12 @@ module.exports = {
       sort: 'id DESC'
     });
 
-    const idTopo = documentacoes[0].id + 1;
+
+    const idTopo = 1;
+
+    if(Object.keys(propostas).length > 0){
+      idTopo = documentacoes[0].id + 1;
+    }
 
     const documentacao = await Documentacao.create({
       diretorio: '/alunos/' + matriculastring + '/' + 'documentacao' + idTopo + '.pdf',
