@@ -25,6 +25,7 @@
             <div class="row d-flex justify-content-center">
                 <% if(disponivel){ %>
                     <form method="POST" action="<%= sails.getUrlFor('ProfessorController.disponivel') %>">
+                        <input type="hidden" name="_csrf" value="<%= _csrf; %>"/>
                         <label class="cl-switch custom-class">
                             <input checked onChange="this.form.submit()" type="checkbox">
                             <span class="switcher"></span>
@@ -33,6 +34,7 @@
                     </form>
                 <% }else{ %>
                     <form method="POST" action="<%= sails.getUrlFor('ProfessorController.disponivel') %>">
+                        <input type="hidden" name="_csrf" value="<%= _csrf; %>"/>
                         <label class="cl-switch custom-class">
                             <input onChange="this.form.submit()" type="checkbox">
                             <span class="switcher"></span>
