@@ -5,14 +5,14 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+ const dayjs = require('dayjs');
+
 const retornaSugestoes = async (req,res)=>{
-    await Sugestao.query(
-        'SELECT id,nome,descricao,usuarioId,(SELECT DATE_FORMAT(data_envio,"%d/%m/%Y")) as data_envio FROM sails.sugestao Where usuarioId=$1'
-        ,[req.session.usuarioId],(err,result)=>{
-            return res.view('pages/sugestoes', {
-                sugestoes: result.rows
-            });
-        });
+    const sugestoes = await Sugestao.find({Professor: req.session.usuarioId});
+    return res.view('pages/sugestoes',{
+        dayjs: dayjs,
+        sugestoes: sugestoes
+    });
 }
  module.exports = {
 
