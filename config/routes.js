@@ -160,11 +160,10 @@ module.exports.routes = {
     action: 'criaAdm'
   },
 
-  // 'GET /adm/retornaADM': {
-  //   //policy: 'admin',
-  //   controller: 'administrador',
-  //   action: 'retornaADM'
-  // },
+  'GET /adm/email': {
+    controller:'usuario',
+    action:'enviarEmail'
+  },
 
 
   // Rotas Aluno //

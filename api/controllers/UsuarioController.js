@@ -6,6 +6,8 @@
  */
 const fs = require('fs');
 const path = require('path');
+const nodemailer = require('nodemailer')
+
 
 module.exports = {
 
@@ -33,6 +35,32 @@ module.exports = {
     await Professor.create({ usuario: user.id }).fetch();
     sails.log('Professor criado, seu nome: ', user.nome);
     res.redirect('/login');
+  },
+
+  enviarEmail: async function(req,res){
+    //transporter vai ser o email do admin, provavelmente do yuri
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth:({
+        user:"2019005201@restinga.ifrs.edu.br",
+        pass: "92096055"
+      })
+    })
+
+    let options = {
+      from: "2019005201@restinga.ifrs.edu.br",
+      to: "grdsilva@restinga.ifrs.edu.br",
+      subject: "Email teste",
+      text:"primeiro teste de email"
+    };
+
+    transporter.sendMail(options, function(err, info){
+      if(err){
+        sails.log(err);
+        return;
+      }
+      sails.log("Sent: "+info.response);
+    })
   },
 
   insertAluno: async function (req, res) {
@@ -171,6 +199,30 @@ module.exports = {
       return res.view('pages/adm/painelUsuario', {
         usuario: users
       });
+    }
+  },
+
+  findProfessores: async function(req, res){
+    let userProfs = '';
+    let profs = '';
+    try {
+      userProfs = await Usuario.find({ tipo: 'Professor' });
+      profs = await Professor.find();
+      sails.log(userProfs);
+      if(userProfs.length == 0){
+        sails.log('Nao Houve professores')
+        
+      }else if(userProfs > 0){
+        sails.log('houve professores')
+      }
+      return res.view('pages/adm/filtro ', {
+        userProfessores: userProfs,
+        professores: profs
+      });
+    } catch (err) {
+      req.session.erro = err.name;
+      res.redirect('/painelUsuario');
+      sails.log('nao houve professores')
     }
   },
 
