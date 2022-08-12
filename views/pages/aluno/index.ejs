@@ -21,7 +21,7 @@
                     class="btn submit">Iniciar
             </button>
             <br>
-            <button class="btn submit">Sugestões de Temas</button>
+            <button class="btn submit" onclick="window.location.replace('<%= sails.getUrlFor('SugestaoController.listarAll') %>')">Sugestões de Temas</button>
         </div>
     </div>
 </div>

@@ -7,6 +7,9 @@
 
  const dayjs = require('dayjs');
 
+
+
+
 const retornaSugestoes = async (req,res)=>{
     const sugestoes = await Sugestao.find({Professor: req.session.usuarioId});
     return res.view('pages/sugestoes',{
@@ -14,7 +17,17 @@ const retornaSugestoes = async (req,res)=>{
         sugestoes: sugestoes
     });
 }
+
  module.exports = {
+
+    listarAll :async function (req,res){
+        const sugestoes = await Sugestao.find().populate('Professor');
+        console.log(sugestoes)
+        return res.view('pages/aluno/sugestoes',{
+            dayjs: dayjs,
+            sugestoes: sugestoes
+        });
+    },
 
     listar: async function (req,res){
         retornaSugestoes(req,res);

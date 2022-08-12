@@ -12,6 +12,13 @@ module.exports.routes = {
     view: 'pages/aluno/ajuda'
   },
 
+  'GET /sugestoesAluno': {
+    policy: 'logado',
+    controller: 'sugestao',
+    action: 'listarAll'
+  },
+
+  
 
   'GET /sugestoes': {
     policy: 'logado',
