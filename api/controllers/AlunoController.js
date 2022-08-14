@@ -261,12 +261,12 @@ module.exports = {
       sort: 'id DESC'
     });
 
-    const idTopo = 1;
+    let idTopo = 1;
 
     if(Object.keys(propostas).length > 0){
       idTopo = propostas[0].id + 1;
     }
-    
+
 
     const proposta = await Proposta.create({
       diretorio: '/alunos/' + matriculastring + '/' + 'proposta' + idTopo + '.pdf',
@@ -357,7 +357,7 @@ module.exports = {
       sort: 'id DESC'
     });
 
-    const idTopo = 1;
+    let idTopo = 1;
 
     if(Object.keys(propostas).length > 0){
       idTopo = previas[0].id + 1;
@@ -452,7 +452,7 @@ module.exports = {
     });
 
 
-    const idTopo = 1;
+    let idTopo = 1;
 
     if(Object.keys(propostas).length > 0){
       idTopo = documentacoes[0].id + 1;
