@@ -11,9 +11,7 @@
       <div class="btn-group-vertical">
           <button class="btn submit" onclick="window.location.replace('/adm/criarAluno')">Criar Aluno</button>
           <button class="btn submit" onclick="window.location.replace('/adm/criarProfessor')">Criar Professor</button>
-          <button class="btn submit" onclick="window.location.replace('/adm/painelUsuario')">
-            <a class="teste" href="<%= sails.getUrlFor('UsuarioController.findUsuario') %>">Painel de Usuários</a>
-          </button>
+          <button class="btn submit" onclick="window.location.replace('<%= sails.getUrlFor('UsuarioController.painelUsuarios') %>')">Painel de Usuários</button>
       </div>
   </div>
 </div>

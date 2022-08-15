@@ -1,0 +1,55 @@
+<div class="row row-height">
+    <div class="col-xl-4 col-lg-4 content-left">
+        <div class="content-left-wrapper">
+            <div>
+                <h2>Olá, <%= req.session.usuarioNome; %>!</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, quae atque tempore nemo aliquid
+                    autem facilis quaerat, laudantium quisquam distinctio at. Et cumque perspiciatis ipsa expedita
+                    repudiandae ducimus iure sed.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-8 content-right">
+        <div id="wizard_container">
+            <div class="btn-group">
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filtrar
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="<%= sails.getUrlFor('UsuarioController.painelUsuarios') %>">Todos</a>
+                    <a class="dropdown-item" href="<%= sails.getUrlFor('UsuarioController.painelAlunos') %>">Alunos</a>
+                    <a class="dropdown-item" href="<%= sails.getUrlFor('UsuarioController.painelProfessores') %>">Professores</a>
+                </div>
+            </div>
+            <% if(Object.keys(usuarios).length > 0)
+            {
+            %>
+                <div class="row">
+                    <table class="table table-stripped">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Matricula</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for(let i = 0; i < Object.keys(usuarios).length; i++){ %>
+                            <tr>
+                                <th scope="row"> <%= usuarios[i].id; %> </th>
+                                <td><a href="#"> <%= usuarios[i].matricula; %></a></td>
+                                <td><a href="#"> <%= usuarios[i].nome; %> </a></td>
+                                <td><a href="#"> <%= usuarios[i].email; %> </a></td>
+                                <td><form method="POST" action="<%= sails.getUrlFor('UsuarioController.editarView') %>"><input type="hidden" name="_csrf" value="<%= _csrf; %>"/><input type="hidden" name="id" value="<%= usuarios[i].id; %>"><button class="btn btn-link">Editar</button></form></td>
+                                <td><form method="POST" action="<%= sails.getUrlFor('UsuarioController.deletarUsuario') %>"><input type="hidden" name="_csrf" value="<%= _csrf; %>"/><input type="hidden" name="id" value="<%= usuarios[i].id; %>"><button class="btn btn-link">Deletar</button></form></td>
+                            </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+
+        </div>
+    </div>
+</div>

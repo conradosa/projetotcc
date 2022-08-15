@@ -146,7 +146,7 @@ module.exports = {
         usuario: req.params.id
       }).then(async (data) => {
         if(data.etapa == 1){
-          sails.log("entrou");
+          sails.log('entrou');
 
           conteudo = await Tema.find({
             where: { aluno: data.id, data_aprovacao: null, data_reprovacao: null },
@@ -159,13 +159,13 @@ module.exports = {
             await Tema.update({
               id: conteudo.id
             }).set({
-              data_aprovacao: moment().format("YYYY-MM-DD HH:mm:ss")
+              data_aprovacao: moment().format('YYYY-MM-DD HH:mm:ss')
             });
           } else {
             await Tema.update({
               id: conteudo.id
             }).set({
-              data_reprovacao: moment().format("YYYY-MM-DD HH:mm:ss"),
+              data_reprovacao: moment().format('YYYY-MM-DD HH:mm:ss'),
               motivo_reprovacao: req.body.description
             });
           }
@@ -180,13 +180,13 @@ module.exports = {
             await Proposta.update({
               id: conteudo.id
             }).set({
-              data_aprovacao: moment().format("YYYY-MM-DD HH:mm:ss")
+              data_aprovacao: moment().format('YYYY-MM-DD HH:mm:ss')
             });
           } else {
             await Proposta.update({
               id: conteudo.id
             }).set({
-              data_reprovacao: moment().format("YYYY-MM-DD HH:mm:ss"),
+              data_reprovacao: moment().format('YYYY-MM-DD HH:mm:ss'),
               motivo_reprovacao: req.body.description
             });
           }
@@ -200,13 +200,13 @@ module.exports = {
             await Previa.update({
               id: conteudo.id
             }).set({
-              data_aprovacao: moment().format("YYYY-MM-DD HH:mm:ss")
+              data_aprovacao: moment().format('YYYY-MM-DD HH:mm:ss')
             });
           } else {
             await Previa.update({
               id: conteudo.id
             }).set({
-              data_reprovacao: moment().format("YYYY-MM-DD HH:mm:ss"),
+              data_reprovacao: moment().format('YYYY-MM-DD HH:mm:ss'),
               motivo_reprovacao: req.body.description
             });
           }
@@ -220,13 +220,13 @@ module.exports = {
             await Documentacao.update({
               id: conteudo.id
             }).set({
-              data_aprovacao: moment().format("YYYY-MM-DD HH:mm:ss")
+              data_aprovacao: moment().format('YYYY-MM-DD HH:mm:ss')
             });
           } else {
             await Documentacao.update({
               id: conteudo.id
             }).set({
-              data_reprovacao: moment().format("YYYY-MM-DD HH:mm:ss"),
+              data_reprovacao: moment().format('YYYY-MM-DD HH:mm:ss'),
               motivo_reprovacao: req.body.description
             });
           }

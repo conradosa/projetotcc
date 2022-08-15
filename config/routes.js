@@ -18,7 +18,7 @@ module.exports.routes = {
     action: 'listarAll'
   },
 
-  
+
 
   'GET /sugestoes': {
     policy: 'logado',
@@ -44,7 +44,7 @@ module.exports.routes = {
     action: 'criar'
   },
 
-  
+
   'POST /editarSugestao': {
     policy: 'logado',
     controller: 'sugestao',
@@ -85,7 +85,7 @@ module.exports.routes = {
   // Rotas Admin
 
   'GET /adm/criarProfessor': {
-    //policy: 'naologado',
+    policy: 'admin',
     view: 'pages/adm/criarProfessor',
     locals: {
       title: 'Criar Usuário'
@@ -93,12 +93,13 @@ module.exports.routes = {
   },
 
   'POST /adm/criarProfessor': {
+    policy: 'admin',
     controller: 'usuario',
     action: 'insertProfessor'
   },
 
   'GET /adm/criarAluno': {
-    //policy: 'naologado',
+    policy: 'admin',
     view: 'pages/adm/criarAluno',
     locals: {
       title: 'Criar Usuário'
@@ -106,12 +107,55 @@ module.exports.routes = {
   },
 
   'POST /adm/criarAluno': {
+    policy: 'admin',
     controller: 'usuario',
     action: 'insertAluno'
   },
 
+  'GET /adm/usuarios': {
+    policy: 'admin',
+    controller: 'usuario',
+    action: 'painelUsuarios'
+  },
+
+  'GET /adm/alunos': {
+    policy: 'admin',
+    controller: 'usuario',
+    action: 'painelAlunos'
+  },
+
+  'GET /adm/professores': {
+    policy: 'admin',
+    controller: 'usuario',
+    action: 'painelProfessores'
+  },
+
+  'POST /adm/editar-usuario': {
+    policy: 'admin',
+    controller: 'usuario',
+    action: 'editarView'
+  },
+
+  'POST /adm/deletar-usuario': {
+    policy: 'admin',
+    controller: 'usuario',
+    action: 'deletarUsuario'
+  },
+
+  'POST /adm/editar-aluno': {
+    policy: 'admin',
+    controller: 'usuario',
+    action: 'editarAluno'
+  },
+
+  'POST /adm/editar-professor': {
+    policy: 'admin',
+    controller: 'usuario',
+    action: 'editarProfessor'
+  },
+
   'GET /adm/procurarUsuario': {
-    // policy:'naologado',
+    policy: 'admin',
     view: 'pages/adm/procurarUsuario',
     locals : {
       title: 'Procurar Usuário'
@@ -119,11 +163,13 @@ module.exports.routes = {
   },
 
   'POST /adm/procurarUsuario':{
+    policy: 'admin',
     controller: 'usuario',
     action: 'findUsuario'
   },
 
   'GET /adm/painelUsuario': {
+    policy: 'admin',
     view: 'pages/adm/painelUsuario',
     locals: {
       title: 'Painel do Usuario'
@@ -131,6 +177,7 @@ module.exports.routes = {
   },
 
   'GET /adm/editarUsuario': {
+    policy: 'admin',
     view: 'pages/adm/editarUsuario',
     locals: {
       title: 'Editar Usuário'
@@ -138,6 +185,7 @@ module.exports.routes = {
   },
 
   'GET /adm': {
+    policy: 'admin',
     view: 'pages/adm/index'
   },
 
