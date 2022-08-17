@@ -35,6 +35,7 @@ module.exports = {
     await Professor.create({ usuario: user.id }).fetch();
     sails.log('Professor criado, seu nome: ', user.nome);
     res.redirect('/login');
+
   },
 
   enviarEmail: async function(req,res){
@@ -94,6 +95,34 @@ module.exports = {
     await Aluno.create({ usuario: user.id }).fetch();
     sails.log('Aluno criado, seu nome: ', user.nome);
     res.redirect('/login');
+
+    // ------------ Enviar Email ---------------
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth:({
+        user:"2019005201@restinga.ifrs.edu.br",
+        pass: "92096055"
+      })
+    })
+
+    let options = {
+      from: "2019005201@restinga.ifrs.edu.br",
+      to: valor.email,
+      subject: "Email da criação do seu usuário.",
+      text:`Seu login no sistema de TCC foi criado. Seu login é a sua matricula e a sua senha é ${senha}.`
+    };
+
+    transporter.sendMail(options, function(err, info){
+      if(err){
+        sails.log(err);
+        return;
+      }
+      sails.log("Sent: "+info.response);
+    })
+
+    this.enviarEmail();
+
+
   },
 
   insertProfessor: async function (req, res) {
@@ -127,6 +156,30 @@ module.exports = {
     await Professor.create({ usuario: user.id, disponivel: 1 }).fetch();
     sails.log('Professor criado, seu nome: ', user.nome);
     res.redirect('/login');
+
+    // ------------ Enviar Email ---------------
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth:({
+        user:"2019005201@restinga.ifrs.edu.br",
+        pass: "92096055"
+      })
+    })
+
+    let options = {
+      from: "2019005201@restinga.ifrs.edu.br",
+      to: valor.email,
+      subject: "Email da criação do seu usuário.",
+      text:`Seu login no sistema de TCC foi criado. Seu login é a sua matricula e a sua senha é ${senha}.`
+    };
+
+    transporter.sendMail(options, function(err, info){
+      if(err){
+        sails.log(err);
+        return;
+      }
+      sails.log("Sent: "+info.response);
+    })
   },
 
 
