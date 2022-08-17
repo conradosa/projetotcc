@@ -29,15 +29,8 @@
                             <th scope="row"><%= alunos[i].matricula %></th>
                             <td><%= alunos[i].nome %></td>
                             <td><%= alunos[i].etapaText %></td>
-                            <% if(alunos[i].status === '' || alunos[i].status === null){ %>
-                                <td>Aguardando envio</td>
-                            <% }else if(alunos[i].status === 'Aprovado') { %>
-                                <td>Aprovado</td>
-                            <% }else if(alunos[i].status === 'Reprovado') { %>
-                                <td>Reprovado</td>
-                            <% }else{ %>
-                                <td><a href="/professor/alunos/<%= alunos[i].usuario %>"><%= alunos[i].status %></a></td>
-                            <% } %>
+                            <td><a href="/professor/alunos/<%= alunos[i].usuario %>"><%= alunos[i].status %></a></td>
+
                         </tr>
                     <% } %>
                     </tbody>

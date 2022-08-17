@@ -85,48 +85,58 @@ module.exports = {
   },
 
   verAluno: async function (req, res) {
-    let conteudo = {};
+    let aux = null;
+    let conteudo = [];
     sails.log(req.params.id);
     await Aluno.findOne({
       usuario: req.params.id
     }).then(async (data) => {
-      if (data.etapa == 1) {
-        conteudo = await Tema.find({
+      sails.log(data);
+      if (data.etapa == 1 || data.etapa > 1) {
+        aux = await Tema.find({
           where: { aluno: data.id },
           sort: 'id DESC'
         });
-      } else if (data.etapa == 2) {
-        conteudo = await Proposta.find({
+        conteudo.unshift(aux);
+      } if (data.etapa == 2 || data.etapa > 2) {
+        aux = await Proposta.find({
           where: { aluno: data.id },
           sort: 'id DESC'
         });
-      } else if (data.etapa == 3) {
-        conteudo = await Previa.find({
+        conteudo.unshift(aux);
+      } if (data.etapa == 3 || data.etapa > 3) {
+        aux = await Previa.find({
           where: { aluno: data.id },
           sort: 'id DESC'
         });
 
-        conteudo.firstProf = Professor.findOne({
-          id: conteudo.prof1
+        aux.firstProf = Professor.findOne({
+          id: aux.prof1
         });
 
-        conteudo.secondProf = Professor.findOne({
-          id: conteudo.prof2
+        aux.secondProf = Professor.findOne({
+          id: aux.prof2
         });
-      } else if (data.etapa == 4) {
+
+        conteudo.unshift(aux);
+      } if (data.etapa == 4) {
         conteudo = await Documentacao.find({
           where: { aluno: data.id },
           sort: 'id DESC'
         });
+
+        conteudo.unshift(aux);
       }
 
       let user = await Usuario.findOne({
-        id: data.id
+        id: data.usuario
       });
 
       data.nome = user.nome;
       data.email = user.email;
       data.matricula = user.matricula;
+      sails.log("conteudo");
+      sails.log(conteudo);
 
       return res.view('pages/professor/aluno', {
         aluno: data,
