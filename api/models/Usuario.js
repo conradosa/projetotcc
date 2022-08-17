@@ -10,7 +10,7 @@ module.exports = {
   attributes: {
 
     matricula: {
-      type: 'number', required: true
+      type: 'number', required: true,
     },
     nome: {
       type: 'string', required: true, maxLength: 255

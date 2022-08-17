@@ -120,9 +120,6 @@ module.exports = {
       sails.log("Sent: "+info.response);
     })
 
-    this.enviarEmail();
-
-
   },
 
   insertProfessor: async function (req, res) {
