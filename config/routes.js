@@ -195,6 +195,14 @@ module.exports.routes = {
     action: 'criaAdm'
   },
 
+  'GET /adm/paineltcc': {
+    //policy: 'admin',
+    controller: 'tcc',
+    action: 'painelTcc'
+  },
+
+
+
   // 'GET /adm/retornaADM': {
   //   //policy: 'admin',
   //   controller: 'administrador',

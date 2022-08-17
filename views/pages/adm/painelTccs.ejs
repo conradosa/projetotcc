@@ -1,0 +1,50 @@
+<div class="row row-height">
+    <div class="col-xl-4 col-lg-4 content-left">
+        <div class="content-left-wrapper">
+            <div>
+                <h2>Olá, <%= req.session.usuarioNome; %>!</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, quae atque tempore nemo aliquid
+                    autem facilis quaerat, laudantium quisquam distinctio at. Et cumque perspiciatis ipsa expedita
+                    repudiandae ducimus iure sed.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-8 content-right">
+        <div id="row">
+            <div class="btn-group">
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filtrar
+                </button>
+                <div class="dropdown-menu">
+                   
+                </div>
+            </div>
+            <% if(tccs.length > 0)
+            {
+            %>
+                <div class="row">
+                    <table class="table table-stripped">
+                        <thead>
+                        <tr>
+                            <th>Orientador</th>
+                            <th>Titulo do TCC</th>
+                            <th>Aluno</th>
+                            <th>Status do TCC</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for(let i = 0; i < Object.keys(tccs).length; i++){ %>
+                            <th scope="row"> <%= tccs[i].aluno.orientador[0].usuario.nome; %> </th>
+                            <th scope="row"> <%= tccs[i].nome; %> </th>
+                            <th scope="row"> <%= tccs[i].aluno.usuario[0].nome %> </th>
+                            <th scope="row"> <%= tccs[i].aluno.status %> </th>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } else {%>
+                <h2>Não existe TCCs cadastrados</h2>
+            <% } %>
+        </div>
+    </div>
+</div>
