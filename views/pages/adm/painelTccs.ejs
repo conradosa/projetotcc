@@ -11,14 +11,32 @@
     </div>
     <div class="col-xl-8 col-lg-8 content-right">
         <div id="row">
-            <div class="btn-group">
-                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filtrar
-                </button>
-                <div class="dropdown-menu">
-                   
-                </div>
-            </div>
+            <form method="POST" action="/adm/paineltccs">
+                <input type="hidden" name="_csrf" value="<%= _csrf; %>"/>
+                <label class="cl-switch custom-class">
+                    <input  type="checkbox" name="nome">
+                    <span class="switcher"></span>
+                    <span class="label">Nome Aluno</span>
+                </label>
+                <label class="cl-switch custom-class">
+                    <input  type="checkbox" name="orientador">
+                    <span class="switcher"></span>
+                    <span class="label">Orientador</span>
+                </label>
+                <label class="cl-switch custom-class">
+                   <select name="Aguardando Orientador" id="" class="form-select">
+                    <option selected disabled>Status do TCC</option>
+                        <option value="1">Aguardando aprovação do orientador</option>
+                        <option value="2">Teste</option>
+                        <option value="3">teste 2</option>
+                   </select>
+                </label>
+                <input type="text" placeholder="filtrar" class="form form-control mb-2" name="filtro" required onchange="<%= sails.getUrlFor('UsuarioController.editarView') %>">
+                <input id="filtro"  type="submit"  placeholder="Buscar" class="btn btn-success">
+            </form>
+          
+                    
+ 
             <% if(tccs.length > 0)
             {
             %>

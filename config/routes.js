@@ -200,7 +200,12 @@ module.exports.routes = {
     controller: 'tcc',
     action: 'painelTcc'
   },
-
+  'POST /adm/paineltccs': {
+    //policy: 'admin',
+    controller: 'tcc',
+    action: 'filtrar',
+    view: 'pages/adm/filtrarTccs'
+  },
 
 
   // 'GET /adm/retornaADM': {
