@@ -211,6 +211,22 @@ module.exports = {
     });
   },
 
+  verUsuario: async function (req, res) {
+    sails.log(req.params.id);
+    await Usuario.findOne({
+      id: req.params.id
+    }).then(async (data) => {
+      sails.log(data);
+
+      return res.view('pages/adm/verUsuario', {
+        usuario: data
+      });
+    })
+      .catch((erro) => {
+        return res.serverError(erro);
+      });
+  },
+
   painelAlunos: async function (req, res) {
     const users = await Aluno.find();
     const alunosUser = await Usuario.find({where: {tipo: 'Aluno'}});

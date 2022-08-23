@@ -118,6 +118,12 @@ module.exports.routes = {
     action: 'painelUsuarios'
   },
 
+  'GET /adm/usuarios/:id': {
+    policy: 'admin',
+    controller: 'usuario',
+    action: 'verUsuario'
+  },
+
   'GET /adm/alunos': {
     policy: 'admin',
     controller: 'usuario',

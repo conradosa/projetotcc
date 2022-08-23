@@ -39,9 +39,9 @@
                         <% for(let i = 0; i < Object.keys(usuarios).length; i++){ %>
                             <tr>
                                 <th scope="row"> <%= usuarios[i].id; %> </th>
-                                <td><a href="#"> <%= usuarios[i].matricula; %></a></td>
-                                <td><a href="#"> <%= usuarios[i].nome; %> </a></td>
-                                <td><a href="#"> <%= usuarios[i].email; %> </a></td>
+                                <td><a href="/adm/usuarios/<%= usuarios[i].id %>"> <%= usuarios[i].matricula; %></a></td>
+                                <td><a href="/adm/usuarios/<%= usuarios[i].id %>"> <%= usuarios[i].nome; %> </a></td>
+                                <td><a href="/adm/usuarios/<%= usuarios[i].id %>"> <%= usuarios[i].email; %> </a></td>
                                 <td><a href="#"> <%= usuarios[i].tipo; %> </a></td>
                                 <td><form method="POST" action="<%= sails.getUrlFor('UsuarioController.editarView') %>"><input type="hidden" name="_csrf" value="<%= _csrf; %>"/><input type="hidden" name="id" value="<%= usuarios[i].id; %>"><button class="btn btn-link">Editar</button></form></td>
                                 <td><form method="POST" action="<%= sails.getUrlFor('UsuarioController.deletarUsuario') %>"><input type="hidden" name="_csrf" value="<%= _csrf; %>"/><input type="hidden" name="id" value="<%= usuarios[i].id; %>"><button class="btn btn-link">Deletar</button></form></td>
