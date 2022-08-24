@@ -1,0 +1,39 @@
+<div class="row row-height">
+    <div class="col-xl-4 col-lg-4 content-left">
+        <div class="content-left-wrapper">
+            <div>
+                <h2>Projeto de Gerenciamento de TCC</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-8 content-right">
+        <div id="wizard_container">
+            <div>
+                <form id="" method="post" action="<%= sails.getUrlFor('UsuarioController.editarProfessor') %>">
+                    <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+                    <input type="hidden" name="id" value="<%= id %>">
+                    <h2 class="section_title">Editar Professor</h2>
+                    <div class="form-group add_top_20">
+                        <label for="matricula">Número de Matrícula</label>
+                        <input required value="<%= matricula %>" type="number" name="matricula" id="matricula"
+                               class="form-control required">
+                    </div>
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input required value="<%= nome %>" type="text" name="nome" id="nome"
+                               class="form-control required">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input required value="<%= email %>" type="email" name="email" id="email"
+                               class="form-control required">
+                    </div>
+                    <button type="submit" class="submit">Enviar</button>
+                    <a href="<%= sails.getUrlFor('UsuarioController.painelUsuarios') %>" class="btn btn-link">Voltar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

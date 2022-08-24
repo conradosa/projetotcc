@@ -85,48 +85,58 @@ module.exports = {
   },
 
   verAluno: async function (req, res) {
-    let conteudo = {};
+    let aux = null;
+    let conteudo = [];
     sails.log(req.params.id);
     await Aluno.findOne({
       usuario: req.params.id
     }).then(async (data) => {
-      if (data.etapa == 1) {
-        conteudo = await Tema.find({
+      sails.log(data);
+      if (data.etapa == 1 || data.etapa > 1) {
+        aux = await Tema.find({
           where: { aluno: data.id },
           sort: 'id DESC'
         });
-      } else if (data.etapa == 2) {
-        conteudo = await Proposta.find({
+        conteudo.unshift(aux);
+      } if (data.etapa == 2 || data.etapa > 2) {
+        aux = await Proposta.find({
           where: { aluno: data.id },
           sort: 'id DESC'
         });
-      } else if (data.etapa == 3) {
-        conteudo = await Previa.find({
+        conteudo.unshift(aux);
+      } if (data.etapa == 3 || data.etapa > 3) {
+        aux = await Previa.find({
           where: { aluno: data.id },
           sort: 'id DESC'
         });
 
-        conteudo.firstProf = Professor.findOne({
-          id: conteudo.prof1
+        aux.firstProf = Professor.findOne({
+          id: aux.prof1
         });
 
-        conteudo.secondProf = Professor.findOne({
-          id: conteudo.prof2
+        aux.secondProf = Professor.findOne({
+          id: aux.prof2
         });
-      } else if (data.etapa == 4) {
+
+        conteudo.unshift(aux);
+      } if (data.etapa == 4) {
         conteudo = await Documentacao.find({
           where: { aluno: data.id },
           sort: 'id DESC'
         });
+
+        conteudo.unshift(aux);
       }
 
       let user = await Usuario.findOne({
-        id: data.id
+        id: data.usuario
       });
 
       data.nome = user.nome;
       data.email = user.email;
       data.matricula = user.matricula;
+      sails.log("conteudo");
+      sails.log(conteudo);
 
       return res.view('pages/professor/aluno', {
         aluno: data,
@@ -146,7 +156,7 @@ module.exports = {
         usuario: req.params.id
       }).then(async (data) => {
         if(data.etapa == 1){
-          sails.log("entrou");
+          sails.log('entrou');
 
           conteudo = await Tema.find({
             where: { aluno: data.id, data_aprovacao: null, data_reprovacao: null },
@@ -159,14 +169,64 @@ module.exports = {
             await Tema.update({
               id: conteudo.id
             }).set({
-              data_aprovacao: moment().format("YYYY-MM-DD HH:mm:ss")
+              data_aprovacao: moment().format('YYYY-MM-DD HH:mm:ss')
+            });
+
+            // ----------- Envio de Email 
+            let user = await Usuario.findOne({id: data.usuario})
+            let transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth:({
+                user:"2019005201@restinga.ifrs.edu.br",
+                pass: "92096055"
+              })
+            })
+        
+            let options = {
+              from: "2019005201@restinga.ifrs.edu.br",
+              to: user.email,
+              subject: "Email de atualização de status",
+              text:"Seu tema foi aprovado, agora você está na etapa 2."
+            };
+        
+            transporter.sendMail(options, function(err, info){
+              if(err){
+                sails.log(err);
+                return;
+              }
+              sails.log("Sent: "+info.response);
             });
           } else {
             await Tema.update({
               id: conteudo.id
             }).set({
-              data_reprovacao: moment().format("YYYY-MM-DD HH:mm:ss"),
+              data_reprovacao: moment().format('YYYY-MM-DD HH:mm:ss'),
               motivo_reprovacao: req.body.description
+            });
+
+             // ----------- Envio de Email 
+            let user = await Usuario.findOne({id: data.usuario})
+            let transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth:({
+                user:"2019005201@restinga.ifrs.edu.br",
+                pass: "92096055"
+              })
+            })
+        
+            let options = {
+              from: "2019005201@restinga.ifrs.edu.br",
+              to: user.email,
+              subject: "Email de atualização de status",
+              text:"Seu tema foi reprovado, favor rever seu documento."
+            };
+        
+            transporter.sendMail(options, function(err, info){
+              if(err){
+                sails.log(err);
+                return;
+              }
+              sails.log("Sent: "+info.response);
             });
           }
 
@@ -180,14 +240,64 @@ module.exports = {
             await Proposta.update({
               id: conteudo.id
             }).set({
-              data_aprovacao: moment().format("YYYY-MM-DD HH:mm:ss")
+              data_aprovacao: moment().format('YYYY-MM-DD HH:mm:ss')
+            });
+
+             // ----------- Envio de Email 
+            let user = await Usuario.findOne({id: data.usuario})
+            let transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth:({
+                user:"2019005201@restinga.ifrs.edu.br",
+                pass: "92096055"
+              })
+            })
+        
+            let options = {
+              from: "2019005201@restinga.ifrs.edu.br",
+              to: user.email,
+              subject: "Email de atualização de status",
+              text:"Sua proposta foi aprovada, agora você está na etapa 3."
+            };
+        
+            transporter.sendMail(options, function(err, info){
+              if(err){
+                sails.log(err);
+                return;
+              }
+              sails.log("Sent: "+info.response);
             });
           } else {
             await Proposta.update({
               id: conteudo.id
             }).set({
-              data_reprovacao: moment().format("YYYY-MM-DD HH:mm:ss"),
+              data_reprovacao: moment().format('YYYY-MM-DD HH:mm:ss'),
               motivo_reprovacao: req.body.description
+            });
+
+            // ----------- Envio de Email 
+            let user = await Usuario.findOne({id: data.usuario})
+            let transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth:({
+                user:"2019005201@restinga.ifrs.edu.br",
+                pass: "92096055"
+              })
+            })
+        
+            let options = {
+              from: "2019005201@restinga.ifrs.edu.br",
+              to: user.email,
+              subject: "Email de atualização de status",
+              text:"Sua proposta foi reprovada, favor rever sua proposta com seu orientador."
+            };
+        
+            transporter.sendMail(options, function(err, info){
+              if(err){
+                sails.log(err);
+                return;
+              }
+              sails.log("Sent: "+info.response);
             });
           }
         } else if (data.etapa == 3) {
@@ -200,14 +310,64 @@ module.exports = {
             await Previa.update({
               id: conteudo.id
             }).set({
-              data_aprovacao: moment().format("YYYY-MM-DD HH:mm:ss")
+              data_aprovacao: moment().format('YYYY-MM-DD HH:mm:ss')
+            });
+
+            // ----------- Envio de Email 
+            let user = await Usuario.findOne({id: data.usuario})
+            let transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth:({
+                user:"2019005201@restinga.ifrs.edu.br",
+                pass: "92096055"
+              })
+            })
+        
+            let options = {
+              from: "2019005201@restinga.ifrs.edu.br",
+              to: user.email,
+              subject: "Email de atualização de status",
+              text:"Sua previa foi aprovada, agora você está na etapa 4."
+            };
+        
+            transporter.sendMail(options, function(err, info){
+              if(err){
+                sails.log(err);
+                return;
+              }
+              sails.log("Sent: "+info.response);
             });
           } else {
             await Previa.update({
               id: conteudo.id
             }).set({
-              data_reprovacao: moment().format("YYYY-MM-DD HH:mm:ss"),
+              data_reprovacao: moment().format('YYYY-MM-DD HH:mm:ss'),
               motivo_reprovacao: req.body.description
+            });
+
+            // ----------- Envio de Email 
+            let user = await Usuario.findOne({id: data.usuario})
+            let transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth:({
+                user:"2019005201@restinga.ifrs.edu.br",
+                pass: "92096055"
+              })
+            })
+        
+            let options = {
+              from: "2019005201@restinga.ifrs.edu.br",
+              to: user.email,
+              subject: "Email de atualização de status",
+              text:"Sua previa foi reprovada, favor rever sua previa com seu orientador."
+            };
+        
+            transporter.sendMail(options, function(err, info){
+              if(err){
+                sails.log(err);
+                return;
+              }
+              sails.log("Sent: "+info.response);
             });
           }
         } else if (data.etapa == 4) {
@@ -220,14 +380,64 @@ module.exports = {
             await Documentacao.update({
               id: conteudo.id
             }).set({
-              data_aprovacao: moment().format("YYYY-MM-DD HH:mm:ss")
+              data_aprovacao: moment().format('YYYY-MM-DD HH:mm:ss')
+            });
+
+            // ----------- Envio de Email 
+            let user = await Usuario.findOne({id: data.usuario})
+            let transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth:({
+                user:"2019005201@restinga.ifrs.edu.br",
+                pass: "92096055"
+              })
+            })
+        
+            let options = {
+              from: "2019005201@restinga.ifrs.edu.br",
+              to: user.email,
+              subject: "Email de atualização de status",
+              text:"Sua documentação foi aprovada!."
+            };
+        
+            transporter.sendMail(options, function(err, info){
+              if(err){
+                sails.log(err);
+                return;
+              }
+              sails.log("Sent: "+info.response);
             });
           } else {
             await Documentacao.update({
               id: conteudo.id
             }).set({
-              data_reprovacao: moment().format("YYYY-MM-DD HH:mm:ss"),
+              data_reprovacao: moment().format('YYYY-MM-DD HH:mm:ss'),
               motivo_reprovacao: req.body.description
+            });
+            
+            // ----------- Envio de Email 
+            let user = await Usuario.findOne({id: data.usuario})
+            let transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth:({
+                user:"2019005201@restinga.ifrs.edu.br",
+                pass: "92096055"
+              })
+            })
+        
+            let options = {
+              from: "2019005201@restinga.ifrs.edu.br",
+              to: user.email,
+              subject: "Email de atualização de status",
+              text:"Sua documentação foi reprovada, favor rever com seu orientador."
+            };
+        
+            transporter.sendMail(options, function(err, info){
+              if(err){
+                sails.log(err);
+                return;
+              }
+              sails.log("Sent: "+info.response);
             });
           }
         }

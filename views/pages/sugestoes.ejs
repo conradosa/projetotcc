@@ -15,7 +15,7 @@
             </div>
             <div class="row">     
           <div class="row col-xl-8 col-lg-8">
-            <% if(Object.keys(sugestoes).length > 0)
+            <% if(sugestoes.length > 0)
             {
             %>
               <div class="row col-sm-10 ">
@@ -29,10 +29,11 @@
                   </thead>
                   <tbody>
                     <% for(i=0;i < Object.keys(sugestoes).length; i++){ %>
+                      <% let data = dayjs(sugestoes[i].data_envio); %>
                     <tr>
                       <th scope="row"> <%= sugestoes[i].nome;%></th>
                       <th><%= sugestoes[i].descricao %></th>
-                      <th><%= sugestoes[i].data_envio%></th>
+                      <th><%= data.format('DD/MM/YYYY') %></th>
                       <th><a href="/editarSugestoes/<%=sugestoes[i].id%>">Editar</a></th>
                       <th><a href="/excluirSugestoes/<%=sugestoes[i].id%>">Excluir</a></th>
                     </tr>
@@ -40,9 +41,15 @@
                   </tbody>
                 </table>
               </div>
-            <% } %>
+              <% } else { %>
+                <div class="container">
+                  <h2>Não existe sugestões cadastradas</h2>
+
+                </div>
+                <% } %>
+            
             <div class="row p-5">
-                <button class="col-xl-3 col-lg-3 submit"  onclick="window.location.replace('<%= sails.getUrlFor('SugestaoController.criar') %>')"
+                <button class="col-xl-5 col-lg-5 submit"  onclick="window.location.replace('<%= sails.getUrlFor('SugestaoController.criar') %>')"
                   class="submit">Cadastrar
                 </button>
               </div>

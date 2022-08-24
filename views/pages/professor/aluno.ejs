@@ -1,10 +1,41 @@
 <div class="row row-height">
     <div class="col-xl-4 col-lg-4 content-left">
         <div class="content-left-wrapper">
-            <div>
-                <h2>Olá, <%= req.session.usuarioNome; %>!</h2>
-                <p>Esta é a página que lista todos os seus orientados e suas dependências.</p>
-            </div>
+          <div style="width: 90%;" class="accordion accordion-flush" id="accordionExample">
+            <% for(i = 0; i < conteudo.length; i++) { %>
+              <% if(conteudo[i][0] != null){ %>
+              <div style="border: 0;" class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#open<%= i %>"
+                            aria-expanded="false"
+                            aria-controls="collapseOne">
+                        <b><%= conteudo[i][0].nome %></b>
+                    </button>
+                </h2>
+                <div id="open<%= i %>" class="accordion-collapse collapse"
+                     aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                     <% if(conteudo[i][0].data_reprovacao !== null){ %>
+                      <h5 style="margin-bottom: -10px;">Reprovacao dia <%= conteudo[i][0].data_reprovacao %></h5>
+                      <div style="color:#000;" class="accordion-body">
+                        <%= conteudo[i][0].motivo_reprovacao %>
+                      </div>
+                    <% } else { %>
+                      <h5 style="margin-bottom: -10px;">Aprovacao dia <%= conteudo[i][0].data_aprovacao %></h5>
+                      <div style="color:#000;" class="accordion-body">
+                        <%= conteudo[i][0].descricao %>
+                      </div>
+                      <% if(conteudo[i][0].hasOwnProperty('diretorio')){ %>
+                        <a href="<%= conteudo[i][0].diretorio %>">Ver Documento</a>
+                      <% } %>
+                    <% } %>
+
+                </div>
+              </div>
+              <% } %>
+            <% } %>
+
+          </div>
         </div>
     </div>
 
@@ -26,24 +57,31 @@
                         <div class="text-center row p-2">
                             <% if(aluno.etapa == 1){ %>
                                 <h3 class="card-title mt-2">Etapa 1 - Definição do Tema</h3>
-                                <h5>Tema: <%= conteudo[0].nome %>
+                                <h5>Tema: <%= conteudo[0][0].nome %>
                                 </h5>
-                                <p>Descrição: <%= conteudo[0].descricao %>
+                                <p>Descrição: <%= conteudo[0][0].descricao %>
                                 </p>
                             <% } %>
                             <% if(aluno.etapa == 2){ %>
                                 <h3 class="card-title mt-2">Etapa 2 - Envio da Proposta</h3>
-                                <a href="<%= conteudo[0].diretorio %>">Ver Documento</a>
+                                <% if(conteudo[0][0] != null){ %>
+                                  <a href="<%= conteudo[0][0].diretorio %>">Ver Documento</a>
+                                <% } %>
                             <% } %>
                             <% if(aluno.etapa == 3){ %>
                                 <h3 class="card-title mt-2">Etapa 3 - Envio da Prévia</h3>
-                                <a href="<%= conteudo[0].diretorio %>">Ver Documento</a>
+                                <% if(conteudo[0][0] != null){ %>
+                                  <a href="<%= conteudo[0][0].diretorio %>">Ver Documento</a>
+                                <% } %>
                             <% } %>
                             <% if(aluno.etapa == 4){ %>
                                 <h3 class="card-title mt-2">Etapa 4 - Envio da Documentação</h3>
-                                <a href="<%= conteudo[0].diretorio %>">Ver Documento</a>
+                                <% if(conteudo[0][0] != null){ %>
+                                  <a href="<%= conteudo[0][0].diretorio %>">Ver Documento</a>
+                                <% } %>
                             <% } %>
                         </div>
+                        <% if(conteudo[0][0] != null){ %>
                         <div class="text-center mb-2 p-2">
                             <form method="POST" id="sendResult" enctype="multipart/form-data">
                                 <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
@@ -90,6 +128,7 @@
                                 </input>
                             </form>
                         </div>
+                        <% } %>
                     </div>
                 </div>
                 <button onclick="window.location.replace('/professor/alunos')" style="max-width: 200px; margin: auto;"

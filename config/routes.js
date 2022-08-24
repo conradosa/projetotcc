@@ -12,6 +12,13 @@ module.exports.routes = {
     view: 'pages/aluno/ajuda'
   },
 
+  'GET /sugestoesAluno': {
+    policy: 'logado',
+    controller: 'sugestao',
+    action: 'listarAll'
+  },
+
+
 
   'GET /sugestoes': {
     policy: 'logado',
@@ -37,7 +44,7 @@ module.exports.routes = {
     action: 'criar'
   },
 
-  
+
   'POST /editarSugestao': {
     policy: 'logado',
     controller: 'sugestao',
@@ -78,7 +85,7 @@ module.exports.routes = {
   // Rotas Admin
 
   'GET /adm/criarProfessor': {
-    //policy: 'naologado',
+    policy: 'admin',
     view: 'pages/adm/criarProfessor',
     locals: {
       title: 'Criar Usuário'
@@ -86,12 +93,13 @@ module.exports.routes = {
   },
 
   'POST /adm/criarProfessor': {
+    policy: 'admin',
     controller: 'usuario',
     action: 'insertProfessor'
   },
 
   'GET /adm/criarAluno': {
-    //policy: 'naologado',
+    policy: 'admin',
     view: 'pages/adm/criarAluno',
     locals: {
       title: 'Criar Usuário'
@@ -99,16 +107,20 @@ module.exports.routes = {
   },
 
   'POST /adm/criarAluno': {
+    policy: 'admin',
     controller: 'usuario',
     action: 'insertAluno'
   },
 
-  'POST /adm/alterarUsuario' : {
-    controller: 'usuario',
-    action: 'alterarUsuario',
+  'GET /adm/procurarUsuario': {
+    // policy:'naologado',
+    view: 'pages/adm/procurarUsuario',
+    locals : {
+      title: 'Procurar Usuário'
+    }
   },
 
-  'POST /adm/alterarMatricula' : {
+  'POST /adm/procurarUsuario':{
     controller: 'usuario',
     action: 'alterarMatricula',
   },
@@ -125,16 +137,18 @@ module.exports.routes = {
     action: 'alterarSenha',
   },
 
-  'GET /adm/painelUsuario': {
-    view: 'pages/adm/painelUsuario',
+  'GET /adm/painelUsuarios': {
+    policy: 'admin',
+    view: 'pages/adm/painelUsuarios',
     locals: {
       title: 'Painel do Usuario'
     },
     controller: 'usuario',
-    action: 'findUsuario'
+    action: 'painelUsuarios'
   },
 
   'GET /adm/editarUsuario': {
+    policy: 'admin',
     view: 'pages/adm/editarUsuario',
     locals: {
       title: 'Editar Usuário'
@@ -151,6 +165,7 @@ module.exports.routes = {
   },
 
   'GET /adm': {
+    policy: 'admin',
     view: 'pages/adm/index'
   },
 
@@ -160,10 +175,11 @@ module.exports.routes = {
     action: 'criaAdm'
   },
 
-  'GET /adm/email': {
-    controller:'usuario',
-    action:'enviarEmail'
-  },
+  // 'GET /adm/retornaADM': {
+  //   //policy: 'admin',
+  //   controller: 'administrador',
+  //   action: 'retornaADM'
+  // },
 
 
   // Rotas Aluno //

@@ -1,0 +1,59 @@
+<div class="row row-height">
+    <div class="col-xl-4 col-lg-4 content-left">
+        <div class="content-left-wrapper">
+            <div>
+                <h2>Projeto de Gerenciamento de TCC</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-8  content-right">
+      <% if(sugestoes.length > 0)
+      {
+      %>
+          <div class="container">
+              <div class="row">
+                <h2> Sugestões de Temas </h2>
+              </div>
+              <div class="row">
+                  <input onchange=""type="search" class="form form-control" placeholder="Busca de tema por professor ou tema">
+              </div>
+              <div class="row">     
+            <div class="row col-xl-8 col-lg-8">
+
+                <div class="row col-sm-10 ">
+                  <table class="table table-stripped">
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Data</th>
+                        <th>Nome Professor</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for(i=0;i < Object.keys(sugestoes).length; i++){ %>
+                        <% let data = dayjs(sugestoes[i].data_envio); %>
+                      <tr>
+                        <th scope="row"> <%= sugestoes[i].nome;%></th>
+                        <th><%= sugestoes[i].descricao %></th>
+                        <th><%= data.format('DD/MM/YYYY') %></th>
+                        <th><%= sugestoes[i].Professor.nome%></th>
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              <% } else { %>
+                <div class="container">
+                  <h2>Não existe sugestões cadastradas</h2>
+
+                </div>
+                <% } %>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  

@@ -14,6 +14,4 @@ module.exports.policies = {
   'usuario/login': true,
   'usuario/insertAlunoTest': true,
   'usuario/insertProfessorTest': true,
-  'usuario/findUsuario': true,
-
 };

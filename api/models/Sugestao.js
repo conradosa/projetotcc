@@ -14,7 +14,7 @@ module.exports = {
       type: 'string', required: true, maxLength: 255
     },
     descricao: {
-      type: 'text', required: true
+      type: 'string', required: true
     },
     data_envio: {
       type: 'ref',

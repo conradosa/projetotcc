@@ -9,6 +9,7 @@
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^5.2.0",
     "connect-flash": "^0.1.1",
+    "dayjs": "^1.11.5",
     "grunt": "1.0.4",
     "moment": "^2.29.4",
     "nodemailer": "^6.7.8",
