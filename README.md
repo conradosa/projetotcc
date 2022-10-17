@@ -1,8 +1,6 @@
 # projetotcc
 
-### Links
-+ [Sails framework documentation](https://sailsjs.com/get-started)
-+ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
+### Instalação do projeto
 
 É necessário possuir o [Node](https://nodejs.org/en/) instalado na máquina
 
@@ -22,5 +20,8 @@
   npx sails lift
 ```
 
-
 senha123 é a senha padrão para login dos usuarios professor-aluno que ja existem no sistema
+
+### Links de ajuda
++ [Sails framework documentation](https://sailsjs.com/get-started)
++ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
