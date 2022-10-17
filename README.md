@@ -23,4 +23,4 @@
 ```
 
 
-senha123 é a senha padrão para login de profesosr-aluno pré existentes
+senha123 é a senha padrão para login dos usuarios professor-aluno que ja existem no sistema
